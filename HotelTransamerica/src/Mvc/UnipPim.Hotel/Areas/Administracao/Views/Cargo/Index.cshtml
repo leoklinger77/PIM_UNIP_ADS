@@ -1,0 +1,42 @@
+﻿@model IPagedList<Cargo>
+
+@{
+    ViewData["Title"] = "Lista de Cargo";
+
+    string numberPerPage = Context.Request.Query["numberPerPage"];
+    if (!string.IsNullOrEmpty(numberPerPage)) numberPerPage = numberPerPage.Replace("{", "").Replace("}", "");
+    var query = Context.Request.Query["search"];
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="NovoCargo" class="btn btn-outline-info">Novo Cargo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nome do Cargo
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    <a class="btn btn-outline-info" asp-action="EditarCargo" asp-route-id="@item.Id">Editar</a> |
+                    <a class="btn btn-outline-info" asp-action="DetalhesCargo" asp-route-id="@item.Id">Detalhes</a> |
+                    <a class="btn btn-outline-info" asp-action="DeletarCargo" asp-route-id="@item.Id">Deletar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page, query = query, size = numberPerPage }))
