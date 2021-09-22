@@ -1,0 +1,53 @@
+﻿@model IEnumerable<UnipPim.Hotel.Dominio.Models.Funcionario>
+
+@{
+    ViewData["Title"] = "Lista de Funcionários";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a class="btn btn-outline-info" asp-action="NovoFuncionario">Novo Funcionario</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeCompleto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cpf)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nascimento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cargo)
+            </th>            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeCompleto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cpf)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nascimento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cargo.Nome)
+            </td>            
+            <td>
+                <a class="btn btn-outline-info" asp-action="EditarFuncionario" asp-route-id="@item.Id">Edit</a> |
+                <a class="btn btn-outline-info" asp-action="DetalhesFuncionario" asp-route-id="@item.Id">Details</a> |
+                <a class="btn btn-outline-info" asp-action="DeletarFuncionario" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -9,6 +9,8 @@ namespace UnipPim.Hotel.Configuration
         public AutoMapperConfig()
         {
             CreateMap<CargoViewModel, Cargo>().ReverseMap();
+
+            CreateMap<FuncionarioViewModel, Funcionario>().ReverseMap();
         }
     }
 }

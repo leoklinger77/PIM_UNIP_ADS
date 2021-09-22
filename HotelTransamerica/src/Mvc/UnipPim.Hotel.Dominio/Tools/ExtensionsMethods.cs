@@ -56,6 +56,20 @@ namespace UnipPim.Hotel.Dominio.Tools
         {
 			return System.Enum.IsDefined(typeof(T), value);
         }
+		public static bool NumeroTelefoneValido(this string numero)
+        {
+			if(numero.Length == 11)
+            {
+				return Regex.Match(numero, @"^\(?(?:[14689][1-9]|2[12478]|3[1234578]|5[1345]|7[134579])\)? ?(?:[2-8]|9[1-9])[0-9]{3}\-?[0-9]{4}$").Success;
+			}
+
+			if (numero.Length == 10)
+			{
+				return Regex.Match(numero, @"^\(?(?:[14689][1-9]|2[12478]|3[1234578]|5[1345]|7[134579])\)? ?(?:[2-8]|9[1-9])[0-9]{3}\-?[0-9]{4}$").Success;
+			}
+
+			return false;
+		}
 	}
 }
 

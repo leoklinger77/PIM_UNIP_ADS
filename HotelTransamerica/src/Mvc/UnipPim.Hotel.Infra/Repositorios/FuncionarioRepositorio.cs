@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UnipPim.Hotel.Dominio.Interfaces.Repositorio;
 using UnipPim.Hotel.Dominio.Models;
 using UnipPim.Hotel.Infra.Data;
+using X.PagedList;
 
 namespace UnipPim.Hotel.Infra.Repositorios
 {
@@ -17,20 +18,31 @@ namespace UnipPim.Hotel.Infra.Repositorios
         {
             _context = context;
         }
+        public async Task<IPagedList<Funcionario>> Paginacao(int page, int size, string query)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+                return await _context.Funcionario.AsNoTracking().ToPagedListAsync(page, size);
+            }
+
+            return await _context.Funcionario.AsNoTracking()
+                .Where(x => x.NomeCompleto.Contains(query) || x.Cpf.Contains(query))
+                .ToPagedListAsync(page, size);
+        }
 
         public async Task<Funcionario> Find(Expression<Func<Funcionario, bool>> predicate)
         {
             return await _context.Funcionario.AsNoTracking().Where(predicate).FirstOrDefaultAsync();
         }
 
-        public async Task Insert(Funcionario entity)
-        {
-            await _context.Funcionario.AddAsync(entity);
-        }
+       
 
         public async Task<Funcionario> ObterPorId(Guid id)
         {
             return await _context.Funcionario.AsNoTracking()
+                .Include(x => x.Cargo)
+                .Include(x => x.Emails)
+                .Include(x => x.Telefones)
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
         }
@@ -47,6 +59,10 @@ namespace UnipPim.Hotel.Infra.Repositorios
             return await _context.Telefone.AsNoTracking()
                 .Where(x => x.FuncionarioId == funcionarioId && x.Id == id)
                 .FirstOrDefaultAsync();
+        }
+        public async Task Insert(Funcionario entity)
+        {
+            await _context.Funcionario.AddAsync(entity);
         }
 
         public async Task AddEmail(Email email)
@@ -96,5 +112,7 @@ namespace UnipPim.Hotel.Infra.Repositorios
         {
             _context?.DisposeAsync();
         }
+
+
     }
 }

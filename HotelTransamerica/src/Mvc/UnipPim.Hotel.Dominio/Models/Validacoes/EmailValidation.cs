@@ -10,15 +10,15 @@ namespace UnipPim.Hotel.Dominio.Models.Validacoes
         {
             RuleFor(x => x.Id)
                 .NotEqual(System.Guid.Empty)
-                .WithMessage("O campo {PropertyName} é inválido.");
+                .WithMessage("O campo Id é inválido.");
 
             RuleFor(x => x.EnderecoEmail)
                 .NotEmpty()
-                .WithMessage("O campo {PropertyName} é obrigatório.");
+                .WithMessage("O campo Endereco de e-mail é obrigatório.");
 
             RuleFor(x => ExtensionsMethods.ValidaTipoEnum<EmailTipo>((int)x.EmailTipo))
-                .NotEqual(true)
-                .WithMessage("O campo {PropertyName} informado é inválido.");
+                .Equal(true)
+                .WithMessage("O campo Tipo Email informado é inválido.");
         }
     }
 }

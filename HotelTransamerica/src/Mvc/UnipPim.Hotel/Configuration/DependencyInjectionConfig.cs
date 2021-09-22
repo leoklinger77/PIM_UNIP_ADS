@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.DependencyInjection;
 using UnipPim.Hotel.Dominio.Interfaces;
 using UnipPim.Hotel.Dominio.Interfaces.Repositorio;
@@ -7,12 +7,13 @@ using UnipPim.Hotel.Dominio.Notificacoes;
 using UnipPim.Hotel.Dominio.Servicos;
 using UnipPim.Hotel.Extensions;
 using UnipPim.Hotel.Infra.Repositorios;
+using UnipPim.Hotel.Servicos;
 
 namespace UnipPim.Hotel.Configuration
 {
     public static class DependencyInjectionConfig
     {
-        public static void DependencyInjectionConfiguration(this IServiceCollection services, IConfiguration configuration)
+        public static void DependencyInjectionConfiguration(this IServiceCollection services)
         {
             //Identity
             services.AddScoped<IUser, User>();
@@ -24,6 +25,7 @@ namespace UnipPim.Hotel.Configuration
             //Servicos
             services.AddScoped<IFuncionarioServico, FuncionarioServico>();
             services.AddScoped<ICargoServico, CargoServico>();
+            services.AddScoped<IEmailSender, EnviarEmail>();
 
             //Notificacao
             services.AddScoped<INotificacao, Noficacao>();

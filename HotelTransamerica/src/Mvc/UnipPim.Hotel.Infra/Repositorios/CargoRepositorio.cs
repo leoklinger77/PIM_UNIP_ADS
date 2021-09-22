@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -27,6 +28,11 @@ namespace UnipPim.Hotel.Infra.Repositorios
             }
 
             return await _context.Cargo.AsNoTracking().Where(x => x.Nome.Contains(query)).ToPagedListAsync(page, size);
+        }
+
+        public async Task<IEnumerable<Cargo>> ObterTodos()
+        {
+            return await _context.Cargo.AsNoTracking().ToListAsync();
         }
 
         public async Task<Cargo> ObterPorId(Guid id)
@@ -64,6 +70,5 @@ namespace UnipPim.Hotel.Infra.Repositorios
             _context?.DisposeAsync();
         }
 
-        
     }
 }

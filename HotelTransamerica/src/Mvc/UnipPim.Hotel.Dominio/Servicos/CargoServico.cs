@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnipPim.Hotel.Dominio.Interfaces;
 using UnipPim.Hotel.Dominio.Interfaces.Repositorio;
@@ -16,6 +17,11 @@ namespace UnipPim.Hotel.Dominio.Servicos
         public CargoServico(INotificacao notifier, ICargoRepositorio cargoRepositorio) : base(notifier)
         {
             _cargoRepositorio = cargoRepositorio;
+        }
+
+        public async Task<IEnumerable<Cargo>> ObterTodos()
+        {
+            return await _cargoRepositorio.ObterTodos();
         }
 
         public Task<Cargo> ObterPorId(Guid id)
@@ -49,6 +55,12 @@ namespace UnipPim.Hotel.Dominio.Servicos
         {
             if (!IniciarValidacao(new CargoValidation(), cargo)) return;
 
+            if (await _cargoRepositorio.Find(x => x.Nome == cargo.Nome) != null)
+            {
+                Notificar("Cargo já existe");
+                return;
+            }
+
             await _cargoRepositorio.Update(cargo);
 
             await _cargoRepositorio.SaveChanges();
@@ -65,6 +77,6 @@ namespace UnipPim.Hotel.Dominio.Servicos
             await _cargoRepositorio.SaveChanges();
 
             await Task.CompletedTask;
-        }
+        }        
     }
 }

@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Net;
+using System.Net.Mail;
 using UnipPim.Hotel.Infra.Data;
 
 namespace UnipPim.Hotel.Configuration
@@ -12,12 +14,29 @@ namespace UnipPim.Hotel.Configuration
     {
         public static void WebAppConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddHttpContextAccessor();
+
             services.AddDbContext<HotelContext>(options =>
                options.UseSqlServer(
                    configuration.GetConnectionString("Connection")));
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            //SMTP
+            services.AddScoped<SmtpClient>(option =>
+            {
+                SmtpClient smtp = new SmtpClient()
+                {
+                    Host = configuration.GetValue<string>("Email:ServerSMTP"),
+                    Port = configuration.GetValue<int>("Email:Port"),
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(configuration.GetValue<string>("Email:UserName"), configuration.GetValue<string>("Email:Password")),
+                    EnableSsl = true
+                };
+
+                return smtp;
+            });
         }
 
         public static void AppConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)

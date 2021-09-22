@@ -20,11 +20,12 @@ namespace UnipPim.Hotel.Dominio.Models
         public IReadOnlyCollection<Telefone> Telefones => _telefones;
         protected Funcionario() { }
 
-        public Funcionario(string nomeCompleto, string cpf, DateTime nascimento)
+        public Funcionario(string nomeCompleto, string cpf, DateTime nascimento, Guid cargoId)
         {
             NomeCompleto = nomeCompleto;
             Cpf = cpf;
             Nascimento = nascimento;
+            CargoId = cargoId;
         }
 
         public void SetNomeCompleto(string nomeCompleto)

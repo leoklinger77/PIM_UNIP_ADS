@@ -21,7 +21,7 @@ namespace UnipPim.Hotel
 
             services.IdentityConfiguration(Configuration);
             services.WebAppConfiguration(Configuration);
-            services.DependencyInjectionConfiguration(Configuration);
+            services.DependencyInjectionConfiguration();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

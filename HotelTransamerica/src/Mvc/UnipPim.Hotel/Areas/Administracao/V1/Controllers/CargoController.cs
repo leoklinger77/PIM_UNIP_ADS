@@ -12,6 +12,7 @@ using X.PagedList;
 namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 {
     [Area("Administracao")]
+    [Route("Administracao/[controller]")]
     public class CargoController : MainController
     {
         private readonly ICargoServico _cargoServico;
