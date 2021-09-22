@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using UnipPim.Hotel.Controllers;
@@ -6,6 +7,7 @@ using UnipPim.Hotel.Dominio.Interfaces;
 
 namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 {
+    [Authorize]
     [Area("Administracao")]
     [Route("Administracao/[controller]")]
     public class HomeController : MainController

@@ -5,7 +5,7 @@ using UnipPim.Hotel.Dominio.Interfaces.Repositorio;
 using UnipPim.Hotel.Dominio.Interfaces.Servicos;
 using UnipPim.Hotel.Dominio.Models;
 using UnipPim.Hotel.Dominio.Models.Validacoes;
-using X.PagedList;
+using UnipPim.Hotel.Dominio.Tools;
 
 namespace UnipPim.Hotel.Dominio.Servicos
 {
@@ -24,7 +24,7 @@ namespace UnipPim.Hotel.Dominio.Servicos
             return await _funcionarioRepositorio.ObterPorId(id);
         }
 
-        public async Task<IPagedList<Funcionario>> PaginacaoListaFuncionario(int page, int size, string query)
+        public async Task<Paginacao<Funcionario>> PaginacaoListaFuncionario(int page, int size, string query)
         {
             return await _funcionarioRepositorio.Paginacao(page, size, query);
         }

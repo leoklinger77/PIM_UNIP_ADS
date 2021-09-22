@@ -6,7 +6,7 @@ using UnipPim.Hotel.Dominio.Interfaces.Repositorio;
 using UnipPim.Hotel.Dominio.Interfaces.Servicos;
 using UnipPim.Hotel.Dominio.Models;
 using UnipPim.Hotel.Dominio.Models.Validacoes;
-using X.PagedList;
+using UnipPim.Hotel.Dominio.Tools;
 
 namespace UnipPim.Hotel.Dominio.Servicos
 {
@@ -29,7 +29,7 @@ namespace UnipPim.Hotel.Dominio.Servicos
             return _cargoRepositorio.ObterPorId(id);
         }
 
-        public async Task<IPagedList<Cargo>> PaginacaoListaCargo(int page, int size, string query)
+        public async Task<Paginacao<Cargo>> PaginacaoListaCargo(int page, int size, string query)
         {
             return await _cargoRepositorio.Paginacao(page, size, query);
         }

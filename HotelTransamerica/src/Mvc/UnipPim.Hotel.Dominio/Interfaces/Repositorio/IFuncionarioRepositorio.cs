@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using UnipPim.Hotel.Dominio.Models;
-using X.PagedList;
+using UnipPim.Hotel.Dominio.Tools;
 
 namespace UnipPim.Hotel.Dominio.Interfaces.Repositorio
 {
@@ -22,6 +22,6 @@ namespace UnipPim.Hotel.Dominio.Interfaces.Repositorio
         Task DeleteEmail(Email email);
         Task DeleteTelefone(Telefone telefone);
         Task DeleteEndereco(Endereco endereco);
-        Task<IPagedList<Funcionario>> Paginacao(int page, int size, string query);
+        Task<Paginacao<Funcionario>> Paginacao(int page, int size, string query);
     }
 }

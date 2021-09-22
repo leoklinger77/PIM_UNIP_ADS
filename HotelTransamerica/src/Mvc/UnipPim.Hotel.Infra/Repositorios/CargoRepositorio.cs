@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using UnipPim.Hotel.Dominio.Interfaces.Repositorio;
 using UnipPim.Hotel.Dominio.Models;
+using UnipPim.Hotel.Dominio.Tools;
 using UnipPim.Hotel.Infra.Data;
 using X.PagedList;
 
@@ -20,14 +21,29 @@ namespace UnipPim.Hotel.Infra.Repositorios
             _context = context;
         }
 
-        public async Task<IPagedList<Cargo>> Paginacao(int page, int size, string query)
+        public async Task<Paginacao<Cargo>> Paginacao(int page, int size, string query)
         {
+            IPagedList<Cargo> list;
             if (string.IsNullOrEmpty(query))
             {
-                return await _context.Cargo.AsNoTracking().ToPagedListAsync(page, size);
+                list = await _context.Cargo.AsNoTracking().ToPagedListAsync(page, size);
+            }
+            else
+            {
+                list = await _context.Cargo.AsNoTracking()
+                    .Where(x => x.Nome.Contains(query))
+                    .ToPagedListAsync(page, size);
             }
 
-            return await _context.Cargo.AsNoTracking().Where(x => x.Nome.Contains(query)).ToPagedListAsync(page, size);
+
+            return new Paginacao<Cargo>()
+            {
+                List = list.ToList(),
+                TotalResult = list.TotalItemCount,
+                PageIndex = page,
+                PageSize = page,
+                Query = query
+            };
         }
 
         public async Task<IEnumerable<Cargo>> ObterTodos()

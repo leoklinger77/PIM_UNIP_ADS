@@ -4,8 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.0.7" />
+  <ItemGroup>    
     <PackageReference Include="FluentValidation" Version="10.3.3" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
   </ItemGroup>

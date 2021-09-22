@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,7 @@ using X.PagedList;
 
 namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 {
+    [Authorize]
     [Area("Administracao")]
     [Route("Administracao/[controller]")]
     public class FuncionarioController : MainController
@@ -49,9 +51,8 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 
         [HttpGet("lista-Funcionario")]
         public async Task<IActionResult> Index(int page = 1, int size = 8, string query = null)
-        {
-            IPagedList<Funcionario> list = await _funcionarioServico.PaginacaoListaFuncionario(page, size, query);
-            return View(list);
+        {            
+            return View(_mapper.Map<PaginacaoViewModel<FuncionarioViewModel>>(await _funcionarioServico.PaginacaoListaFuncionario(page, size, query)));
         }
 
         [HttpGet("novo-Funcionario")]

@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using UnipPim.Hotel.Dominio.Interfaces.Repositorio;
 using UnipPim.Hotel.Dominio.Models;
+using UnipPim.Hotel.Dominio.Tools;
 using UnipPim.Hotel.Infra.Data;
 using X.PagedList;
 
@@ -18,16 +19,31 @@ namespace UnipPim.Hotel.Infra.Repositorios
         {
             _context = context;
         }
-        public async Task<IPagedList<Funcionario>> Paginacao(int page, int size, string query)
+
+        public async Task<Paginacao<Funcionario>> Paginacao(int page, int size, string query)
         {
+            IPagedList<Funcionario> list;
             if (string.IsNullOrEmpty(query))
             {
-                return await _context.Funcionario.AsNoTracking().ToPagedListAsync(page, size);
+                list = await _context.Funcionario.AsNoTracking().ToPagedListAsync(page, size);
+            }
+            else
+            {
+                list = await _context.Funcionario.AsNoTracking()
+                                .Where(x => x.NomeCompleto.Contains(query) || x.Cpf.Contains(query))
+                                .ToPagedListAsync(page, size);
             }
 
-            return await _context.Funcionario.AsNoTracking()
-                .Where(x => x.NomeCompleto.Contains(query) || x.Cpf.Contains(query))
-                .ToPagedListAsync(page, size);
+            
+
+            return new Paginacao<Funcionario>()
+            {
+                List = list.ToList(),
+                TotalResult = list.TotalItemCount,
+                PageIndex = page,
+                PageSize = page,
+                Query = query
+            };
         }
 
         public async Task<Funcionario> Find(Expression<Func<Funcionario, bool>> predicate)

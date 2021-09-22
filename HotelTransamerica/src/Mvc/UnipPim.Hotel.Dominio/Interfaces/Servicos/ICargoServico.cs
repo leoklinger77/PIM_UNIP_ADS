@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnipPim.Hotel.Dominio.Models;
-using X.PagedList;
+using UnipPim.Hotel.Dominio.Tools;
 
 namespace UnipPim.Hotel.Dominio.Interfaces.Servicos
 {
     public interface ICargoServico
     {
-        Task<IPagedList<Cargo>> PaginacaoListaCargo(int page, int size, string query);
+        Task<Paginacao<Cargo>> PaginacaoListaCargo(int page, int size, string query);
         Task<IEnumerable<Cargo>> ObterTodos();
 
         Task Insert(Cargo cargo);

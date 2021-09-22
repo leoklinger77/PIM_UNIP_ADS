@@ -1,17 +1,25 @@
 ﻿body {
     min-height: 100vh;
-    min-height: -webkit-fill-available;
 }
 
-html {
-    height: -webkit-fill-available;
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+@@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
 }
 
 main {
     display: flex;
     flex-wrap: nowrap;
-    height: 100vh;
-    height: -webkit-fill-available;
+    height: 100vh;   
     max-height: 100vh;
     overflow-x: auto;
     overflow-y: hidden;

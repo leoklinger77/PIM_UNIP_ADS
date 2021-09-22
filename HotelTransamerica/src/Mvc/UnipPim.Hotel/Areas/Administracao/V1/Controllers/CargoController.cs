@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using X.PagedList;
 
 namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 {
+    [Authorize]
     [Area("Administracao")]
     [Route("Administracao/[controller]")]
     public class CargoController : MainController
@@ -28,9 +30,8 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 
         [HttpGet("lista-cargo")]
         public async Task<IActionResult> Index(int page = 1, int size = 8, string query = null)
-        {
-            IPagedList<Cargo> list = await _cargoServico.PaginacaoListaCargo(page, size, query);
-            return View(list);
+        {            
+            return View(_mapper.Map<PaginacaoViewModel<CargoViewModel>>(await _cargoServico.PaginacaoListaCargo(page, size, query)));
         }
 
         [HttpGet("novo-cargo")]
