@@ -14,12 +14,25 @@ INSERT dbo.AspNetUsers VALUES
 INSERT dbo.TB_Cargo VALUES (N'043EF481-C8C5-49AA-B239-216A98D097ED', '20210922 12:04:23.0072264', NULL, 'Desenvolvedor')
 
 -- `dbo.TB_Funcionario` - Alterar apenas o Nome e CPF
-INSERT dbo.TB_Funcionario VALUES (N'99DCC0F2-65FE-4C33-85E8-CC0EE43B185D', '20210922 12:05:27.9023709', NULL, N'043EF481-C8C5-49AA-B239-216A98D097ED',
+INSERT dbo.TB_Funcionario VALUES ('99DCC0F2-65FE-4C33-85E8-CC0EE43B185D', '20210922 12:05:27.9023709', NULL, N'043EF481-C8C5-49AA-B239-216A98D097ED',
 					'Leandro Klinger', '36018556820', '19951109 00:00:00.0000000')
 
 -- `dbo.TB_Email` - Alterar apenas o e-mail
-INSERT dbo.TB_Email VALUES (N'13837F80-4BEA-4B81-892E-4B991928A2B9', '20210922 12:05:27.9023304', NULL,
-					'leandro.klingeroliveira@gmail.com', 2, N'99DCC0F2-65FE-4C33-85E8-CC0EE43B185D')
+INSERT dbo.TB_Email VALUES ('13837F80-4BEA-4B81-892E-4B991928A2B9', '20210922 12:05:27.9023304', NULL,
+					'leandro.klingeroliveira@gmail.com', 2, N'99DCC0F2-65FE-4C33-85E8-CC0EE43B185D',NULL)
 
 -- `dbo.TB_Telefone` - Alterar apenas o Telefone
-INSERT dbo.TB_Telefone VALUES (N'3CFBF6C3-157A-40D6-AE3E-C484319A7759', '20210922 12:05:27.9023591', NULL, '11', '954645456', 1, N'99DCC0F2-65FE-4C33-85E8-CC0EE43B185D')
+INSERT dbo.TB_Telefone VALUES (N'3CFBF6C3-157A-40D6-AE3E-C484319A7759', '20210922 12:05:27.9023591', NULL, '11', '954645456', 1, N'99DCC0F2-65FE-4C33-85E8-CC0EE43B185D',null)
+
+/*
+Inserindo Clains Identity
+*/
+
+insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Funcionario','Home')
+insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Funcionario','Cargo')
+insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Funcionario','Funcionario')
+insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Funcionario','Hospede')
+
+insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Cargo','Lista, Novo, Editar, Detalhes, Deletar')
+insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Funcionario','Lista, Novo, Editar, Detalhes, Deletar')
+insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Hospede','Lista, Novo, Editar, Detalhes, Deletar')

@@ -16,12 +16,14 @@ using UnipPim.Hotel.Dominio.Interfaces.Servicos;
 using UnipPim.Hotel.Dominio.Models;
 using UnipPim.Hotel.Dominio.Models.Enum;
 using UnipPim.Hotel.Dominio.Tools;
+using UnipPim.Hotel.Extensions.Midleware;
 using UnipPim.Hotel.Models;
 using X.PagedList;
 
 namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 {
     [Authorize]
+    [ClaimsAuthorizeAttribute("Funcionario", "Funcionario")]
     [Area("Administracao")]
     [Route("Administracao/[controller]")]
     public class FuncionarioController : MainController

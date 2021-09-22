@@ -7,12 +7,14 @@ using UnipPim.Hotel.Controllers;
 using UnipPim.Hotel.Dominio.Interfaces;
 using UnipPim.Hotel.Dominio.Interfaces.Servicos;
 using UnipPim.Hotel.Dominio.Models;
+using UnipPim.Hotel.Extensions.Midleware;
 using UnipPim.Hotel.Models;
 using X.PagedList;
 
 namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 {
     [Authorize]
+    [ClaimsAuthorize("Funcionario","Cargo")]
     [Area("Administracao")]
     [Route("Administracao/[controller]")]
     public class CargoController : MainController
@@ -29,18 +31,21 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpGet("lista-cargo")]
+        [ClaimsAuthorize("Cargo", "Lista")]
         public async Task<IActionResult> Index(int page = 1, int size = 8, string query = null)
         {            
             return View(_mapper.Map<PaginacaoViewModel<CargoViewModel>>(await _cargoServico.PaginacaoListaCargo(page, size, query)));
         }
 
         [HttpGet("novo-cargo")]
+        [ClaimsAuthorize("Cargo", "Novo")]
         public async Task<IActionResult> NovoCargo()
         {
             return View();
         }
 
         [HttpPost("novo-cargo")]
+        [ClaimsAuthorize("Cargo", "Novo")]
         public async Task<IActionResult> NovoCargo(CargoViewModel viewModel)
         {
             if (!ModelState.IsValid) return View(viewModel);
@@ -53,6 +58,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpGet("editar-cargo")]
+        [ClaimsAuthorize("Cargo", "Editar")]
         public async Task<IActionResult> EditarCargo(Guid id)
         {
             var resultado = await ObterCargoPorId(id);
@@ -67,6 +73,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpPost("editar-cargo")]
+        [ClaimsAuthorize("Cargo", "Editar")]
         public async Task<IActionResult> EditarCargo(Guid id, CargoViewModel viewModel)
         {
             if (id != viewModel.Id)
@@ -82,6 +89,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpGet("detalhes-cargo")]
+        [ClaimsAuthorize("Cargo", "Detalhes")]
         public async Task<IActionResult> DetalhesCargo(Guid id)
         {
             var resultado = await ObterCargoPorId(id);
@@ -96,6 +104,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpGet("deletar-cargo")]
+        [ClaimsAuthorize("Cargo", "Deletar")]
         public async Task<IActionResult> DeletarCargo(Guid id)
         {
             var resultado = await ObterCargoPorId(id);
@@ -110,6 +119,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpPost("deletar-cargo")]
+        [ClaimsAuthorize("Cargo", "Deletar")]
         public async Task<IActionResult> ConfirmaDeletarCargo(Guid id)
         {
             var resultado = await ObterCargoPorId(id);

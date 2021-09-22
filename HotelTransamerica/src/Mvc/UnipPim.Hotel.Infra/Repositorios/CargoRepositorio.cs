@@ -35,7 +35,6 @@ namespace UnipPim.Hotel.Infra.Repositorios
                     .ToPagedListAsync(page, size);
             }
 
-
             return new Paginacao<Cargo>()
             {
                 List = list.ToList(),

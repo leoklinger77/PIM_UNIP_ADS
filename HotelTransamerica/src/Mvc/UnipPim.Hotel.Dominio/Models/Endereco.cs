@@ -15,6 +15,8 @@ namespace UnipPim.Hotel.Dominio.Models
 
         public Funcionario Funcionario { get; private set; }
         public Guid? FuncionarioId { get; private set; }
+        public Hospede Hospede { get; private set; }
+        public Guid? HospedeId { get; private set; }
 
         protected Endereco() { }
 

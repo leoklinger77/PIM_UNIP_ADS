@@ -18,6 +18,7 @@ namespace UnipPim.Hotel.Infra.Data
         public DbSet<Endereco> Endereco { get; set; }
         public DbSet<Cidade> Cidade { get; set; }
         public DbSet<Estado> Estado { get; set; }
+        public DbSet<Hospede> Hospede { get; set; }
 
 
 

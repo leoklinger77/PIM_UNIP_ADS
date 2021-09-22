@@ -81,6 +81,9 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.Property<Guid?>("FuncionarioId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("HospedeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("InsertDate")
                         .HasColumnType("datetime2");
 
@@ -90,6 +93,8 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FuncionarioId");
+
+                    b.HasIndex("HospedeId");
 
                     b.ToTable("TB_Email");
                 });
@@ -116,6 +121,9 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.Property<Guid?>("FuncionarioId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("HospedeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("InsertDate")
                         .HasColumnType("datetime2");
 
@@ -138,6 +146,8 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.HasIndex("CidadeId");
 
                     b.HasIndex("FuncionarioId");
+
+                    b.HasIndex("HospedeId");
 
                     b.ToTable("TB_Endereco");
                 });
@@ -200,6 +210,34 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.ToTable("TB_Funcionario");
                 });
 
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Hospede", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Cpf")
+                        .IsRequired()
+                        .HasColumnType("varchar(11)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Nascimento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NomeCompleto")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TB_Hospede");
+                });
+
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Telefone", b =>
                 {
                     b.Property<Guid>("Id")
@@ -211,6 +249,9 @@ namespace UnipPim.Hotel.Infra.Migrations
                         .HasColumnType("char(2)");
 
                     b.Property<Guid?>("FuncionarioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("HospedeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("InsertDate")
@@ -230,6 +271,8 @@ namespace UnipPim.Hotel.Infra.Migrations
 
                     b.HasIndex("FuncionarioId");
 
+                    b.HasIndex("HospedeId");
+
                     b.ToTable("TB_Telefone");
                 });
 
@@ -246,6 +289,10 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.HasOne("UnipPim.Hotel.Dominio.Models.Funcionario", "Funcionario")
                         .WithMany("Emails")
                         .HasForeignKey("FuncionarioId");
+
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Hospede", "Hospede")
+                        .WithMany("Emails")
+                        .HasForeignKey("HospedeId");
                 });
 
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Endereco", b =>
@@ -256,8 +303,12 @@ namespace UnipPim.Hotel.Infra.Migrations
                         .IsRequired();
 
                     b.HasOne("UnipPim.Hotel.Dominio.Models.Funcionario", "Funcionario")
-                        .WithMany()
+                        .WithMany("Enderecos")
                         .HasForeignKey("FuncionarioId");
+
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Hospede", "Hospede")
+                        .WithMany("Enderecos")
+                        .HasForeignKey("HospedeId");
                 });
 
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Funcionario", b =>
@@ -273,6 +324,10 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.HasOne("UnipPim.Hotel.Dominio.Models.Funcionario", "Funcionario")
                         .WithMany("Telefones")
                         .HasForeignKey("FuncionarioId");
+
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Hospede", "Hospede")
+                        .WithMany("Telefones")
+                        .HasForeignKey("HospedeId");
                 });
 #pragma warning restore 612, 618
         }

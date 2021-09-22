@@ -4,10 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using UnipPim.Hotel.Controllers;
 using UnipPim.Hotel.Dominio.Interfaces;
+using UnipPim.Hotel.Extensions.Midleware;
 
 namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 {
     [Authorize]
+    [ClaimsAuthorizeAttribute("Funcionario", "Home")]
     [Area("Administracao")]
     [Route("Administracao/[controller]")]
     public class HomeController : MainController

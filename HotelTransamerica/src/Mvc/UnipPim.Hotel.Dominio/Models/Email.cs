@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using UnipPim.Hotel.Dominio.Models.Enum;
 
 namespace UnipPim.Hotel.Dominio.Models
@@ -10,8 +8,11 @@ namespace UnipPim.Hotel.Dominio.Models
         public string EnderecoEmail { get; private set; }
         public EmailTipo EmailTipo { get; private set; }
 
-        public Funcionario Funcionario { get; set; }
-        public Guid? FuncionarioId { get; set; }
+        public Funcionario Funcionario { get; private set; }
+        public Guid? FuncionarioId { get; private set; }
+
+        public Hospede Hospede { get; private set; }
+        public Guid? HospedeId { get; private set; }
 
         protected Email() { }
 
@@ -19,12 +20,6 @@ namespace UnipPim.Hotel.Dominio.Models
         {
             EnderecoEmail = enderecoEmail;
             EmailTipo = emailTipo;
-        }
-
-        public void AddFuncionario(Funcionario funcionario)
-        {
-            Funcionario = funcionario;
-            FuncionarioId = funcionario.Id;
         }
     }
 }

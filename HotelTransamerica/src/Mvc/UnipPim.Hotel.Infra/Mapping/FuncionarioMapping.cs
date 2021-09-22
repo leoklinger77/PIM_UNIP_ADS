@@ -24,6 +24,14 @@ namespace UnipPim.Hotel.Infra.Mapping
                 .WithOne(x => x.Funcionario)
                 .HasForeignKey(x => x.FuncionarioId);
 
+            builder.HasMany(x => x.Telefones)
+               .WithOne(x => x.Funcionario)
+                .HasForeignKey(x => x.FuncionarioId);
+
+            builder.HasMany(x => x.Enderecos)
+                 .WithOne(x => x.Funcionario)
+                .HasForeignKey(x => x.FuncionarioId);
+
             builder.ToTable("TB_Funcionario");
         }
     }
