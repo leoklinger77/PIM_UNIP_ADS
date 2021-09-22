@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Nascimento" class="control-label"></label>
-                <input asp-for="Nascimento" class="form-control" />
+                <input asp-for="Nascimento" class="form-control" type="date" value="@DateTime.Now" />
                 <span asp-validation-for="Nascimento" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -48,6 +48,11 @@
                 <input asp-for="TelefoneFixo" class="form-control" />
                 <span asp-validation-for="TelefoneFixo" class="text-danger"></span>
             </div>
+
+            <hr />
+
+            <partial name="_Endereco" />
+
             <div class="form-group">
                 <input type="submit" value="Criar" class="btn btn-primary" />
                 <a class="btn btn-outline-info" asp-action="Index">Voltar para lista</a>
@@ -58,4 +63,8 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+    BuscaCep();
+    </script>
 }

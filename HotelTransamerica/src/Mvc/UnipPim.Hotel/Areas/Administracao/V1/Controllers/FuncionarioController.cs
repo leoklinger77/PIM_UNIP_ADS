@@ -26,6 +26,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
     {
         private readonly IFuncionarioServico _funcionarioServico;
         private readonly ICargoServico _cargoServico;
+        private readonly IEstadoServico _estadoServico;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _emailSender;
 
@@ -34,14 +35,16 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
                                 INotificacao notificacao,
                                 IFuncionarioServico funcionarioServico,
                                 UserManager<IdentityUser> userManager,
-                                ICargoServico cargoServico, 
-                                IEmailSender emailSender) :
+                                ICargoServico cargoServico,
+                                IEmailSender emailSender,
+                                IEstadoServico estadoServico) :
                                 base(mapper, user, notificacao)
         {
             _funcionarioServico = funcionarioServico;
             _userManager = userManager;
             _cargoServico = cargoServico;
             _emailSender = emailSender;
+            _estadoServico = estadoServico;
         }
 
         [HttpGet("lista-Funcionario")]
@@ -87,10 +90,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            var viewModel = _mapper.Map<FuncionarioViewModel>(resultado);
-            viewModel.Email = resultado.Emails.First().EnderecoEmail;
-
-            return View(await PopulaListaCargo(viewModel));
+            return View(await PopulaListaCargo(await PopulaFuncionario(resultado)));
         }
 
         [HttpPost("editar-Funcionario")]
@@ -122,8 +122,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
                 ErrosTempData();
                 return RedirectToAction(nameof(Index));
             }
-
-            return View(_mapper.Map<FuncionarioViewModel>(resultado));
+            return View(await PopulaFuncionario(resultado));            
         }
 
         [HttpGet("deletar-Funcionario")]
@@ -136,7 +135,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
                 ErrosTempData();
                 return RedirectToAction(nameof(Index));
             }
-            return View(await PopulaListaCargo(_mapper.Map<FuncionarioViewModel>(resultado)));
+            return View(await PopulaListaCargo(await PopulaFuncionario(resultado)));
         }
 
         [HttpPost("deletar-Funcionario")]
@@ -185,13 +184,23 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         private async Task<Funcionario> CriarFuncionario(FuncionarioViewModel viewModel)
         {
             var newfuncionario = new Funcionario(viewModel.NomeCompleto, viewModel.Cpf, viewModel.Nascimento, viewModel.CargoId);
+
             newfuncionario.AddEmail(new Email(viewModel.Email, EmailTipo.COMERCIAL));
-            
+
             newfuncionario.AddTelefone(new Telefone(viewModel.TelefoneCelular.Substring(0, 2), viewModel.TelefoneCelular.Substring(2), TelefoneTipo.CELULAR));
 
             if (!string.IsNullOrEmpty(viewModel.TelefoneFixo))
                 newfuncionario.AddTelefone(new Telefone(viewModel.TelefoneFixo.Substring(0, 2), viewModel.TelefoneFixo.Substring(2), TelefoneTipo.RESIDENCIAL));
 
+            var cidade = await _estadoServico.ObterCidadeComEstado(viewModel.Endereco.Cidade, viewModel.Endereco.Estado);
+
+            newfuncionario.AddEndereco(new Endereco(viewModel.Endereco.Cep,
+                                                    viewModel.Endereco.Logradouro,
+                                                    viewModel.Endereco.Numero,
+                                                    viewModel.Endereco.Complemento,
+                                                    viewModel.Endereco.Referencia,
+                                                    viewModel.Endereco.Cidade,
+                                                    cidade.Id));
             return newfuncionario;
         }
 
@@ -229,13 +238,13 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         {
             var user = await _userManager.FindByEmailAsync(email);
 
-            if (user != null)
+            if (user == null)
             {
                 AddErro("User Login não encontrado.");
                 return false;
             }
 
-            var result = await _userManager.DeleteAsync(user);            
+            var result = await _userManager.DeleteAsync(user);
 
             if (result.Succeeded)
             {
@@ -252,6 +261,29 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         {
             viewModel.ListaCargo = _mapper.Map<IEnumerable<CargoViewModel>>(await _cargoServico.ObterTodos());
             return viewModel;
-        }        
+        }
+
+        private async Task<FuncionarioViewModel> PopulaFuncionario(Funcionario func)
+        {
+            var viewModel = _mapper.Map<FuncionarioViewModel>(func);
+            viewModel.Email = func.Emails.First().EnderecoEmail;
+            foreach (var item in func.Enderecos)
+            {
+                viewModel.Endereco = _mapper.Map<EnderecoViewModel>(item);
+            }
+            foreach (var item in func.Telefones)
+            {
+                if (item.TelefoneTipo == TelefoneTipo.CELULAR)
+                {
+                    viewModel.TelefoneCelular = item.Ddd + item.Numero;
+                }
+                else if (item.TelefoneTipo == TelefoneTipo.RESIDENCIAL)
+                {
+                    viewModel.TelefoneFixo = item.Ddd + item.Numero;
+                }
+
+            }
+            return viewModel;
+        }
     }
 }

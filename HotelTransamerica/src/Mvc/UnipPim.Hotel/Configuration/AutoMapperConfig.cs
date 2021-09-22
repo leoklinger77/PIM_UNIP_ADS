@@ -9,8 +9,10 @@ namespace UnipPim.Hotel.Configuration
         public AutoMapperConfig()
         {
             CreateMap<CargoViewModel, Cargo>().ReverseMap();
-
             CreateMap<FuncionarioViewModel, Funcionario>().ReverseMap();
+            CreateMap<Endereco, EnderecoViewModel>()
+               .ForMember(dest => dest.Estado, opt => opt.MapFrom(x => x.Cidade.Estado.Nome))
+               .ForMember(dest => dest.Cidade, opt => opt.MapFrom(x => x.Cidade.Nome));
         }
     }
 }

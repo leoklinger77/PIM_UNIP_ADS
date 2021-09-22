@@ -104,6 +104,9 @@ namespace UnipPim.Hotel.Infra.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
+                    b.Property<string>("Cep")
+                        .HasColumnType("varchar(255)");
+
                     b.Property<Guid>("CidadeId")
                         .HasColumnType("uniqueidentifier");
 

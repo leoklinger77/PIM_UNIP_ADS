@@ -21,11 +21,13 @@ namespace UnipPim.Hotel.Configuration
             //Repositorio
             services.AddScoped<IFuncionarioRepositorio, FuncionarioRepositorio>();
             services.AddScoped<ICargoRepositorio, CargoRepositorio>();
+            services.AddScoped<IEstadoRepositorio, EstadoRepositorio>();
 
             //Servicos
             services.AddScoped<IFuncionarioServico, FuncionarioServico>();
             services.AddScoped<ICargoServico, CargoServico>();
             services.AddScoped<IEmailSender, EnviarEmail>();
+            services.AddScoped<IEstadoServico, EstadoServico>();
 
             //Notificacao
             services.AddScoped<INotificacao, Noficacao>();

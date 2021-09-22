@@ -2,6 +2,10 @@
 
 @{
     ViewData["Title"] = "Lista de Funcionários";
+
+    string numberPerPage = Context.Request.Query["numberPerPage"];
+    if (!string.IsNullOrEmpty(numberPerPage)) numberPerPage = numberPerPage.Replace("{", "").Replace("}", "");
+    var query = Context.Request.Query["search"];
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -23,31 +27,33 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Cargo)
-            </th>            
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomeCompleto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cpf)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nascimento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cargo.Nome)
-            </td>            
-            <td>
-                <a class="btn btn-outline-info" asp-action="EditarFuncionario" asp-route-id="@item.Id">Edit</a> |
-                <a class="btn btn-outline-info" asp-action="DetalhesFuncionario" asp-route-id="@item.Id">Details</a> |
-                <a class="btn btn-outline-info" asp-action="DeletarFuncionario" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeCompleto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cpf)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nascimento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cargo.Nome)
+                </td>
+                <td>
+                    <a class="btn btn-outline-info" asp-action="EditarFuncionario" asp-route-id="@item.Id">Edit</a> |
+                    <a class="btn btn-outline-info" asp-action="DetalhesFuncionario" asp-route-id="@item.Id">Details</a> |
+                    <a class="btn btn-outline-info" asp-action="DeletarFuncionario" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page, query = query, size = numberPerPage }))

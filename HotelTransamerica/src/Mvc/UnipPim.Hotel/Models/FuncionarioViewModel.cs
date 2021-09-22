@@ -36,12 +36,17 @@ namespace UnipPim.Hotel.Models
         [Display(Name = "Telefone Fixo")]
         [Fixo]
         public string TelefoneFixo { get; set; }
+        public Guid TelefoneFixoID { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         [StringLength(11, ErrorMessage = "O campo {0} deve conter {1} números", MinimumLength = 11)]
         [Display(Name = "Telefone Celular")]
         [Celular]
         public string TelefoneCelular { get; set; }
+        public Guid TelefoneCelularId { get; set; }
+
+
+        public EnderecoViewModel Endereco { get; set; }
 
         public CargoViewModel Cargo { get; set; }
         public IEnumerable<CargoViewModel> ListaCargo { get; set; }

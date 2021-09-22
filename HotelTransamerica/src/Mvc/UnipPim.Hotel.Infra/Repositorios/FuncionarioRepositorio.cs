@@ -35,16 +35,23 @@ namespace UnipPim.Hotel.Infra.Repositorios
             return await _context.Funcionario.AsNoTracking().Where(predicate).FirstOrDefaultAsync();
         }
 
-       
-
         public async Task<Funcionario> ObterPorId(Guid id)
         {
-            return await _context.Funcionario.AsNoTracking()
+            var result = await _context.Funcionario
                 .Include(x => x.Cargo)
                 .Include(x => x.Emails)
                 .Include(x => x.Telefones)
+                .Include(x => x.Enderecos)
+                .AsNoTracking()
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
+
+            foreach (var item in result.Enderecos)
+            {
+                item.AssociarCidade(await _context.Cidade.Include(x => x.Estado).AsNoTracking().FirstAsync(x => x.Id == item.CidadeId));
+            }
+
+            return result;
         }
 
         public async Task<Email> ObterEmailPorId(Guid funcionarioId, Guid id)
@@ -75,6 +82,11 @@ namespace UnipPim.Hotel.Infra.Repositorios
             await _context.Telefone.AddAsync(telefone);
         }
 
+        public async Task AddEndereco(Endereco Endereco)
+        {
+            await _context.Endereco.AddAsync(Endereco);
+        }
+
         public async Task Update(Funcionario entity)
         {
             _context.Funcionario.Update(entity);
@@ -87,6 +99,11 @@ namespace UnipPim.Hotel.Infra.Repositorios
         public async Task UpdateTelefone(Telefone telefone)
         {
             _context.Telefone.Update(telefone);
+        }
+
+        public async Task UpdateEndereco(Endereco endereco)
+        {
+            _context.Endereco.Update(endereco);
         }
 
         public async Task Delete(Funcionario entity)
@@ -103,6 +120,12 @@ namespace UnipPim.Hotel.Infra.Repositorios
         {
             _context.Telefone.Remove(email);
         }
+
+        public async Task DeleteEndereco(Endereco endereco)
+        {
+            _context.Endereco.Remove(endereco);
+        }
+
         public async Task<int> SaveChanges()
         {
             return await _context.SaveChangesAsync();
@@ -112,7 +135,5 @@ namespace UnipPim.Hotel.Infra.Repositorios
         {
             _context?.DisposeAsync();
         }
-
-
     }
 }

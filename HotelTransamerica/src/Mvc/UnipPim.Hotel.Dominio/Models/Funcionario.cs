@@ -15,9 +15,11 @@ namespace UnipPim.Hotel.Dominio.Models
 
         private List<Email> _emails = new List<Email>();
         private List<Telefone> _telefones = new List<Telefone>();
+        private List<Endereco> _enderecos = new List<Endereco>();
 
         public IReadOnlyCollection<Email> Emails => _emails;
         public IReadOnlyCollection<Telefone> Telefones => _telefones;
+        public IReadOnlyCollection<Endereco> Enderecos => _enderecos;
         protected Funcionario() { }
 
         public Funcionario(string nomeCompleto, string cpf, DateTime nascimento, Guid cargoId)
@@ -41,6 +43,11 @@ namespace UnipPim.Hotel.Dominio.Models
         public void AddTelefone(Telefone telefone)
         {
             _telefones.Add(telefone);
+        }
+
+        public void AddEndereco(Endereco endereco)
+        {
+            _enderecos.Add(endereco);
         }
     }
 }

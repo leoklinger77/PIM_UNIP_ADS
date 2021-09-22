@@ -33,6 +33,12 @@ namespace UnipPim.Hotel.Dominio.Servicos
         {
             if (!IniciarValidacao(new FuncionarioValidation(), funcionario)) return;
 
+            if (await _funcionarioRepositorio.Find(x => x.Cpf == funcionario.Cpf) != null)
+            {
+                Notificar("Cpf já cadastrado.");
+                return;
+            }
+
             foreach (var item in funcionario.Emails)
             {
                 if (!IniciarValidacao(new EmailValidation(), item)) return;
@@ -45,10 +51,10 @@ namespace UnipPim.Hotel.Dominio.Servicos
                 await _funcionarioRepositorio.AddTelefone(item);
             }
 
-            if (await _funcionarioRepositorio.Find(x=>x.Cpf == funcionario.Cpf) != null)
+            foreach (var item in funcionario.Enderecos)
             {
-                Notificar("Cpf já cadastrado.");
-                return;
+                if (!IniciarValidacao(new EnderecoValidation(), item)) return;
+                await _funcionarioRepositorio.AddEndereco(item);
             }
 
             await _funcionarioRepositorio.Insert(funcionario);
@@ -82,6 +88,11 @@ namespace UnipPim.Hotel.Dominio.Servicos
             foreach (var item in funcionario.Telefones)
             {
                 await _funcionarioRepositorio.DeleteTelefone(item);
+            }
+
+            foreach (var item in funcionario.Enderecos)
+            {                
+                await _funcionarioRepositorio.DeleteEndereco(item);
             }
 
             await _funcionarioRepositorio.SaveChanges();
