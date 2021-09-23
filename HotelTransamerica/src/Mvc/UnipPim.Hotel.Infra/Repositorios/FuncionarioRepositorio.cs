@@ -58,6 +58,7 @@ namespace UnipPim.Hotel.Infra.Repositorios
                 .Include(x => x.Emails)
                 .Include(x => x.Telefones)
                 .Include(x => x.Enderecos)
+                .Include(x => x.GrupoFuncionario.Acesso)
                 .AsNoTracking()
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();

@@ -4,6 +4,7 @@ using UnipPim.Hotel.Dominio.Interfaces;
 using UnipPim.Hotel.Dominio.Interfaces.Repositorio;
 using UnipPim.Hotel.Dominio.Interfaces.Servicos;
 using UnipPim.Hotel.Dominio.Models;
+using UnipPim.Hotel.Dominio.Models.Validacoes;
 using UnipPim.Hotel.Dominio.Tools;
 
 namespace UnipPim.Hotel.Dominio.Servicos
@@ -36,6 +37,21 @@ namespace UnipPim.Hotel.Dominio.Servicos
 
         public async Task Insert(GrupoFuncionario entity)
         {
+            if (await _grupoFuncionarioRepositorio.Find(x => x.Nome == entity.Nome) != null)
+            {
+                Notificar("Grupo já existe.");
+                return;
+            }
+
+            if (!IniciarValidacao(new GrupoFuncionarioValidation(), entity)) return;
+
+            foreach (var item in entity.Acesso)
+            {
+                if (!IniciarValidacao(new AcessoValidation(), item)) return;
+            }
+
+            await _grupoFuncionarioRepositorio.AddAcessoLista(entity.Acesso);
+
             await _grupoFuncionarioRepositorio.Insert(entity);
 
             await _grupoFuncionarioRepositorio.SaveChanges();
@@ -45,6 +61,20 @@ namespace UnipPim.Hotel.Dominio.Servicos
 
         public async Task Update(GrupoFuncionario entity)
         {
+            var grupoDb = await _grupoFuncionarioRepositorio.Find(x => x.Nome == entity.Nome);
+            if (grupoDb != null && grupoDb.Id != entity.Id)
+            {
+                Notificar("Grupo já existe.");
+                return;
+            }
+
+            if (IniciarValidacao(new GrupoFuncionarioValidation(), entity)) return;
+
+            foreach (var item in entity.Acesso)
+            {
+                if (IniciarValidacao(new AcessoValidation(), item)) return;
+            }
+
             await _grupoFuncionarioRepositorio.Update(entity);
 
             await _grupoFuncionarioRepositorio.SaveChanges();

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnipPim.Hotel.Dominio.Interfaces;
 
 namespace UnipPim.Hotel.Dominio.Models
@@ -10,7 +11,7 @@ namespace UnipPim.Hotel.Dominio.Models
         private List<Funcionario> _funcionarios = new List<Funcionario>();
         public IReadOnlyCollection<Funcionario> Funcionarios => _funcionarios;
 
-        private List<Acesso> _acesso = new List<Acesso>();
+        private HashSet<Acesso> _acesso = new HashSet<Acesso>();
         public IReadOnlyCollection<Acesso> Acesso => _acesso;
 
         protected GrupoFuncionario() { }
@@ -18,7 +19,12 @@ namespace UnipPim.Hotel.Dominio.Models
         public GrupoFuncionario(string nome)
         {
             Nome = nome;
-        }       
+        }      
+        
+        public void AddAcesso(Acesso acesso)
+        {
+            _acesso.Add(acesso);
+        }
     }
 
     public class Acesso : Entity
@@ -42,6 +48,17 @@ namespace UnipPim.Hotel.Dominio.Models
         internal void SetClaimValue(string claimValue)
         {
             ClaimValue = claimValue;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Acesso acesso &&
+                   ClaimType == acesso.ClaimType;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(ClaimType);
         }
     }
 }

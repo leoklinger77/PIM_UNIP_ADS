@@ -11,6 +11,21 @@
     
     <hr />
     <dl class="row">
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cargo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cargo.Nome)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GrupoFuncionario)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GrupoFuncionario.Nome)
+        </dd>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.NomeCompleto)
         </dt>
@@ -29,13 +44,28 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Nascimento)
         </dd>
+
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Cargo)
+            @Html.DisplayNameFor(model => model.TelefoneCelular)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Cargo.Nome)
+            @Html.DisplayFor(model => model.TelefoneCelular)
         </dd>
 
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TelefoneFixo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TelefoneFixo)
+        </dd>
+
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nascimento)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nascimento)
+        </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Endereco.Cep)
         </dt>

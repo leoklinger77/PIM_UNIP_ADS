@@ -17,6 +17,7 @@ insert TB_Acesso values('4699636a-ebe7-4795-9d05-d3536bf80313',GETDATE(), null,'
 insert TB_Acesso values('4699635a-ebe7-4795-9d05-d3536bf80313',GETDATE(), null,'Cargo','Home, Novo, Editar, Detalhes, Deletar','4599636a-ebe7-4795-9d05-d3536bf80313')
 insert TB_Acesso values('4699634a-ebe7-4795-9d05-d3536bf80313',GETDATE(), null,'GrupoFuncionario','Home, Novo, Editar, Detalhes, Deletar','4599636a-ebe7-4795-9d05-d3536bf80313')
 insert TB_Acesso values('4699633a-ebe7-4795-9d05-d3536bf80313',GETDATE(), null,'Home','Home, Novo, Editar, Detalhes, Deletar','4599636a-ebe7-4795-9d05-d3536bf80313')
+insert TB_Acesso values('4699633a-ebe7-4795-9d05-d3536bf80313',GETDATE(), null,'Hospede','Home, Novo, Editar, Detalhes, Deletar','4599636a-ebe7-4795-9d05-d3536bf80313')
 
 INSERT dbo.TB_Funcionario VALUES ('99DCC0F2-65FE-4C33-85E8-CC0EE43B185D', '20210922 12:05:27.9023709', NULL, N'043EF481-C8C5-49AA-B239-216A98D097ED','4599636a-ebe7-4795-9d05-d3536bf80313',
 					'Leandro Klinger', '36018556820', '19951109 00:00:00.0000000')

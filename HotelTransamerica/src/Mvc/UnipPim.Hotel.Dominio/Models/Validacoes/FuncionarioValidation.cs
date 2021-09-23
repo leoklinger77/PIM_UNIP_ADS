@@ -11,6 +11,10 @@ namespace UnipPim.Hotel.Dominio.Models.Validacoes
                 .NotEqual(System.Guid.Empty)
                 .WithMessage("O campo Id é inválido.");
 
+            RuleFor(x => x.GrupoFuncionarioId)
+                .NotEqual(System.Guid.Empty)
+                .WithMessage("O campo GrupoFuncionarioId é inválido.");
+
             RuleFor(x => x.NomeCompleto)
                 .NotEmpty()
                 .WithMessage("O campo Nome Completo é obrigatório.");

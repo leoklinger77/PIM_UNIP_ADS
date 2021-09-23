@@ -1,0 +1,68 @@
+﻿@model GrupoFuncionarioViewModel
+
+@{
+    ViewData["Title"] = "Novo Grupo";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="NovoGrupo">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Administracao</label>
+                <select asp-for="Home" class="form-select" style="width: 200px; height: 130px" multiple aria-label="multiple select example">
+                    <option value="Home">Visualizar</option>                   
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Funcionario</label>
+                <select asp-for="Funcionario" class="form-select" style="width:200px; height:130px" multiple aria-label="multiple select example">
+                    <option value="Home">Visualizar</option>
+                    <option value="Novo">Criar</option>
+                    <option value="Editar">Editar</option>
+                    <option value="Detalhes">Detalhes</option>
+                    <option value="Deletar">Deletar</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Cargo</label>
+                <select asp-for="Cargo" class="form-select" style="width: 200px; height: 130px" multiple aria-label="multiple select example">
+                    <option value="Home">Visualizar</option>
+                    <option value="Novo">Criar</option>
+                    <option value="Editar">Editar</option>
+                    <option value="Detalhes">Detalhes</option>
+                    <option value="Deletar">Deletar</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Hospede</label>
+                <select asp-for="Hospede" class="form-select" style="width: 200px; height: 130px" multiple aria-label="multiple select example">
+
+                    <option value="Home">Visualizar</option>
+                    <option value="Novo">Criar</option>
+                    <option value="Editar">Editar</option>
+                    <option value="Detalhes">Detalhes</option>
+                    <option value="Deletar">Deletar</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

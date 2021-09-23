@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -44,6 +45,11 @@ namespace UnipPim.Hotel.Infra.Repositorios
             };
         }
 
+        public async Task<IEnumerable<GrupoFuncionario>> ObterTodos()
+        {
+            return await _context.GrupoFuncionario.AsNoTracking().ToListAsync();
+        }
+
         public async Task<GrupoFuncionario> Find(Expression<Func<GrupoFuncionario, bool>> predicate)
         {
             return await _context.GrupoFuncionario.AsNoTracking().Where(predicate).FirstOrDefaultAsync();
@@ -51,12 +57,17 @@ namespace UnipPim.Hotel.Infra.Repositorios
 
         public async Task<GrupoFuncionario> ObterPorId(Guid id)
         {
-            return await _context.GrupoFuncionario.AsNoTracking().Where(x => x.Id == id).FirstOrDefaultAsync();
+            return await _context.GrupoFuncionario.AsNoTracking().Include(x => x.Acesso).Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task Insert(GrupoFuncionario entity)
         {
             await _context.GrupoFuncionario.AddAsync(entity);
+        }
+
+        public async Task AddAcessoLista(IEnumerable<Acesso> acesso)
+        {
+            await _context.Acesso.AddRangeAsync(acesso);
         }
 
         public async Task Update(GrupoFuncionario entity)

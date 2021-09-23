@@ -70,6 +70,15 @@ namespace UnipPim.Hotel.Dominio.Tools
 
 			return false;
 		}
+
+		public static bool MenorIgualA(this int value, int quantidade)
+        {
+			return value <= quantidade;
+        }
+		public static bool MaiorQue(this int value, int quantidade)
+		{
+			return value > quantidade;
+		}
 	}
 }
 

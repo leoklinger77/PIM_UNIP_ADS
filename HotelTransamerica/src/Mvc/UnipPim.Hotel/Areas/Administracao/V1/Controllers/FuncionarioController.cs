@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.WebUtilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using UnipPim.Hotel.Controllers;
 using UnipPim.Hotel.Dominio.Interfaces;
+using UnipPim.Hotel.Dominio.Interfaces.Repositorio;
 using UnipPim.Hotel.Dominio.Interfaces.Servicos;
 using UnipPim.Hotel.Dominio.Models;
 using UnipPim.Hotel.Dominio.Models.Enum;
@@ -29,6 +31,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
     public class FuncionarioController : MainController
     {
         private readonly IFuncionarioServico _funcionarioServico;
+        private readonly IGrupoFuncionarioRepositorio _grupoFuncionarioRepositorio;
         private readonly ICargoServico _cargoServico;
         private readonly IEstadoServico _estadoServico;
         private readonly UserManager<IdentityUser> _userManager;
@@ -41,7 +44,8 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
                                 UserManager<IdentityUser> userManager,
                                 ICargoServico cargoServico,
                                 IEmailSender emailSender,
-                                IEstadoServico estadoServico) :
+                                IEstadoServico estadoServico,
+                                IGrupoFuncionarioRepositorio grupoFuncionarioRepositorio) :
                                 base(mapper, user, notificacao)
         {
             _funcionarioServico = funcionarioServico;
@@ -49,36 +53,36 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             _cargoServico = cargoServico;
             _emailSender = emailSender;
             _estadoServico = estadoServico;
+            _grupoFuncionarioRepositorio = grupoFuncionarioRepositorio;
         }
 
         [HttpGet("lista-Funcionario")]
         public async Task<IActionResult> Index(int page = 1, int size = 8, string query = null)
-        {            
+        {
             return View(_mapper.Map<PaginacaoViewModel<FuncionarioViewModel>>(await _funcionarioServico.PaginacaoListaFuncionario(page, size, query)));
         }
 
         [HttpGet("novo-Funcionario")]
         public async Task<IActionResult> NovoFuncionario()
         {
-            return View(await PopulaListaCargo(new FuncionarioViewModel()));
+            return View(await PopulaListaCargoEGrupos(new FuncionarioViewModel()));
         }
 
         [HttpPost("novo-Funcionario")]
         public async Task<IActionResult> NovoFuncionario(FuncionarioViewModel viewModel)
         {
-            if (!ModelState.IsValid) return View(await PopulaListaCargo(viewModel));
+            if (!ModelState.IsValid) return View(await PopulaListaCargoEGrupos(viewModel));
 
             var newFuncionario = await CriarFuncionario(viewModel);
             await _funcionarioServico.Insert(newFuncionario);
 
-            if (OperacaoValida()) return View(await PopulaListaCargo(viewModel));
+            if (OperacaoValida()) return View(await PopulaListaCargoEGrupos(viewModel));
 
-            if (!await CriarLoginFuncionario(viewModel.Email))
+            if (!await CriarLoginFuncionario(viewModel.Email, viewModel.GrupoFuncionarioId))
             {
                 await _funcionarioServico.DeletarFuncionario(newFuncionario);
-                return View(await PopulaListaCargo(viewModel));
+                return View(await PopulaListaCargoEGrupos(viewModel));
             }
-
             return RedirectToAction(nameof(Index));
         }
 
@@ -93,7 +97,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(await PopulaListaCargo(await PopulaFuncionario(resultado)));
+            return View(await PopulaListaCargoEGrupos(await PopulaFuncionario(resultado)));
         }
 
         [HttpPost("editar-Funcionario")]
@@ -110,7 +114,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 
             await _funcionarioServico.Update(_mapper.Map<Funcionario>(viewModel));
 
-            if (OperacaoValida()) return View(await PopulaListaCargo(viewModel));
+            if (OperacaoValida()) return View(await PopulaListaCargoEGrupos(viewModel));
 
             return RedirectToAction(nameof(Index));
         }
@@ -125,7 +129,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
                 ErrosTempData();
                 return RedirectToAction(nameof(Index));
             }
-            return View(await PopulaFuncionario(resultado));            
+            return View(await PopulaFuncionario(resultado));
         }
 
         [HttpGet("deletar-Funcionario")]
@@ -138,7 +142,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
                 ErrosTempData();
                 return RedirectToAction(nameof(Index));
             }
-            return View(await PopulaListaCargo(await PopulaFuncionario(resultado)));
+            return View(await PopulaListaCargoEGrupos(await PopulaFuncionario(resultado)));
         }
 
         [HttpPost("deletar-Funcionario")]
@@ -186,7 +190,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 
         private async Task<Funcionario> CriarFuncionario(FuncionarioViewModel viewModel)
         {
-            var newfuncionario = new Funcionario(viewModel.NomeCompleto, viewModel.Cpf, viewModel.Nascimento, viewModel.CargoId);
+            var newfuncionario = new Funcionario(viewModel.NomeCompleto, viewModel.Cpf, viewModel.Nascimento, viewModel.CargoId, viewModel.GrupoFuncionarioId);
 
             newfuncionario.AddEmail(new Email(viewModel.Email, EmailTipo.COMERCIAL));
 
@@ -207,13 +211,18 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             return newfuncionario;
         }
 
-        private async Task<bool> CriarLoginFuncionario(string email)
+        private async Task<bool> CriarLoginFuncionario(string email, Guid grupoFuncionario)
         {
             var user = new IdentityUser { UserName = email, Email = email, EmailConfirmed = false };
             var password = CodeGeneretor.GerarSenha(10);
             var result = await _userManager.CreateAsync(user, password);
             if (result.Succeeded)
             {
+                if (!await CriarClaimsFunciorio(user, grupoFuncionario))
+                {
+                    await DeletarLoginFuncionario(email, user);
+                    return false;
+                }
 
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -237,15 +246,18 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             return false;
         }
 
-        private async Task<bool> DeletarLoginFuncionario(string email)
+        private async Task<bool> DeletarLoginFuncionario(string email, IdentityUser user = null)
         {
-            var user = await _userManager.FindByEmailAsync(email);
-
-            if (user == null)
+            if (user != null)
             {
-                AddErro("User Login não encontrado.");
-                return false;
-            }
+                user = await _userManager.FindByEmailAsync(email);
+
+                if (user == null)
+                {
+                    AddErro("User Login não encontrado.");
+                    return false;
+                }
+            }           
 
             var result = await _userManager.DeleteAsync(user);
 
@@ -259,10 +271,10 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             }
             return false;
         }
-
-        private async Task<FuncionarioViewModel> PopulaListaCargo(FuncionarioViewModel viewModel)
+        private async Task<FuncionarioViewModel> PopulaListaCargoEGrupos(FuncionarioViewModel viewModel)
         {
             viewModel.ListaCargo = _mapper.Map<IEnumerable<CargoViewModel>>(await _cargoServico.ObterTodos());
+            viewModel.ListaGrupoFuncionario = _mapper.Map<IEnumerable<GrupoFuncionarioViewModel>>(await _grupoFuncionarioRepositorio.ObterTodos());
             return viewModel;
         }
 
@@ -287,6 +299,29 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 
             }
             return viewModel;
+        }
+
+        private async Task<bool> CriarClaimsFunciorio(IdentityUser user, Guid grupoFuncionario)
+        {
+            var grupo = await _grupoFuncionarioRepositorio.ObterPorId(grupoFuncionario);
+
+            ICollection<Claim> claims = new List<Claim>();
+            foreach (var item in grupo.Acesso)
+            {
+                Claim claim = new Claim(item.ClaimType, item.ClaimValue);
+                claims.Add(claim);
+            }
+            var result = await _userManager.AddClaimsAsync(user, claims);
+
+            if (result.Succeeded)
+            {
+                return true;
+            }
+            foreach (var error in result.Errors)
+            {
+                AddErro(error.Description);
+            }
+            return false;
         }
     }
 }

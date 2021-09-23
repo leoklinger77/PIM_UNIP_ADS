@@ -14,6 +14,10 @@ namespace UnipPim.Hotel.Models
         public Guid CargoId { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
+        [Display(Name = "Grupo Funcionario")]
+        public Guid GrupoFuncionarioId { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         [Display(Name = "Nome Completo")]
         [NomeCompleto]
         public string NomeCompleto { get; set; }
@@ -47,8 +51,10 @@ namespace UnipPim.Hotel.Models
 
 
         public EnderecoViewModel Endereco { get; set; }
-
         public CargoViewModel Cargo { get; set; }
+        public GrupoFuncionarioViewModel GrupoFuncionario { get; set; }
+
         public IEnumerable<CargoViewModel> ListaCargo { get; set; }
+        public IEnumerable<GrupoFuncionarioViewModel> ListaGrupoFuncionario { get; set; }
     }
 }
