@@ -23,6 +23,7 @@ namespace UnipPim.Hotel.Configuration
             services.AddScoped<ICargoRepositorio, CargoRepositorio>();
             services.AddScoped<IEstadoRepositorio, EstadoRepositorio>();
             services.AddScoped<IHospedeRepositorio, HospedeRepositorio>();
+            services.AddScoped<IGrupoFuncionarioRepositorio, GrupoFuncionarioRepositorio>();
 
             //Servicos
             services.AddScoped<IEmailSender, EnviarEmail>();
@@ -30,6 +31,7 @@ namespace UnipPim.Hotel.Configuration
             services.AddScoped<ICargoServico, CargoServico>();            
             services.AddScoped<IEstadoServico, EstadoServico>();
             services.AddScoped<IHospedeServico, HospedeServico>();
+            services.AddScoped<IGrupoFuncionarioServico, GrupoFuncionarioServico>();
 
             //Notificacao
             services.AddScoped<INotificacao, Noficacao>();

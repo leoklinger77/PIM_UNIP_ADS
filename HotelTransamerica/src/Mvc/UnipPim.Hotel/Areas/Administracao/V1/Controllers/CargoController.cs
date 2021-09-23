@@ -14,7 +14,7 @@ using X.PagedList;
 namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 {
     [Authorize]
-    [ClaimsAuthorize("Funcionario","Cargo")]
+    [ClaimsAuthorize("Cargo", "Home")]
     [Area("Administracao")]
     [Route("Administracao/[controller]")]
     public class CargoController : MainController
@@ -30,8 +30,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             _cargoServico = cargoServico;
         }
 
-        [HttpGet("lista-cargo")]
-        [ClaimsAuthorize("Cargo", "Lista")]
+        [HttpGet("lista-cargo")]        
         public async Task<IActionResult> Index(int page = 1, int size = 8, string query = null)
         {            
             return View(_mapper.Map<PaginacaoViewModel<CargoViewModel>>(await _cargoServico.PaginacaoListaCargo(page, size, query)));

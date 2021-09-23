@@ -19,10 +19,11 @@ namespace UnipPim.Hotel.Infra.Data
         public DbSet<Cidade> Cidade { get; set; }
         public DbSet<Estado> Estado { get; set; }
         public DbSet<Hospede> Hospede { get; set; }
-
-
-
+        public DbSet<GrupoFuncionario> GrupoFuncionario { get; set; }
+        public DbSet<Acesso> Acesso { get; set; }
         public DbSet<Funcionario> Funcionario { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {   
             foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetProperties().Where(p => p.ClrType == typeof(string))))

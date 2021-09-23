@@ -38,7 +38,25 @@ namespace UnipPim.Hotel.Dominio.Servicos
 
         public async Task Insert(Hospede hospede)
         {
+            if (await _hospedeRepositorio.Find(x=>x.Cpf == hospede.Cpf) != null)
+            {
+                Notificar("Cpf já cadastrado.");
+                return;
+            }
+
             if (!IniciarValidacao(new HospedeValidation(), hospede)) return;
+
+            foreach (var item in hospede.Emails)
+            {
+                if (!IniciarValidacao(new EmailValidation(), item)) return;
+                await _hospedeRepositorio.AddEmail(item);
+            }
+
+            foreach (var item in hospede.Telefones)
+            {
+                if (!IniciarValidacao(new TelefoneValidation(), item)) return;
+                await _hospedeRepositorio.AddTelefone(item);
+            }
 
             await _hospedeRepositorio.Insert(hospede);
 

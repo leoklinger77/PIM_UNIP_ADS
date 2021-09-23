@@ -13,9 +13,29 @@
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="Input.NomeCompleto"></label>
+                <input asp-for="Input.NomeCompleto" class="form-control" />
+                <span asp-validation-for="Input.NomeCompleto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Cpf"></label>
+                <input asp-for="Input.Cpf" class="form-control" />
+                <span asp-validation-for="Input.Cpf" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Nascimento"></label>
+                <input asp-for="Input.Nascimento" class="form-control" />
+                <span asp-validation-for="Input.Nascimento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Input.Email"></label>
                 <input asp-for="Input.Email" class="form-control" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Celular"></label>
+                <input asp-for="Input.Celular" class="form-control" />
+                <span asp-validation-for="Input.Celular" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.Password"></label>

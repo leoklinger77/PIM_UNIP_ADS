@@ -13,6 +13,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using UnipPim.Hotel.Dominio.Interfaces;
+using UnipPim.Hotel.Dominio.Interfaces.Servicos;
+using UnipPim.Hotel.Dominio.Models;
+using UnipPim.Hotel.Dominio.Models.Enum;
+using UnipPim.Hotel.Extensions.DataAnnotations;
 
 namespace UnipPim.Hotel.Areas.Identity.Pages.Account
 {
@@ -24,16 +29,23 @@ namespace UnipPim.Hotel.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
+        private readonly IHospedeServico _hospedeServico;
+        private readonly INotificacao _notificacao;
+
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IHospedeServico hospedeServico,
+            INotificacao notificacao)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _hospedeServico = hospedeServico;
+            _notificacao = notificacao;
         }
 
         [BindProperty]
@@ -60,6 +72,26 @@ namespace UnipPim.Hotel.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required(ErrorMessage = "O campo {0} é obrigatório.")]
+            [Display(Name = "Nome Completo")]
+            [NomeCompleto]
+            public string NomeCompleto { get; set; }
+
+            [Required(ErrorMessage = "O campo {0} é obrigatório.")]
+            [StringLength(11, ErrorMessage = "O campo {0} deve conter {1} números", MinimumLength = 11)]
+            [Cpf]
+            public string Cpf { get; set; }
+
+            [Required(ErrorMessage = "O campo {0} é obrigatório.")]
+            [Nascimento]
+            public DateTime Nascimento { get; set; }
+
+            [Required(ErrorMessage = "O campo {0} é obrigatório.")]
+            [StringLength(11, ErrorMessage = "O campo {0} deve conter {1} números", MinimumLength = 11)]
+            [Display(Name = "Telefone Celular")]
+            [Celular]
+            public string Celular { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -78,7 +110,7 @@ namespace UnipPim.Hotel.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    if (!await CadastrarHospede(user)) return Page();                   
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -91,15 +123,9 @@ namespace UnipPim.Hotel.Areas.Identity.Pages.Account
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    }
-                    else
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
-                    }
+
+                    return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+
                 }
                 foreach (var error in result.Errors)
                 {
@@ -107,8 +133,33 @@ namespace UnipPim.Hotel.Areas.Identity.Pages.Account
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return Page();
+        }
+
+
+        private async Task<bool> CadastrarHospede(IdentityUser user)
+        {
+
+            var newHospede = new Hospede(Input.NomeCompleto, Input.Cpf, Input.Nascimento);
+            newHospede.AddEmail(new Email(Input.Email, EmailTipo.PESSOAL));
+            newHospede.AddTelefone(new Telefone(Input.Celular.Substring(0,2), Input.Celular.Substring(2), TelefoneTipo.CELULAR));
+
+            await _hospedeServico.Insert(newHospede);
+
+            if (_notificacao.ContemErros())
+            {
+
+                foreach (var item in _notificacao.Erros())
+                {
+                    ModelState.AddModelError(string.Empty, item);
+                }
+
+                await _userManager.DeleteAsync(user);
+
+                return false;
+            }
+
+            return true;
         }
     }
 }

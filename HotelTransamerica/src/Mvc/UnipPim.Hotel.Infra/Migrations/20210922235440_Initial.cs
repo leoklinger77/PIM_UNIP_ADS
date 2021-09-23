@@ -37,6 +37,20 @@ namespace UnipPim.Hotel.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TB_GrupoFuncionario",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    InsertDate = table.Column<DateTime>(nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: true),
+                    Nome = table.Column<string>(type: "varchar(100)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TB_GrupoFuncionario", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TB_Hospede",
                 columns: table => new
                 {
@@ -50,29 +64,6 @@ namespace UnipPim.Hotel.Infra.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TB_Hospede", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TB_Funcionario",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    InsertDate = table.Column<DateTime>(nullable: false),
-                    UpdateDate = table.Column<DateTime>(nullable: true),
-                    CargoId = table.Column<Guid>(nullable: false),
-                    NomeCompleto = table.Column<string>(type: "varchar(255)", nullable: false),
-                    Cpf = table.Column<string>(type: "varchar(11)", nullable: false),
-                    Nascimento = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TB_Funcionario", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TB_Funcionario_TB_Cargo_CargoId",
-                        column: x => x.CargoId,
-                        principalTable: "TB_Cargo",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -92,6 +83,81 @@ namespace UnipPim.Hotel.Infra.Migrations
                         name: "FK_TB_Cidade_TB_Estado_EstadoId",
                         column: x => x.EstadoId,
                         principalTable: "TB_Estado",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TB_Acesso",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    InsertDate = table.Column<DateTime>(nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: true),
+                    ClaimType = table.Column<string>(type: "varchar(50)", nullable: false),
+                    ClaimValue = table.Column<string>(type: "varchar(255)", nullable: false),
+                    GrupoFuncionarioId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TB_Acesso", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TB_Acesso_TB_GrupoFuncionario_GrupoFuncionarioId",
+                        column: x => x.GrupoFuncionarioId,
+                        principalTable: "TB_GrupoFuncionario",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TB_Funcionario",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    InsertDate = table.Column<DateTime>(nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: true),
+                    CargoId = table.Column<Guid>(nullable: false),
+                    GrupoFuncionarioId = table.Column<Guid>(nullable: false),
+                    NomeCompleto = table.Column<string>(type: "varchar(255)", nullable: false),
+                    Cpf = table.Column<string>(type: "varchar(11)", nullable: false),
+                    Nascimento = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TB_Funcionario", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TB_Funcionario_TB_Cargo_CargoId",
+                        column: x => x.CargoId,
+                        principalTable: "TB_Cargo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TB_Funcionario_TB_GrupoFuncionario_GrupoFuncionarioId",
+                        column: x => x.GrupoFuncionarioId,
+                        principalTable: "TB_GrupoFuncionario",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TB_Dependente",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    InsertDate = table.Column<DateTime>(nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: true),
+                    NomeCompleto = table.Column<string>(type: "varchar(255)", nullable: false),
+                    Cpf = table.Column<string>(type: "varchar(11)", nullable: false),
+                    Nascimento = table.Column<DateTime>(nullable: false),
+                    ResponsavelId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TB_Dependente", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TB_Dependente_TB_Hospede_ResponsavelId",
+                        column: x => x.ResponsavelId,
+                        principalTable: "TB_Hospede",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -119,36 +185,6 @@ namespace UnipPim.Hotel.Infra.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_TB_Email_TB_Hospede_HospedeId",
-                        column: x => x.HospedeId,
-                        principalTable: "TB_Hospede",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TB_Telefone",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    InsertDate = table.Column<DateTime>(nullable: false),
-                    UpdateDate = table.Column<DateTime>(nullable: true),
-                    Ddd = table.Column<string>(type: "char(2)", nullable: false),
-                    Numero = table.Column<string>(type: "varchar(9)", nullable: false),
-                    TelefoneTipo = table.Column<int>(nullable: false),
-                    FuncionarioId = table.Column<Guid>(nullable: true),
-                    HospedeId = table.Column<Guid>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TB_Telefone", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TB_Telefone_TB_Funcionario_FuncionarioId",
-                        column: x => x.FuncionarioId,
-                        principalTable: "TB_Funcionario",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_TB_Telefone_TB_Hospede_HospedeId",
                         column: x => x.HospedeId,
                         principalTable: "TB_Hospede",
                         principalColumn: "Id",
@@ -195,10 +231,50 @@ namespace UnipPim.Hotel.Infra.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TB_Telefone",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    InsertDate = table.Column<DateTime>(nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: true),
+                    Ddd = table.Column<string>(type: "char(2)", nullable: false),
+                    Numero = table.Column<string>(type: "varchar(9)", nullable: false),
+                    TelefoneTipo = table.Column<int>(nullable: false),
+                    FuncionarioId = table.Column<Guid>(nullable: true),
+                    HospedeId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TB_Telefone", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TB_Telefone_TB_Funcionario_FuncionarioId",
+                        column: x => x.FuncionarioId,
+                        principalTable: "TB_Funcionario",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TB_Telefone_TB_Hospede_HospedeId",
+                        column: x => x.HospedeId,
+                        principalTable: "TB_Hospede",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TB_Acesso_GrupoFuncionarioId",
+                table: "TB_Acesso",
+                column: "GrupoFuncionarioId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_TB_Cidade_EstadoId",
                 table: "TB_Cidade",
                 column: "EstadoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TB_Dependente_ResponsavelId",
+                table: "TB_Dependente",
+                column: "ResponsavelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TB_Email_FuncionarioId",
@@ -231,6 +307,11 @@ namespace UnipPim.Hotel.Infra.Migrations
                 column: "CargoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TB_Funcionario_GrupoFuncionarioId",
+                table: "TB_Funcionario",
+                column: "GrupoFuncionarioId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TB_Telefone_FuncionarioId",
                 table: "TB_Telefone",
                 column: "FuncionarioId");
@@ -243,6 +324,12 @@ namespace UnipPim.Hotel.Infra.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "TB_Acesso");
+
+            migrationBuilder.DropTable(
+                name: "TB_Dependente");
+
             migrationBuilder.DropTable(
                 name: "TB_Email");
 
@@ -266,6 +353,9 @@ namespace UnipPim.Hotel.Infra.Migrations
 
             migrationBuilder.DropTable(
                 name: "TB_Cargo");
+
+            migrationBuilder.DropTable(
+                name: "TB_GrupoFuncionario");
         }
     }
 }

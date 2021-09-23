@@ -7,11 +7,15 @@ namespace UnipPim.Hotel.Dominio.Models
     public class Funcionario : Entity, IAggregateRoot
     {
         public Guid CargoId { get; private set; }
-
+        public Guid GrupoFuncionarioId { get; set; }
         public string NomeCompleto { get; private set; }
         public string Cpf { get; private set; }
         public DateTime Nascimento { get; private set; }
+        
         public Cargo Cargo { get; private set; }
+
+        public GrupoFuncionario GrupoFuncionario { get; set; }
+        
 
         private List<Email> _emails = new List<Email>();
         private List<Telefone> _telefones = new List<Telefone>();

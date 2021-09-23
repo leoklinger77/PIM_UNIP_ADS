@@ -14,7 +14,7 @@
 <body>
 
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" asp-action="Index" asp-controller="Home" asp-area="Administracao">Hotel TransAmerica</a>
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" asp-action="Index" asp-controller="Home" asp-area="">Hotel TransAmerica</a>
 
         <input class="form-control form-control-dark w-30" type="text" placeholder="Pesquisar" aria-label="Search">
         <div class="navbar-nav">
@@ -28,7 +28,8 @@
         <div class="row">
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
                 <div class="position-sticky pt-3">
-                    <ul class="nav flex-column">
+                    <ul class="nav flex-column">                       
+
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" asp-action="Index" asp-controller="Home" asp-area="Administracao">
                                 <span data-feather="home"></span>
@@ -50,7 +51,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" asp-action="Index" asp-controller="GrupoFuncionario" asp-area="Administracao">
                                 <span data-feather="users"></span>
                                 Grupo de Usuarios
                             </a>

@@ -13,10 +13,12 @@ namespace UnipPim.Hotel.Dominio.Models
         private List<Email> _emails = new List<Email>();
         private List<Telefone> _telefones = new List<Telefone>();
         private List<Endereco> _enderecos = new List<Endereco>();
+        private List<Dependente> _dependentes = new List<Dependente>();
 
         public IReadOnlyCollection<Email> Emails => _emails;
         public IReadOnlyCollection<Telefone> Telefones => _telefones;
         public IReadOnlyCollection<Endereco> Enderecos => _enderecos;
+        public IReadOnlyCollection<Dependente> Dependentes => _dependentes;
 
         protected Hospede() { }
 

@@ -10,7 +10,7 @@ using UnipPim.Hotel.Infra.Data;
 namespace UnipPim.Hotel.Infra.Migrations
 {
     [DbContext(typeof(HotelContext))]
-    [Migration("20210922165137_Initial")]
+    [Migration("20210922235440_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,36 @@ namespace UnipPim.Hotel.Infra.Migrations
                 .HasAnnotation("ProductVersion", "3.1.19")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Acesso", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ClaimType")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("ClaimValue")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<Guid?>("GrupoFuncionarioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GrupoFuncionarioId");
+
+                    b.ToTable("TB_Acesso");
+                });
 
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Cargo", b =>
                 {
@@ -66,6 +96,39 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.HasIndex("EstadoId");
 
                     b.ToTable("TB_Cidade");
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Dependente", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Cpf")
+                        .IsRequired()
+                        .HasColumnType("varchar(11)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Nascimento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NomeCompleto")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<Guid>("ResponsavelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResponsavelId");
+
+                    b.ToTable("TB_Dependente");
                 });
 
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Email", b =>
@@ -192,6 +255,9 @@ namespace UnipPim.Hotel.Infra.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(11)");
 
+                    b.Property<Guid>("GrupoFuncionarioId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("InsertDate")
                         .HasColumnType("datetime2");
 
@@ -209,7 +275,30 @@ namespace UnipPim.Hotel.Infra.Migrations
 
                     b.HasIndex("CargoId");
 
+                    b.HasIndex("GrupoFuncionarioId");
+
                     b.ToTable("TB_Funcionario");
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.GrupoFuncionario", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TB_GrupoFuncionario");
                 });
 
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Hospede", b =>
@@ -278,11 +367,26 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.ToTable("TB_Telefone");
                 });
 
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Acesso", b =>
+                {
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.GrupoFuncionario", null)
+                        .WithMany("Acesso")
+                        .HasForeignKey("GrupoFuncionarioId");
+                });
+
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Cidade", b =>
                 {
                     b.HasOne("UnipPim.Hotel.Dominio.Models.Estado", "Estado")
                         .WithMany("Cidades")
                         .HasForeignKey("EstadoId")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Dependente", b =>
+                {
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Hospede", "Responsabel")
+                        .WithMany("Dependentes")
+                        .HasForeignKey("ResponsavelId")
                         .IsRequired();
                 });
 
@@ -318,6 +422,11 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.HasOne("UnipPim.Hotel.Dominio.Models.Cargo", "Cargo")
                         .WithMany("Funcionarios")
                         .HasForeignKey("CargoId")
+                        .IsRequired();
+
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.GrupoFuncionario", "GrupoFuncionario")
+                        .WithMany("Funcionarios")
+                        .HasForeignKey("GrupoFuncionarioId")
                         .IsRequired();
                 });
 

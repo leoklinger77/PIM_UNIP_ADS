@@ -11,12 +11,19 @@ namespace UnipPim.Hotel.Configuration
         {
             CreateMap<CargoViewModel, Cargo>().ReverseMap();
             CreateMap<FuncionarioViewModel, Funcionario>().ReverseMap();
+            
             CreateMap<Endereco, EnderecoViewModel>()
                .ForMember(dest => dest.Estado, opt => opt.MapFrom(x => x.Cidade.Estado.Nome))
-               .ForMember(dest => dest.Cidade, opt => opt.MapFrom(x => x.Cidade.Nome));
+               .ForMember(dest => dest.Cidade, opt => opt.MapFrom(x => x.Cidade.Nome));           
 
+            CreateMap<GrupoFuncionarioViewModel, GrupoFuncionario>().ReverseMap();
+            CreateMap<AcessoViewModel, Acesso>().ReverseMap();
+
+            //Paginacao
             CreateMap<PaginacaoViewModel<FuncionarioViewModel>, Paginacao<Funcionario>>().ReverseMap();
             CreateMap<PaginacaoViewModel<CargoViewModel>, Paginacao<Cargo>>().ReverseMap();
+            CreateMap<PaginacaoViewModel<GrupoFuncionarioViewModel>, Paginacao<GrupoFuncionario>>().ReverseMap();
+
         }
     }
 }
