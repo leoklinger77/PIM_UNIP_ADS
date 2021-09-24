@@ -13,7 +13,7 @@ namespace UnipPim.Hotel.Configuration
             CreateMap<FuncionarioViewModel, Funcionario>().ReverseMap();
             
             CreateMap<Endereco, EnderecoViewModel>()
-               .ForMember(dest => dest.Estado, opt => opt.MapFrom(x => x.Cidade.Estado.Nome))
+               .ForMember(dest => dest.Estado, opt => opt.MapFrom(x => x.Cidade.Estado.Uf))
                .ForMember(dest => dest.Cidade, opt => opt.MapFrom(x => x.Cidade.Nome));           
 
             CreateMap<GrupoFuncionarioViewModel, GrupoFuncionario>().ReverseMap();
