@@ -82,9 +82,16 @@ namespace UnipPim.Hotel.Dominio.Servicos
             await Task.CompletedTask;
         }
 
-        public async Task Delete(GrupoFuncionario entity)
+        public async Task Delete(Guid id)
         {
-            await _grupoFuncionarioRepositorio.Delete(entity);
+            var result =  await ObterPorId(id);
+
+            if(result == null)
+            {
+                return;
+            }
+
+            await _grupoFuncionarioRepositorio.Delete(result);
 
             await _grupoFuncionarioRepositorio.SaveChanges();
 

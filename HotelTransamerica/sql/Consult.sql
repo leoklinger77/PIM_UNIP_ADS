@@ -17,4 +17,10 @@ select * from TB_Hospede
 select * from Tb_Hospede
 
 delete AspNetUsers where id = '13045259-43e0-419b-a7e2-43f73df2b43c'
-delete Tb_Hospede where id = 'BFBFC4EA-11EB-44FD-9EBF-A56B663F53AA'
+delete TB_Quarto where id = 'BFBFC4EA-11EB-44FD-9EBF-A56B663F53AA'
+
+select * from TB_Cama
+select * from TB_Quarto
+
+
+delete TB_Quarto 

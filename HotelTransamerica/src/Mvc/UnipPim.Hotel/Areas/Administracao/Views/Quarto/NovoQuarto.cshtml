@@ -1,0 +1,110 @@
+﻿@model QuartoViewModel
+
+@{
+    ViewData["Title"] = "NovoQuarto";
+}
+
+<h1>NovoQuarto</h1>
+
+<h4>Quarto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="NovoQuarto">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Televisor" /> @Html.DisplayNameFor(model => model.Televisor)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Hidromassagem" /> @Html.DisplayNameFor(model => model.Hidromassagem)
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NumeroQuarto" class="control-label"></label>
+                <input asp-for="NumeroQuarto" class="form-control" />
+                <span asp-validation-for="NumeroQuarto" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label asp-for="CamaTipoUm" class="control-label"></label>
+                    <select asp-for="CamaTipoUm" class="form-select">
+                        <option></option>
+                        <option value="1">Casal</option>
+                        <option value="2">Solteiro</option>
+                        <option value="3">Beliche</option>
+                    </select>
+                    <span asp-validation-for="CamaTipoUm" class="text-danger"></span>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label asp-for="QuantidadeCamaUm" class="control-label"></label>
+                    <input asp-for="QuantidadeCamaUm" class="form-control" />
+                    <span asp-validation-for="QuantidadeCamaUm" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group  col-sm-6">
+                    <label asp-for="CamaTipoDois" class="control-label"></label>
+                    <select asp-for="CamaTipoDois" class="form-select">
+                        <option value="0"></option>
+                        <option value="1">Casal</option>
+                        <option value="2">Solteiro</option>
+                        <option value="3">Beliche</option>
+                    </select>
+                    <span asp-validation-for="CamaTipoDois" class="text-danger"></span>
+                </div>
+                <div class="form-group  col-sm-6">
+                    <label asp-for="QuantidadeCamaDois" class="control-label"></label>
+                    <input asp-for="QuantidadeCamaDois" class="form-control" />
+                    <span asp-validation-for="QuantidadeCamaDois" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label asp-for="CamaTipoTres" class="control-label"></label>
+                    <select asp-for="CamaTipoTres" class="form-select">
+                        <option value="0"></option>
+                        <option value="1">Casal</option>
+                        <option value="2">Solteiro</option>
+                        <option value="3">Beliche</option>
+                    </select>
+                    <span asp-validation-for="CamaTipoTres" class="text-danger"></span>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label asp-for="QuantidadeCamaTres" class="control-label"></label>
+                    <input asp-for="QuantidadeCamaTres" class="form-control" type="number" />
+                    <span asp-validation-for="QuantidadeCamaTres" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Descricao" class="control-label"></label>
+                <textarea asp-for="Descricao" class="form-control"></textarea>
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Criar" class="btn btn-primary" />
+                <a class="btn btn-outline-info" asp-action="Index">Voltar para lista</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

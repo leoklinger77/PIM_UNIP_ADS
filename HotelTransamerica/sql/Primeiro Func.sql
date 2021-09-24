@@ -35,6 +35,8 @@ insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Cargo','H
 insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Funcionario','Home, Novo, Editar, Detalhes, Deletar')
 insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Hospede','Home, Novo, Editar, Detalhes, Deletar')
 insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','GrupoFuncionario','Home, Novo, Editar, Detalhes, Deletar')
+insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Quarto','Home, Novo, Editar, Detalhes, Deletar')
+insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Anuncio','Home, Novo, Editar, Detalhes, Deletar')
 
 /*
 	

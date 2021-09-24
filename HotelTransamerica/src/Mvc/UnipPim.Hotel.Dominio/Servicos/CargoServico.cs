@@ -24,9 +24,14 @@ namespace UnipPim.Hotel.Dominio.Servicos
             return await _cargoRepositorio.ObterTodos();
         }
 
-        public Task<Cargo> ObterPorId(Guid id)
+        public async Task<Cargo> ObterPorId(Guid id)
         {
-            return _cargoRepositorio.ObterPorId(id);
+            var result = await _cargoRepositorio.ObterPorId(id);
+            if(result == null)
+            {
+                Notificar("Cargo não encontrado.");
+            }
+            return result;
         }
 
         public async Task<Paginacao<Cargo>> PaginacaoListaCargo(int page, int size, string query)

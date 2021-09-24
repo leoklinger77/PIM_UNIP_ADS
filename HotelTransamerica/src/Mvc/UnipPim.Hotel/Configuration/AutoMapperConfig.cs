@@ -18,11 +18,15 @@ namespace UnipPim.Hotel.Configuration
 
             CreateMap<GrupoFuncionarioViewModel, GrupoFuncionario>().ReverseMap();
             CreateMap<AcessoViewModel, Acesso>().ReverseMap();
+            CreateMap<CamaViewModel, Cama>().ReverseMap();
+            CreateMap<QuartoViewModel, Quarto>().ReverseMap();
+
 
             //Paginacao
             CreateMap<PaginacaoViewModel<FuncionarioViewModel>, Paginacao<Funcionario>>().ReverseMap();
             CreateMap<PaginacaoViewModel<CargoViewModel>, Paginacao<Cargo>>().ReverseMap();
             CreateMap<PaginacaoViewModel<GrupoFuncionarioViewModel>, Paginacao<GrupoFuncionario>>().ReverseMap();
+            CreateMap<PaginacaoViewModel<QuartoViewModel>, Paginacao<Quarto>>().ReverseMap();
 
         }
     }

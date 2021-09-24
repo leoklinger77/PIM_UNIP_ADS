@@ -21,7 +21,12 @@ namespace UnipPim.Hotel.Dominio.Servicos
 
         public async Task<Funcionario> ObterPorId(Guid id)
         {
-            return await _funcionarioRepositorio.ObterPorId(id);
+            var result = await _funcionarioRepositorio.ObterPorId(id);
+            if (result == null)
+            {
+                Notificar("Funcionario não encontrado.");
+            }
+            return result;
         }
 
         public async Task<Paginacao<Funcionario>> PaginacaoListaFuncionario(int page, int size, string query)
@@ -31,44 +36,26 @@ namespace UnipPim.Hotel.Dominio.Servicos
 
         public async Task Insert(Funcionario funcionario)
         {
-            if (!IniciarValidacao(new FuncionarioValidation(), funcionario)) return;
-
-            if (await _funcionarioRepositorio.Find(x => x.Cpf == funcionario.Cpf) != null)
-            {
-                Notificar("Cpf já cadastrado.");
-                return;
-            }
-
-            foreach (var item in funcionario.Emails)
-            {
-                if (!IniciarValidacao(new EmailValidation(), item)) return;
-                await _funcionarioRepositorio.AddEmail(item);
-            }
-
-            foreach (var item in funcionario.Telefones)
-            {
-                if (!IniciarValidacao(new TelefoneValidation(), item)) return;
-                await _funcionarioRepositorio.AddTelefone(item);
-            }
-
-            foreach (var item in funcionario.Enderecos)
-            {
-                if (!IniciarValidacao(new EnderecoValidation(), item)) return;
-                await _funcionarioRepositorio.AddEndereco(item);
-            }
+            if (await ValidaFuncionario(funcionario)) return;
 
             await _funcionarioRepositorio.Insert(funcionario);
+            await _funcionarioRepositorio.AddTelefone(funcionario.Telefones);
+            await _funcionarioRepositorio.AddEndereco(funcionario.Enderecos);
+            await _funcionarioRepositorio.AddEmail(funcionario.Emails);
 
             await _funcionarioRepositorio.SaveChanges();
-            
+
             await Task.CompletedTask;
         }
 
         public async Task Update(Funcionario funcionario)
         {
-            if (!IniciarValidacao(new FuncionarioValidation(), funcionario)) return;
+            if (await ValidaFuncionario(funcionario)) return;
 
             await _funcionarioRepositorio.Update(funcionario);
+            await _funcionarioRepositorio.UpdateTelefone(funcionario.Telefones);
+            await _funcionarioRepositorio.UpdateEndereco(funcionario.Enderecos);
+            await _funcionarioRepositorio.UpdateEmail(funcionario.Emails);
 
             await _funcionarioRepositorio.SaveChanges();
 
@@ -80,24 +67,38 @@ namespace UnipPim.Hotel.Dominio.Servicos
             //TODO Validações de Chave Estrangeira do funcionario - se houve em outra tabela não pode ser deletado.
 
             await _funcionarioRepositorio.Delete(funcionario);
-            foreach (var item in funcionario.Emails)
-            {
-                await _funcionarioRepositorio.DeleteEmail(item);
-            }
-
-            foreach (var item in funcionario.Telefones)
-            {
-                await _funcionarioRepositorio.DeleteTelefone(item);
-            }
-
-            foreach (var item in funcionario.Enderecos)
-            {                
-                await _funcionarioRepositorio.DeleteEndereco(item);
-            }
-
+            await _funcionarioRepositorio.DeleteEmail(funcionario.Emails);
+            await _funcionarioRepositorio.DeleteTelefone(funcionario.Telefones);
+            await _funcionarioRepositorio.DeleteEndereco(funcionario.Enderecos);
             await _funcionarioRepositorio.SaveChanges();
 
             await Task.CompletedTask;
+        }
+
+        private async Task<bool> ValidaFuncionario(Funcionario funcionario)
+        {
+            var fundDb = await _funcionarioRepositorio.Find(x => x.Cpf == funcionario.Cpf);
+            if (fundDb != null)
+            {
+                if (fundDb.Id != funcionario.Id)
+                {
+                    Notificar("Cpf já cadastrado.");
+                    return false;
+                }
+            }
+
+            if (!IniciarValidacao(new FuncionarioValidation(), funcionario)) return false;
+
+            foreach (var item in funcionario.Emails)
+                if (!IniciarValidacao(new EmailValidation(), item)) return false;
+
+            foreach (var item in funcionario.Telefones)
+                if (!IniciarValidacao(new TelefoneValidation(), item)) return false;
+
+            foreach (var item in funcionario.Enderecos)
+                if (!IniciarValidacao(new EnderecoValidation(), item)) return false;
+
+            return true;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace UnipPim.Hotel.Dominio.Interfaces
     {
         Task Insert(T entity);              
         Task Update(T entity);
-        Task Delete(T entity);
+        Task Delete(Guid id);
         Task<T> ObterPorId(Guid id);
     }
 }

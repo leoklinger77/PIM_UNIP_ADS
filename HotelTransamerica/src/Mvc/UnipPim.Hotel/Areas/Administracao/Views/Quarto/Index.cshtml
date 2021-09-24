@@ -1,0 +1,53 @@
+﻿@model PaginacaoViewModel<QuartoViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="NovoQuarto">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Número do quarto
+            </th>
+            <th>
+                Televisor
+            </th>
+            <th>
+                Hidromassagem
+            </th>
+            <th>
+                Ocupado
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.List) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroQuarto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Televisor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hidromassagem)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ocupado)
+            </td>
+            <td>
+                <a asp-action="EditarQuarto" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="DetalhesQuarto" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="DeleteQuarto" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

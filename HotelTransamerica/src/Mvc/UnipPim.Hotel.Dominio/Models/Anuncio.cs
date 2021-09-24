@@ -8,10 +8,10 @@ namespace UnipPim.Hotel.Dominio.Models
     {
         public Guid FuncionarioId { get; private set; }
         public Guid QuartoId { get; private set; }
+        public string Nome { get; private set; }
         public bool Ativo { get; private set; }
         public int Quantidade { get; private set; }
         public decimal Custo { get; private set; }
-
         public Funcionario Funcionario { get; private set; }
         public Quarto Quarto { get; private set; }
 
@@ -20,11 +20,17 @@ namespace UnipPim.Hotel.Dominio.Models
 
         public Anuncio() { }
 
-        public Anuncio(bool ativo, int quantidade, decimal custo)
+        public Anuncio(string nome, bool ativo, int quantidade, decimal custo)
         {
+            Nome = nome;
             Ativo = ativo;
             Quantidade = quantidade;
-            Custo = custo;
+            Custo = custo;            
+        }
+
+        public void SetNome(string nome)
+        {
+            Nome = nome;
         }
 
         public void AddFoto(Foto fotos)

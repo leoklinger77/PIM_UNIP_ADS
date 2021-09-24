@@ -2,9 +2,9 @@
 
 namespace UnipPim.Hotel.Dominio.Models.Validacoes
 {
-    public class CargoValidation : AbstractValidator<Cargo>
+    public class AnuncioValidation : AbstractValidator<Anuncio>
     {
-        public CargoValidation()
+        public AnuncioValidation()
         {
             RuleFor(x => x.Id)
                 .NotEqual(System.Guid.Empty)
@@ -12,8 +12,8 @@ namespace UnipPim.Hotel.Dominio.Models.Validacoes
 
             RuleFor(x => x.Nome)
                 .NotEmpty()
-                .WithMessage("O campo Nome é obrigatório.")
-                .Length(2, 100).WithMessage("O campo Nome precisa ter entre 2 e 100 caracteres");
+                .WithMessage("O campo ClaimType é obrigatório.")
+                .Length(1, 50).WithMessage("O campo ClaimType precisa ter entre 1 e 50 caracteres");            
         }
     }
 }
