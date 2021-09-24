@@ -222,7 +222,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         private async Task<bool> CriarLoginFuncionario(string email, Guid grupoFuncionario)
         {
             var user = new IdentityUser { UserName = email, Email = email, EmailConfirmed = false };
-            var password = CodeGeneretor.GerarSenha(10);
+            var password = CodeGeneretor.GerarSenha(20);
             var result = await _userManager.CreateAsync(user, password);
             if (result.Succeeded)
             {

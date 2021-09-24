@@ -36,7 +36,7 @@ namespace UnipPim.Hotel.Dominio.Servicos
 
         public async Task Insert(Funcionario funcionario)
         {
-            if (await ValidaFuncionario(funcionario)) return;
+            if (!await ValidaFuncionario(funcionario)) return;
 
             await _funcionarioRepositorio.Insert(funcionario);
             await _funcionarioRepositorio.AddTelefone(funcionario.Telefones);
@@ -50,7 +50,7 @@ namespace UnipPim.Hotel.Dominio.Servicos
 
         public async Task Update(Funcionario funcionario)
         {
-            if (await ValidaFuncionario(funcionario)) return;
+            if (!await ValidaFuncionario(funcionario)) return;
 
             await _funcionarioRepositorio.Update(funcionario);
             await _funcionarioRepositorio.UpdateTelefone(funcionario.Telefones);
