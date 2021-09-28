@@ -1,26 +1,42 @@
-select * from TB_Cargo
+select * from HotelTransamerica..TB_Cargo
 
-select * from TB_Funcionario
-select * from TB_Email
-select * from TB_Telefone
-select * from TB_Endereco
-select * from AspNetUsers
-select * from AspNetUserClaims
+select * from HotelTransamerica..TB_Funcionario
+select * from HotelTransamerica..TB_Email
+select * from HotelTransamerica..TB_Telefone
+select * from HotelTransamerica..TB_Endereco
+select * from HotelTransamerica..AspNetUsers
+select * from HotelTransamerica..AspNetUserClaims
 
-select * from TB_GrupoFUncionario where = ''
-select * from TB_Acesso
-
-
-select * from TB_Hospede
+select * from HotelTransamerica..TB_GrupoFUncionario where = ''
+select * from HotelTransamerica..TB_Acesso
 
 
-select * from Tb_Hospede
-
-delete AspNetUsers where id = '13045259-43e0-419b-a7e2-43f73df2b43c'
-delete TB_Quarto where id = 'BFBFC4EA-11EB-44FD-9EBF-A56B663F53AA'
-
-select * from TB_Cama
-select * from TB_Quarto
+select * from HotelTransamerica..TB_Hospede
 
 
-delete TB_Quarto 
+select * from HotelTransamerica..Tb_Hospede
+
+delete HotelTransamerica..AspNetUsers where id = '13045259-43e0-419b-a7e2-43f73df2b43c'
+delete HotelTransamerica..TB_Quarto where id = 'BFBFC4EA-11EB-44FD-9EBF-A56B663F53AA'
+
+select * from HotelTransamerica..TB_Cama
+select * from HotelTransamerica..TB_Quarto
+
+
+delete HotelTransamerica..TB_Quarto 
+
+
+select * from HotelTransamerica..AspNetUsers
+select * from HotelTransamerica..TB_Funcionario
+select * from HotelTransamerica..TB_Anuncio
+
+
+
+update HotelTransamerica..AspNetUsers Set Id = '3dadf95f-27d4-45ce-a6f0-8cd5e0e7c8ef'
+
+
+delete HotelTransamerica..AspNetUsers where Id = '3dadf95f-27d4-45ce-a6f0-8cd5e0e7c8ef'
+
+
+select * from HotelTransamerica..TB_Anuncio
+select * from HotelTransamerica..TB_Foto

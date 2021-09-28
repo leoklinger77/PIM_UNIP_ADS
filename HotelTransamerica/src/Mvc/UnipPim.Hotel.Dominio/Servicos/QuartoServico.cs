@@ -61,17 +61,36 @@ namespace UnipPim.Hotel.Dominio.Servicos
 
         public async Task Update(Quarto entity)
         {
-            if (!IniciarValidacao(new QuartoValidation(), entity)) return;
-
-            var quartoDb = await _quartoRepositorio.Find(x => x.NumeroQuarto == entity.NumeroQuarto);
+            var quartoDb = await _quartoRepositorio.ObterPorId(entity.Id);
             if (quartoDb != null && quartoDb.Id != entity.Id)
             {
                 Notificar("Número do quarto já existe.");
                 return;
-            }
+            }   
+            if (!IniciarValidacao(new QuartoValidation(), entity)) return;
+            foreach (var item in entity.Camas)           
+                if (!IniciarValidacao(new CamaValidation(), item)) return;
 
-            await _quartoRepositorio.Insert(entity);
+            
+            //Remove as camas Existentes
+            await _quartoRepositorio.DeleteRangeCama(quartoDb.Camas);
+            quartoDb.LimparListaCamas();
 
+            //Adiciona as novas camas
+            quartoDb.AddCama(entity.Camas);
+            await _quartoRepositorio.AddCama(entity.Camas);
+
+            //Set parametros
+            quartoDb.SetNome(entity.Nome);
+            quartoDb.SetHidromassagem(entity.Hidromassagem);
+            quartoDb.SetTelevisor(entity.Televisor);
+            quartoDb.SetDescricao(entity.Descricao);
+            quartoDb.SetNumeroQuarto(entity.NumeroQuarto);
+            
+
+            //Update quarto
+            await _quartoRepositorio.Update(quartoDb);
+            
             await _quartoRepositorio.SaveChanges();
 
             await Task.CompletedTask;
@@ -86,7 +105,8 @@ namespace UnipPim.Hotel.Dominio.Servicos
                 return;
             }
 
-            await _quartoRepositorio.Insert(result);
+            await _quartoRepositorio.DeleteRangeCama(result.Camas);
+            await _quartoRepositorio.Delete(result);
 
             await _quartoRepositorio.SaveChanges();
 
@@ -98,6 +118,5 @@ namespace UnipPim.Hotel.Dominio.Servicos
             _quartoRepositorio.Dispose();
         }
 
-       
     }
 }

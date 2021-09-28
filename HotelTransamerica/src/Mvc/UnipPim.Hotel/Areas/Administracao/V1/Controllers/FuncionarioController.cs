@@ -79,7 +79,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 
             if (OperacaoValida()) return View(await PopulaListaCargoEGrupos(viewModel));
 
-            if (!await CriarLoginFuncionario(viewModel.Email, viewModel.GrupoFuncionarioId))
+            if (!await CriarLoginFuncionario(newFuncionario.Id, viewModel.Email, viewModel.GrupoFuncionarioId))
             {
                 await _funcionarioServico.DeletarFuncionario(newFuncionario);
                 return View(await PopulaListaCargoEGrupos(viewModel));
@@ -152,10 +152,17 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             return View(await PopulaListaCargoEGrupos(await PopulaFuncionario(resultado)));
         }
 
+        [HttpPost("deletar-Funcionario")]
         [ClaimsAuthorize("Funcionario", "Deletar")]
-
         public async Task<IActionResult> ConfirmaDeletarFuncionario(Guid id)
         {
+            if(id == _user.UserId)
+            {
+                AddErro("Não é possivel excluir um usuario que está logado.");
+                ErrosTempData();
+                return RedirectToAction(nameof(Index));
+            }
+
             var resultado = await ObterFuncionarioPorId(id);
 
             if (OperacaoValida())
@@ -219,9 +226,9 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             return newfuncionario;
         }
 
-        private async Task<bool> CriarLoginFuncionario(string email, Guid grupoFuncionario)
+        private async Task<bool> CriarLoginFuncionario(Guid funcionarioId, string email, Guid grupoFuncionario)
         {
-            var user = new IdentityUser { UserName = email, Email = email, EmailConfirmed = false };
+            var user = new IdentityUser { UserName = email, Email = email, EmailConfirmed = false, Id = funcionarioId.ToString() };
             var password = CodeGeneretor.GerarSenha(20);
             var result = await _userManager.CreateAsync(user, password);
             if (result.Succeeded)
@@ -335,7 +342,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 
         private async Task<bool> UpdateClaimsFunciorio(string email, Guid grupoFuncionario)
         {
-            var user = await _userManager.FindByEmailAsync(email);            
+            var user = await _userManager.FindByEmailAsync(email);
             var result = await _userManager.RemoveClaimsAsync(user, await _userManager.GetClaimsAsync(user));
 
             if (result.Succeeded)

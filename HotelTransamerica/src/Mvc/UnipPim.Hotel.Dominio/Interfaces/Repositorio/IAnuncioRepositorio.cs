@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnipPim.Hotel.Dominio.Models;
 using UnipPim.Hotel.Dominio.Tools;
 
@@ -10,6 +11,7 @@ namespace UnipPim.Hotel.Dominio.Interfaces.Repositorio
 
         Task AddFoto(Foto foto);
         Task UdateFoto(Foto foto);
-        Task DeleteFoto(Foto foto);        
+        Task DeleteFoto(Foto foto);
+        Task<IEnumerable<Quarto>> ObterQuartosDisponiveis();
     }
 }

@@ -42,5 +42,39 @@ namespace UnipPim.Hotel.Dominio.Models
         {
             _camas.Add(cama);
         }
+        public void AddCama(IEnumerable<Cama> cama)
+        {
+            _camas = (List<Cama>)cama;
+        }
+
+        public void SetNome(string value)
+        {
+            Nome = value;
+        }
+
+        public void SetTelevisor(bool value)
+        {
+            Televisor = value;
+        }
+
+        public void SetHidromassagem(bool value)
+        {
+            Hidromassagem = value;
+        }
+
+        public void SetDescricao(string value)
+        {
+            Descricao = value;
+        }
+
+        public void SetNumeroQuarto(int value)
+        {
+            NumeroQuarto = value;
+        }
+
+        public void LimparListaCamas()
+        {
+            _camas.Clear();
+        }
     }
 }

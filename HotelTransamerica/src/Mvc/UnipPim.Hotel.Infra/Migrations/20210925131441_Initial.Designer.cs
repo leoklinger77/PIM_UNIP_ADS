@@ -10,8 +10,8 @@ using UnipPim.Hotel.Infra.Data;
 namespace UnipPim.Hotel.Infra.Migrations
 {
     [DbContext(typeof(HotelContext))]
-    [Migration("20210924022719_QuartoAnuncio")]
-    partial class QuartoAnuncio
+    [Migration("20210925131441_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -69,6 +69,9 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.Property<DateTime>("InsertDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Nome")
+                        .HasColumnType("varchar(255)");
+
                     b.Property<int>("Quantidade")
                         .HasColumnType("int");
 
@@ -98,6 +101,9 @@ namespace UnipPim.Hotel.Infra.Migrations
 
                     b.Property<DateTime>("InsertDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("QuaroId")
                         .HasColumnType("uniqueidentifier");
@@ -429,6 +435,15 @@ namespace UnipPim.Hotel.Infra.Migrations
 
                     b.Property<DateTime>("InsertDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("NumeroQuarto")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Ocupado")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("Televisor")
                         .HasColumnType("bit");

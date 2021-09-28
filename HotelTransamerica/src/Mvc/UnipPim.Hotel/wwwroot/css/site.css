@@ -88,3 +88,32 @@
         border-color: transparent;
         box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
     }
+
+
+
+
+﻿.imagens .btn-image-excluir {
+    width: 100%;
+    margin-bottom: 30px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.imagens div {
+    text-align: center;
+}
+
+.imagens .img-thumbnail {
+    width: 100%;
+}
+
+.input-file {
+    display: none;
+}
+
+.img-upload {
+    cursor: pointer;
+}
+
+#sidebarMenu {
+    height: 845px;
+}

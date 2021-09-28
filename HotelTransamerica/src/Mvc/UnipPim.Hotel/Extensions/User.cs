@@ -54,7 +54,7 @@ namespace UnipPim.Hotel.Extensions
             {
                 throw new ArgumentException(nameof(principal));
             }
-            var claim = principal.FindFirst("Id");
+            var claim = principal.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
             return claim?.Value;
         }
 

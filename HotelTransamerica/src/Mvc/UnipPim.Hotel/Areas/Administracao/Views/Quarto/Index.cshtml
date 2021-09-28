@@ -1,17 +1,20 @@
 ﻿@model PaginacaoViewModel<QuartoViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lista de Quartos";
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="NovoQuarto">Create New</a>
+    <a class="btn btn-outline-info" asp-action="NovoQuarto">Novo Quarto</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                Nome do quarto
+            </th>
             <th>
                 Número do quarto
             </th>
@@ -31,6 +34,9 @@
 @foreach (var item in Model.List) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.NumeroQuarto)
             </td>
             <td>
@@ -43,9 +49,9 @@
                 @Html.DisplayFor(modelItem => item.Ocupado)
             </td>
             <td>
-                <a asp-action="EditarQuarto" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="DetalhesQuarto" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="DeleteQuarto" asp-route-id="@item.Id">Delete</a>
+                <a class="btn btn-outline-info" asp-action="EditarQuarto" asp-route-id="@item.Id">Editar</a> |
+                <a class="btn btn-outline-info" asp-action="DetalhesQuarto" asp-route-id="@item.Id">Detalhes</a> |
+                <a class="btn btn-outline-info" asp-action="DeleteQuarto" asp-route-id="@item.Id">Deletar</a>
             </td>
         </tr>
 }

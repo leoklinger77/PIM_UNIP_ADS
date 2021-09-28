@@ -12,5 +12,6 @@ namespace UnipPim.Hotel.Dominio.Interfaces.Repositorio
         Task AddCama(IEnumerable<Cama> cama);
         Task UpdateCama(Cama cama);
         Task DeleteCama(Cama cama);
+        Task DeleteRangeCama(IEnumerable<Cama> cama);
     }
 }

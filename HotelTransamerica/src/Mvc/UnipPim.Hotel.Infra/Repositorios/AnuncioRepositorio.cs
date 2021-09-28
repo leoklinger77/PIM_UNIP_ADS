@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -42,6 +43,11 @@ namespace UnipPim.Hotel.Infra.Repositorios
                 PageSize = page,
                 Query = query
             };
+        }
+
+        public async Task<IEnumerable<Quarto>> ObterQuartosDisponiveis()
+        {
+            return await _hotelContext.Quarto.AsNoTracking().Where(x => x.Ocupado == false).ToListAsync();
         }
 
         public async Task<Anuncio> Find(Expression<Func<Anuncio, bool>> predicate)
@@ -92,5 +98,7 @@ namespace UnipPim.Hotel.Infra.Repositorios
         {
             _hotelContext?.DisposeAsync();
         }
+
+        
     }
 }

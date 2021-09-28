@@ -52,7 +52,10 @@ namespace UnipPim.Hotel.Infra.Repositorios
 
         public async Task<Quarto> ObterPorId(Guid id)
         {
-            return await _hotelContext.Quarto.Include(x => x.Camas).AsNoTracking().Where(x => x.Id == id).FirstOrDefaultAsync();
+            return await _hotelContext
+                .Quarto
+                .Include(x => x.Camas)
+                .AsNoTracking().Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task Insert(Quarto entity)
@@ -83,6 +86,10 @@ namespace UnipPim.Hotel.Infra.Repositorios
         {
             _hotelContext.Cama.Remove(cama);
         }
+        public async Task DeleteRangeCama(IEnumerable<Cama> cama)
+        {
+            _hotelContext.Cama.RemoveRange(cama);
+        }
 
         public async Task<int> SaveChanges()
         {
@@ -92,6 +99,5 @@ namespace UnipPim.Hotel.Infra.Repositorios
         {
             _hotelContext?.DisposeAsync();
         }
-
     }
 }

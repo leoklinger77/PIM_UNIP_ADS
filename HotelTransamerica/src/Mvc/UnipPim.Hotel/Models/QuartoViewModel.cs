@@ -31,27 +31,34 @@ namespace UnipPim.Hotel.Models
         public int NumeroQuarto { get; set; }
         public bool Ocupado { get; set; }
 
-
-        [Required(ErrorMessage = "O campo {0} é obrigatório.")]
-        [Display(Name = "Primeiro Cama")]
-        public CamaTipo CamaTipoUm { get; set; }
-        [Required(ErrorMessage = "O campo {0} é obrigatório.")]
+        //Camas
+                
+        [Display(Name = "Cama de Casal")]
+        public bool CamaCasal { get; set; }        
         [Display(Name = "Quantidade")]
-        public int QuantidadeCamaUm { get; set; }
+        public int CamaCasalQuantidade { get; set; }
 
 
-        [Display(Name = "Segunda Cama")]
-        public string CamaTipoDois { get; set; }
+        [Display(Name = "Cama de Solteiro")]
+        public bool CamaSolteiro { get; set; }
         [Display(Name = "Quantidade")]
-        public string QuantidadeCamaDois { get; set; }
+        public int CamaSolteiroQuantidade { get; set; }
         
 
-        [Display(Name = "Terceira Cama")]
-        public string CamaTipoTres { get; set; }
+        [Display(Name = "Beliche")]
+        public bool CamaBeliche { get; set; }
         [Display(Name = "Quantidade")]
-        public string QuantidadeCamaTres { get; set; }
+        public int CamaBelicheQuantidade { get; set; }
 
 
         public IEnumerable<CamaViewModel> ListaCama { get; set; }
+    }
+
+    public enum CamaTipoViewModel : int
+    {
+        Select = 0,
+        Casal = 1,
+        Solteiro = 2,
+        Beliche = 3
     }
 }

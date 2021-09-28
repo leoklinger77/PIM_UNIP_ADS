@@ -18,14 +18,16 @@ namespace UnipPim.Hotel.Dominio.Models
         private List<Foto> _Fotos = new List<Foto>();
         public IReadOnlyCollection<Foto> Fotos => _Fotos;
 
-        public Anuncio() { }
+        protected Anuncio() { }
 
-        public Anuncio(string nome, bool ativo, int quantidade, decimal custo)
+        public Anuncio(string nome, bool ativo, int quantidade, decimal custo, Guid funcionarioId, Guid quartoId)
         {
             Nome = nome;
             Ativo = ativo;
             Quantidade = quantidade;
-            Custo = custo;            
+            Custo = custo;
+            FuncionarioId = funcionarioId;
+            QuartoId = quartoId;
         }
 
         public void SetNome(string nome)
