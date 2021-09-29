@@ -29,10 +29,10 @@ namespace UnipPim.Hotel.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Não foi possível carregar o usuário com ID '{_userManager.GetUserId(User)}'.");
             }
 
-            _logger.LogInformation("User with ID '{UserId}' asked for their personal data.", _userManager.GetUserId(User));
+            _logger.LogInformation("O usuário com ID '{UserId}' solicitou seus dados pessoais.", _userManager.GetUserId(User));
 
             // Only include personal data for download
             var personalData = new Dictionary<string, string>();
@@ -46,7 +46,7 @@ namespace UnipPim.Hotel.Areas.Identity.Pages.Account.Manage
             var logins = await _userManager.GetLoginsAsync(user);
             foreach (var l in logins)
             {
-                personalData.Add($"{l.LoginProvider} external login provider key", l.ProviderKey);
+                personalData.Add($"{l.LoginProvider} chave de provedor de login externo", l.ProviderKey);
             }
 
             Response.Headers.Add("Content-Disposition", "attachment; filename=PersonalData.json");
