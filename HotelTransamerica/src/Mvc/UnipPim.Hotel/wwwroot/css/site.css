@@ -1,74 +1,119 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+﻿body {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    color: #5a5a5a;
 }
 
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+.feather {
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+
+ * Sidebar
+ 
+
+.sidebar {
+    position: fixed;
+    top: 0;
+     rtl:raw:
+  right: 0;
+  
+    bottom: 0;
+     rtl:remove 
+    left: 0;
+    z-index: 100;  Behind the navbar 
+    padding: 48px 0 0;  Height of navbar 
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+@media (max-width: 767.98px) {
+    .sidebar {
+        top: 5rem;
+    }
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto;  Scrollable contents if viewport is shorter than content. 
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+.sidebar .nav-link {
+    font-weight: 500;
+    color: #333;
 }
 
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    .sidebar .nav-link .feather {
+        margin-right: 4px;
+        color: #727272;
+    }
+
+    .sidebar .nav-link.active {
+        color: #2470dc;
+    }
+
+        .sidebar .nav-link:hover .feather,
+        .sidebar .nav-link.active .feather {
+            color: inherit;
+        }
+
+.sidebar-heading {
+    font-size: .75rem;
+    text-transform: uppercase;
 }
 
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+/*
+ * Navbar
+ */
+
+
+.navbar .navbar-toggler {
+    top: .25rem;
+    right: 1rem;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
+
+.form-control-dark {
+    color: #fff;
+    background-color: rgba(255, 255, 255, .1);
+    border-color: rgba(255, 255, 255, .1);
 }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    .form-control-dark:focus {
+        border-color: transparent;
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+    }
+
+
+
+
+﻿.imagens .btn-image-excluir {
+    width: 100%;
+    margin-bottom: 30px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
-
-
+.imagens div {
+    text-align: center;
 }
 
+.imagens .img-thumbnail {
+    width: 100%;
+}
+
+.input-file {
+    display: none;
+}
+
+.img-upload {
+    cursor: pointer;
+}
+
+#sidebarMenu {
+    height: 845px;
+}

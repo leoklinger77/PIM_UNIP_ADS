@@ -12,7 +12,7 @@ namespace UnipPim.Hotel.Configuration
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    configuration.GetConnectionString("ConnectionIdentityFuncionario")));
+                    configuration.GetConnectionString("Connection")));
 
             
 

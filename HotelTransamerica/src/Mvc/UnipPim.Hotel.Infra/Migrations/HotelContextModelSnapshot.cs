@@ -49,6 +49,73 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.ToTable("TB_Acesso");
                 });
 
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Anuncio", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Custo")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("FuncionarioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("QuartoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FuncionarioId");
+
+                    b.HasIndex("QuartoId");
+
+                    b.ToTable("TB_Anuncio");
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Cama", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CamaTipo")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("QuaroId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuaroId");
+
+                    b.ToTable("TB_Cama");
+                });
+
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Cargo", b =>
                 {
                     b.Property<Guid>("Id")
@@ -68,6 +135,26 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TB_Cargo");
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Categoria", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TB_Categoria");
                 });
 
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Cidade", b =>
@@ -240,6 +327,31 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.ToTable("TB_Estado");
                 });
 
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Foto", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AnuncioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Caminho")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnuncioId");
+
+                    b.ToTable("TB_Foto");
+                });
+
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Funcionario", b =>
                 {
                     b.Property<Guid>("Id")
@@ -327,6 +439,78 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.ToTable("TB_Hospede");
                 });
 
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Produto", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CategoriaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CodigoBarras")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("QuantidadeEstoque")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuantidadeVendida")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoriaId");
+
+                    b.ToTable("TB_Produto");
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Quarto", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<bool>("Hidromassagem")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("NumeroQuarto")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Ocupado")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Televisor")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TB_Quarto");
+                });
+
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Telefone", b =>
                 {
                     b.Property<Guid>("Id")
@@ -372,6 +556,27 @@ namespace UnipPim.Hotel.Infra.Migrations
                         .HasForeignKey("GrupoFuncionarioId");
                 });
 
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Anuncio", b =>
+                {
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Funcionario", "Funcionario")
+                        .WithMany()
+                        .HasForeignKey("FuncionarioId")
+                        .IsRequired();
+
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Quarto", "Quarto")
+                        .WithMany("Anuncios")
+                        .HasForeignKey("QuartoId")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Cama", b =>
+                {
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Quarto", "Quarto")
+                        .WithMany("Camas")
+                        .HasForeignKey("QuaroId")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Cidade", b =>
                 {
                     b.HasOne("UnipPim.Hotel.Dominio.Models.Estado", "Estado")
@@ -415,6 +620,14 @@ namespace UnipPim.Hotel.Infra.Migrations
                         .HasForeignKey("HospedeId");
                 });
 
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Foto", b =>
+                {
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Anuncio", "Anuncio")
+                        .WithMany("Fotos")
+                        .HasForeignKey("AnuncioId")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Funcionario", b =>
                 {
                     b.HasOne("UnipPim.Hotel.Dominio.Models.Cargo", "Cargo")
@@ -425,6 +638,14 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.HasOne("UnipPim.Hotel.Dominio.Models.GrupoFuncionario", "GrupoFuncionario")
                         .WithMany("Funcionarios")
                         .HasForeignKey("GrupoFuncionarioId")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Produto", b =>
+                {
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Categoria", "Categoria")
+                        .WithMany("Produtos")
+                        .HasForeignKey("CategoriaId")
                         .IsRequired();
                 });
 

@@ -1,0 +1,75 @@
+﻿@model QuartoViewModel
+
+@{
+    ViewData["Title"] = "Detalhes do Quarto";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Televisor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Televisor)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Hidromassagem)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Hidromassagem)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NumeroQuarto)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NumeroQuarto)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ocupado)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ocupado)
+        </dd>
+
+        @foreach (var item in Model.ListaCama)
+        {
+    <hr />  
+            <dt class="col-sm-2">
+                Tipo da Cama
+            </dt>
+            <dd class="col-sm-10">
+                @item.CamaTipo
+            </dd>
+
+            <dt class="col-sm-2">
+               Quantidade
+            </dt>
+            <dd class="col-sm-10">
+                @item.Quantidade
+            </dd>
+        }
+
+
+
+
+    </dl>
+</div>
+<div>
+    <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a class="btn btn-outline-info" asp-action="Index">Voltar para lista</a>
+</div>

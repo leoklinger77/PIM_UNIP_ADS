@@ -24,17 +24,23 @@ namespace UnipPim.Hotel.Configuration
             services.AddScoped<IEstadoRepositorio, EstadoRepositorio>();
             services.AddScoped<IHospedeRepositorio, HospedeRepositorio>();
             services.AddScoped<IGrupoFuncionarioRepositorio, GrupoFuncionarioRepositorio>();
+            services.AddScoped<IQuartoRepositorio, QuartoRepositorio>();
+            services.AddScoped<IAnuncioRepositorio, AnuncioRepositorio>();
+            services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
+            services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
 
             //Servicos
+            services.AddScoped<INotificacao, Noficacao>();
             services.AddScoped<IEmailSender, EnviarEmail>();
             services.AddScoped<IFuncionarioServico, FuncionarioServico>();
             services.AddScoped<ICargoServico, CargoServico>();            
             services.AddScoped<IEstadoServico, EstadoServico>();
             services.AddScoped<IHospedeServico, HospedeServico>();
             services.AddScoped<IGrupoFuncionarioServico, GrupoFuncionarioServico>();
-
-            //Notificacao
-            services.AddScoped<INotificacao, Noficacao>();
+            services.AddScoped<IQuartoServico, QuartoServico>();
+            services.AddScoped<IAnuncioServico, AnuncioServico>();
+            services.AddScoped<ICategoriaServico, CategoriaServico>();
+            services.AddScoped<IProdutoServico, ProdutoServico>();
         }
     }
 }

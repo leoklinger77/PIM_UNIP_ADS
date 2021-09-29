@@ -1,0 +1,59 @@
+﻿@model PaginacaoViewModel<QuartoViewModel>
+
+@{
+    ViewData["Title"] = "Lista de Quartos";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a class="btn btn-outline-info" asp-action="NovoQuarto">Novo Quarto</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nome do quarto
+            </th>
+            <th>
+                Número do quarto
+            </th>
+            <th>
+                Televisor
+            </th>
+            <th>
+                Hidromassagem
+            </th>
+            <th>
+                Ocupado
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.List) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroQuarto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Televisor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hidromassagem)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ocupado)
+            </td>
+            <td>
+                <a class="btn btn-outline-info" asp-action="EditarQuarto" asp-route-id="@item.Id">Editar</a> |
+                <a class="btn btn-outline-info" asp-action="DetalhesQuarto" asp-route-id="@item.Id">Detalhes</a> |
+                <a class="btn btn-outline-info" asp-action="DeleteQuarto" asp-route-id="@item.Id">Deletar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

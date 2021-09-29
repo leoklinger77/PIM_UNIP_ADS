@@ -20,12 +20,11 @@ using UnipPim.Hotel.Dominio.Models.Enum;
 using UnipPim.Hotel.Dominio.Tools;
 using UnipPim.Hotel.Extensions.Midleware;
 using UnipPim.Hotel.Models;
-using X.PagedList;
 
 namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 {
     [Authorize]
-    [ClaimsAuthorize("Funcionario", "Home")]
+    [ClaimsAutorizacao("Funcionario", "Home")]
     [Area("Administracao")]
     [Route("Administracao/[controller]")]
     public class FuncionarioController : MainController
@@ -63,12 +62,14 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpGet("novo-Funcionario")]
+        [ClaimsAutorizacao("Funcionario", "Novo")]
         public async Task<IActionResult> NovoFuncionario()
         {
             return View(await PopulaListaCargoEGrupos(new FuncionarioViewModel()));
         }
 
         [HttpPost("novo-Funcionario")]
+        [ClaimsAutorizacao("Funcionario", "Novo")]
         public async Task<IActionResult> NovoFuncionario(FuncionarioViewModel viewModel)
         {
             if (!ModelState.IsValid) return View(await PopulaListaCargoEGrupos(viewModel));
@@ -78,7 +79,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 
             if (OperacaoValida()) return View(await PopulaListaCargoEGrupos(viewModel));
 
-            if (!await CriarLoginFuncionario(viewModel.Email, viewModel.GrupoFuncionarioId))
+            if (!await CriarLoginFuncionario(newFuncionario.Id, viewModel.Email, viewModel.GrupoFuncionarioId))
             {
                 await _funcionarioServico.DeletarFuncionario(newFuncionario);
                 return View(await PopulaListaCargoEGrupos(viewModel));
@@ -87,6 +88,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpGet("editar-Funcionario")]
+        [ClaimsAutorizacao("Funcionario", "Editar")]
         public async Task<IActionResult> EditarFuncionario(Guid id)
         {
             var resultado = await ObterFuncionarioPorId(id);
@@ -101,6 +103,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpPost("editar-Funcionario")]
+        [ClaimsAutorizacao("Funcionario", "Editar")]
         public async Task<IActionResult> EditarFuncionario(Guid id, FuncionarioViewModel viewModel)
         {
             if (id != viewModel.Id)
@@ -116,10 +119,13 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 
             if (OperacaoValida()) return View(await PopulaListaCargoEGrupos(viewModel));
 
+            await UpdateClaimsFunciorio(viewModel.Email, viewModel.GrupoFuncionarioId);
+
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet("detalhes-Funcionario")]
+        [ClaimsAutorizacao("Funcionario", "Detalhes")]
         public async Task<IActionResult> DetalhesFuncionario(Guid id)
         {
             var resultado = await ObterFuncionarioPorId(id);
@@ -133,6 +139,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpGet("deletar-Funcionario")]
+        [ClaimsAutorizacao("Funcionario", "Deletar")]
         public async Task<IActionResult> DeletarFuncionario(Guid id)
         {
             var resultado = await ObterFuncionarioPorId(id);
@@ -146,8 +153,16 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpPost("deletar-Funcionario")]
+        [ClaimsAutorizacao("Funcionario", "Deletar")]
         public async Task<IActionResult> ConfirmaDeletarFuncionario(Guid id)
         {
+            if(id == _user.UserId)
+            {
+                AddErro("Não é possivel excluir um usuario que está logado.");
+                ErrosTempData();
+                return RedirectToAction(nameof(Index));
+            }
+
             var resultado = await ObterFuncionarioPorId(id);
 
             if (OperacaoValida())
@@ -211,10 +226,10 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             return newfuncionario;
         }
 
-        private async Task<bool> CriarLoginFuncionario(string email, Guid grupoFuncionario)
+        private async Task<bool> CriarLoginFuncionario(Guid funcionarioId, string email, Guid grupoFuncionario)
         {
-            var user = new IdentityUser { UserName = email, Email = email, EmailConfirmed = false };
-            var password = CodeGeneretor.GerarSenha(10);
+            var user = new IdentityUser { UserName = email, Email = email, EmailConfirmed = false, Id = funcionarioId.ToString() };
+            var password = CodeGeneretor.GerarSenha(20);
             var result = await _userManager.CreateAsync(user, password);
             if (result.Succeeded)
             {
@@ -257,7 +272,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
                     AddErro("User Login não encontrado.");
                     return false;
                 }
-            }           
+            }
 
             var result = await _userManager.DeleteAsync(user);
 
@@ -271,6 +286,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             }
             return false;
         }
+
         private async Task<FuncionarioViewModel> PopulaListaCargoEGrupos(FuncionarioViewModel viewModel)
         {
             viewModel.ListaCargo = _mapper.Map<IEnumerable<CargoViewModel>>(await _cargoServico.ObterTodos());
@@ -315,6 +331,23 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 
             if (result.Succeeded)
             {
+                return true;
+            }
+            foreach (var error in result.Errors)
+            {
+                AddErro(error.Description);
+            }
+            return false;
+        }
+
+        private async Task<bool> UpdateClaimsFunciorio(string email, Guid grupoFuncionario)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            var result = await _userManager.RemoveClaimsAsync(user, await _userManager.GetClaimsAsync(user));
+
+            if (result.Succeeded)
+            {
+                await CriarClaimsFunciorio(user, grupoFuncionario);
                 return true;
             }
             foreach (var error in result.Errors)

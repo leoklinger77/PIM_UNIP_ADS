@@ -13,16 +13,26 @@ namespace UnipPim.Hotel.Configuration
             CreateMap<FuncionarioViewModel, Funcionario>().ReverseMap();
             
             CreateMap<Endereco, EnderecoViewModel>()
-               .ForMember(dest => dest.Estado, opt => opt.MapFrom(x => x.Cidade.Estado.Nome))
+               .ForMember(dest => dest.Estado, opt => opt.MapFrom(x => x.Cidade.Estado.Uf))
                .ForMember(dest => dest.Cidade, opt => opt.MapFrom(x => x.Cidade.Nome));           
 
             CreateMap<GrupoFuncionarioViewModel, GrupoFuncionario>().ReverseMap();
             CreateMap<AcessoViewModel, Acesso>().ReverseMap();
+            CreateMap<CamaViewModel, Cama>().ReverseMap();
+            CreateMap<QuartoViewModel, Quarto>().ReverseMap();
+            CreateMap<AnuncioViewModel, Anuncio>().ReverseMap();
+            CreateMap<FotoViewModel, Foto>().ReverseMap();
+            CreateMap<CategoriaViewModel, Categoria>().ReverseMap();
+            CreateMap<ProdutoViewModel, Produto>().ReverseMap();
 
             //Paginacao
             CreateMap<PaginacaoViewModel<FuncionarioViewModel>, Paginacao<Funcionario>>().ReverseMap();
             CreateMap<PaginacaoViewModel<CargoViewModel>, Paginacao<Cargo>>().ReverseMap();
             CreateMap<PaginacaoViewModel<GrupoFuncionarioViewModel>, Paginacao<GrupoFuncionario>>().ReverseMap();
+            CreateMap<PaginacaoViewModel<QuartoViewModel>, Paginacao<Quarto>>().ReverseMap();
+            CreateMap<PaginacaoViewModel<AnuncioViewModel>, Paginacao<Anuncio>>().ReverseMap();
+            CreateMap<PaginacaoViewModel<CategoriaViewModel>, Paginacao<Categoria>>().ReverseMap();
+            CreateMap<PaginacaoViewModel<ProdutoViewModel>, Paginacao<Produto>>().ReverseMap();
 
         }
     }

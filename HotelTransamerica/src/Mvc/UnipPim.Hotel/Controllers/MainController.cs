@@ -41,5 +41,11 @@ namespace UnipPim.Hotel.Controllers
             }
             return false;
         }
+
+        protected IActionResult CustomView(object obj = null)
+        {
+            OperacaoValida();
+            return View(obj);
+        }
     }
 }

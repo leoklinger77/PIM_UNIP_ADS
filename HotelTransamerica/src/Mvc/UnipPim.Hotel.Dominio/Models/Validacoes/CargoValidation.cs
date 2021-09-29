@@ -8,12 +8,12 @@ namespace UnipPim.Hotel.Dominio.Models.Validacoes
         {
             RuleFor(x => x.Id)
                 .NotEqual(System.Guid.Empty)
-                .WithMessage("O campo {PropertyName} é inválido.");
+                .WithMessage("O campo Id é inválido.");
 
             RuleFor(x => x.Nome)
                 .NotEmpty()
-                .WithMessage("O campo {PropertyName} é obrigatório.")
-                .Length(2, 100).WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLength} caracteres");
+                .WithMessage("O campo Nome é obrigatório.")
+                .Length(2, 100).WithMessage("O campo Nome precisa ter entre 2 e 100 caracteres");
         }
     }
 }

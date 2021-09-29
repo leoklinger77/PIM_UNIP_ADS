@@ -1,0 +1,53 @@
+﻿@model PaginacaoViewModel<AnuncioViewModel>
+
+@{
+    ViewData["Title"] = "Lista de anuncios";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a class="btn btn-outline-info" asp-action="NovoAnuncio">Novo Anuncio</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nome
+            </th>
+            <th>
+                Ativo
+            </th>
+            <th>
+                Quantidade
+            </th>
+            <th>
+                Valor
+            </th>                        
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.List) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ativo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Custo)
+            </td>                       
+            <td>
+                <a class="btn btn-outline-info" asp-action="EditarAnuncio" asp-route-id="@item.Id">Editar</a> |
+                <a class="btn btn-outline-info" asp-action="DetalhesAnuncio" asp-route-id="@item.Id">Detalhes</a> |
+                <a class="btn btn-outline-info" asp-action="DeleteAnuncio" asp-route-id="@item.Id">Deletar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

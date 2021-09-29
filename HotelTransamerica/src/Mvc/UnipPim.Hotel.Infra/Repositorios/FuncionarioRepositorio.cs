@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -89,38 +90,38 @@ namespace UnipPim.Hotel.Infra.Repositorios
             await _context.Funcionario.AddAsync(entity);
         }
 
-        public async Task AddEmail(Email email)
+        public async Task AddEmail(IEnumerable<Email> email)
         {
-            await _context.Email.AddAsync(email);
+            
         }
 
-        public async Task AddTelefone(Telefone telefone)
+        public async Task AddTelefone(IEnumerable<Telefone> telefone)
         {
-            await _context.Telefone.AddAsync(telefone);
+            await _context.Telefone.AddRangeAsync(telefone);
         }
 
-        public async Task AddEndereco(Endereco Endereco)
+        public async Task AddEndereco(IEnumerable<Endereco> endereco)
         {
-            await _context.Endereco.AddAsync(Endereco);
+            await _context.Endereco.AddRangeAsync(endereco);
         }
 
         public async Task Update(Funcionario entity)
         {
             _context.Funcionario.Update(entity);
         }
-        public async Task UpdateEmail(Email email)
+        public async Task UpdateEmail(IEnumerable<Email> email)
         {
-            _context.Email.Update(email);
+            _context.Email.UpdateRange(email);
         }
 
-        public async Task UpdateTelefone(Telefone telefone)
+        public async Task UpdateTelefone(IEnumerable<Telefone> telefone)
         {
-            _context.Telefone.Update(telefone);
+            _context.Telefone.UpdateRange(telefone);
         }
 
-        public async Task UpdateEndereco(Endereco endereco)
+        public async Task UpdateEndereco(IEnumerable<Endereco> endereco)
         {
-            _context.Endereco.Update(endereco);
+            _context.Endereco.UpdateRange(endereco);
         }
 
         public async Task Delete(Funcionario entity)
@@ -141,6 +142,21 @@ namespace UnipPim.Hotel.Infra.Repositorios
         public async Task DeleteEndereco(Endereco endereco)
         {
             _context.Endereco.Remove(endereco);
+        }
+
+        public async Task DeleteEmail(IEnumerable<Email> email)
+        {
+            _context.Email.RemoveRange(email);
+        }
+
+        public async Task DeleteTelefone(IEnumerable<Telefone> telefone)
+        {
+            _context.Telefone.RemoveRange(telefone);
+        }
+
+        public async Task DeleteEndereco(IEnumerable<Endereco> endereco)
+        {
+            _context.Endereco.RemoveRange(endereco);
         }
 
         public async Task<int> SaveChanges()

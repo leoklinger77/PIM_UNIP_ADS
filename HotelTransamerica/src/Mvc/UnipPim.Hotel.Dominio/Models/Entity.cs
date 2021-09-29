@@ -11,10 +11,5 @@ namespace UnipPim.Hotel.Dominio.Models
         {
             Id = Guid.NewGuid();
         }
-
-        public virtual bool IsValid()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

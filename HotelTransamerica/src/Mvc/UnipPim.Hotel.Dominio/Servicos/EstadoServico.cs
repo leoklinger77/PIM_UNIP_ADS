@@ -15,7 +15,6 @@ namespace UnipPim.Hotel.Dominio.Servicos
             _estadoRepositorio = estadoRepositorio;
         }
 
-
         public async Task<Cidade> ObterCidadeComEstado(string cidade, string uf)
         {
             return await _estadoRepositorio.ObterCidadeComEstado(cidade, uf);

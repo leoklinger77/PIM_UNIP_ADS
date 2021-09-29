@@ -2,20 +2,18 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnipPim.Hotel.Controllers;
 using UnipPim.Hotel.Dominio.Interfaces;
 using UnipPim.Hotel.Dominio.Interfaces.Servicos;
 using UnipPim.Hotel.Dominio.Models;
-using UnipPim.Hotel.Dominio.Tools;
 using UnipPim.Hotel.Extensions.Midleware;
 using UnipPim.Hotel.Models;
 
 namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 {
     [Authorize]
-    [ClaimsAuthorize("GrupoFuncionario", "Home")]
+    [ClaimsAutorizacao("GrupoFuncionario", "Home")]
     [Area("Administracao")]
     [Route("Administracao/[controller]")]
     public class GrupoFuncionarioController : MainController
@@ -37,12 +35,14 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpGet("novo-grupo")]
+        [ClaimsAutorizacao("GrupoFuncionario", "Novo")]
         public async Task<IActionResult> NovoGrupo()
         {
             return View();
         }
 
         [HttpPost("novo-grupo")]
+        [ClaimsAutorizacao("GrupoFuncionario", "Novo")]
         public async Task<IActionResult> NovoGrupo(GrupoFuncionarioViewModel viewModel)
         {
             if (!ModelState.IsValid) return View(viewModel);
@@ -61,8 +61,8 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             
         }
 
-
         [HttpGet("editar-grupo")]
+        [ClaimsAutorizacao("GrupoFuncionario", "Editar")]
         public async Task<IActionResult> EditarGrupo(Guid id)
         {
             var result = await _grupoFuncionarioServico.ObterPorId(id);
@@ -76,15 +76,23 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             return View(obj);
         }
 
-
         [HttpGet("detalhes-grupo")]
-        public async Task<IActionResult> DetalhesGrupo()
+        [ClaimsAutorizacao("GrupoFuncionario", "Detalhes")]
+        public async Task<IActionResult> DetalhesGrupo(Guid id)
         {
-            return View();
+            var result = await _grupoFuncionarioServico.ObterPorId(id);
+
+            if (OperacaoValida()) return BadRequest();
+
+            var obj = _mapper.Map<GrupoFuncionarioViewModel>(result);
+
+            obj.PopulaAtributos();
+
+            return View(obj);
         }
 
-
         [HttpGet("deletar-grupo")]
+        [ClaimsAutorizacao("GrupoFuncionario", "Delete")]
         public async Task<IActionResult> DeleteGrupo()
         {
             return View();
