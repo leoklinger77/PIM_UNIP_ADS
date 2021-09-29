@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace UnipPim.Hotel.Extensions.Midleware
 {
-    public class CustomAuthorization
+    public class CustomAutorizacao
     {
         public static bool ValidarClaimsUsuario(HttpContext context, string claimName, string claimValue)
         {
@@ -17,9 +17,9 @@ namespace UnipPim.Hotel.Extensions.Midleware
 
     }
 
-    public class ClaimsAuthorizeAttribute : TypeFilterAttribute
+    public class ClaimsAutorizacaoAttribute : TypeFilterAttribute
     {
-        public ClaimsAuthorizeAttribute(string claimName, string claimValue) : base(typeof(RequisitoClaimFilter))
+        public ClaimsAutorizacaoAttribute(string claimName, string claimValue) : base(typeof(RequisitoClaimFilter))
         {
             Arguments = new object[] { new Claim(claimName, claimValue) };
         }
@@ -42,7 +42,7 @@ namespace UnipPim.Hotel.Extensions.Midleware
                 return;
             }
 
-            if (!CustomAuthorization.ValidarClaimsUsuario(context.HttpContext, _claim.Type, _claim.Value))
+            if (!CustomAutorizacao.ValidarClaimsUsuario(context.HttpContext, _claim.Type, _claim.Value))
             {
                 context.Result = new StatusCodeResult(403);
             }

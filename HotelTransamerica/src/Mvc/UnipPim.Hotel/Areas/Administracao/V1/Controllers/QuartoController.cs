@@ -15,7 +15,7 @@ using UnipPim.Hotel.Models;
 namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 {
     [Authorize]
-    [ClaimsAuthorize("Quarto", "Home")]
+    [ClaimsAutorizacao("Quarto", "Home")]
     [Area("Administracao")]
     [Route("Administracao/[controller]")]
     public class QuartoController : MainController

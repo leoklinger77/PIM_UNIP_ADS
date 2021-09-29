@@ -24,7 +24,7 @@ using UnipPim.Hotel.Models;
 namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 {
     [Authorize]
-    [ClaimsAuthorize("Funcionario", "Home")]
+    [ClaimsAutorizacao("Funcionario", "Home")]
     [Area("Administracao")]
     [Route("Administracao/[controller]")]
     public class FuncionarioController : MainController
@@ -62,14 +62,14 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpGet("novo-Funcionario")]
-        [ClaimsAuthorize("Funcionario", "Novo")]
+        [ClaimsAutorizacao("Funcionario", "Novo")]
         public async Task<IActionResult> NovoFuncionario()
         {
             return View(await PopulaListaCargoEGrupos(new FuncionarioViewModel()));
         }
 
         [HttpPost("novo-Funcionario")]
-        [ClaimsAuthorize("Funcionario", "Novo")]
+        [ClaimsAutorizacao("Funcionario", "Novo")]
         public async Task<IActionResult> NovoFuncionario(FuncionarioViewModel viewModel)
         {
             if (!ModelState.IsValid) return View(await PopulaListaCargoEGrupos(viewModel));
@@ -88,7 +88,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpGet("editar-Funcionario")]
-        [ClaimsAuthorize("Funcionario", "Editar")]
+        [ClaimsAutorizacao("Funcionario", "Editar")]
         public async Task<IActionResult> EditarFuncionario(Guid id)
         {
             var resultado = await ObterFuncionarioPorId(id);
@@ -103,7 +103,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpPost("editar-Funcionario")]
-        [ClaimsAuthorize("Funcionario", "Editar")]
+        [ClaimsAutorizacao("Funcionario", "Editar")]
         public async Task<IActionResult> EditarFuncionario(Guid id, FuncionarioViewModel viewModel)
         {
             if (id != viewModel.Id)
@@ -125,7 +125,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpGet("detalhes-Funcionario")]
-        [ClaimsAuthorize("Funcionario", "Detalhes")]
+        [ClaimsAutorizacao("Funcionario", "Detalhes")]
         public async Task<IActionResult> DetalhesFuncionario(Guid id)
         {
             var resultado = await ObterFuncionarioPorId(id);
@@ -139,7 +139,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpGet("deletar-Funcionario")]
-        [ClaimsAuthorize("Funcionario", "Deletar")]
+        [ClaimsAutorizacao("Funcionario", "Deletar")]
         public async Task<IActionResult> DeletarFuncionario(Guid id)
         {
             var resultado = await ObterFuncionarioPorId(id);
@@ -153,7 +153,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpPost("deletar-Funcionario")]
-        [ClaimsAuthorize("Funcionario", "Deletar")]
+        [ClaimsAutorizacao("Funcionario", "Deletar")]
         public async Task<IActionResult> ConfirmaDeletarFuncionario(Guid id)
         {
             if(id == _user.UserId)

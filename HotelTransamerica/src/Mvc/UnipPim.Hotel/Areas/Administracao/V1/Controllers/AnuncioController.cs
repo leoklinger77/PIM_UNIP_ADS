@@ -17,7 +17,7 @@ using UnipPim.Hotel.Models;
 namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 {
     [Authorize]
-    [ClaimsAuthorize("Anuncio", "Home")]
+    [ClaimsAutorizacao("Anuncio", "Home")]
     [Area("Administracao")]
     [Route("Administracao/[controller]")]
     public class AnuncioController : MainController

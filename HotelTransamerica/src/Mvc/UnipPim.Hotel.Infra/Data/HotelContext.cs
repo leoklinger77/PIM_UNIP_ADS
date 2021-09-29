@@ -28,6 +28,9 @@ namespace UnipPim.Hotel.Infra.Data
         public DbSet<Anuncio> Anuncio { get; set; }
         public DbSet<Foto> Foto { get; set; }
 
+        public DbSet<Categoria> Categoria { get; set; }
+        public DbSet<Produto> Produto { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {   

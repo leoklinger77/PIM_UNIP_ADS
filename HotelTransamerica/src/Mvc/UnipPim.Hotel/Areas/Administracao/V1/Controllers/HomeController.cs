@@ -9,7 +9,7 @@ using UnipPim.Hotel.Extensions.Midleware;
 namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 {
     [Authorize]
-    [ClaimsAuthorizeAttribute("Funcionario", "Home")]
+    [ClaimsAutorizacaoAttribute("Funcionario", "Home")]
     [Area("Administracao")]
     [Route("Administracao/[controller]")]
     public class HomeController : MainController

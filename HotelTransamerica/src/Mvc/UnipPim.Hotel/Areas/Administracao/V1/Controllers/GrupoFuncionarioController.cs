@@ -13,7 +13,7 @@ using UnipPim.Hotel.Models;
 namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 {
     [Authorize]
-    [ClaimsAuthorize("GrupoFuncionario", "Home")]
+    [ClaimsAutorizacao("GrupoFuncionario", "Home")]
     [Area("Administracao")]
     [Route("Administracao/[controller]")]
     public class GrupoFuncionarioController : MainController
@@ -35,14 +35,14 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpGet("novo-grupo")]
-        [ClaimsAuthorize("GrupoFuncionario", "Novo")]
+        [ClaimsAutorizacao("GrupoFuncionario", "Novo")]
         public async Task<IActionResult> NovoGrupo()
         {
             return View();
         }
 
         [HttpPost("novo-grupo")]
-        [ClaimsAuthorize("GrupoFuncionario", "Novo")]
+        [ClaimsAutorizacao("GrupoFuncionario", "Novo")]
         public async Task<IActionResult> NovoGrupo(GrupoFuncionarioViewModel viewModel)
         {
             if (!ModelState.IsValid) return View(viewModel);
@@ -62,7 +62,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpGet("editar-grupo")]
-        [ClaimsAuthorize("GrupoFuncionario", "Editar")]
+        [ClaimsAutorizacao("GrupoFuncionario", "Editar")]
         public async Task<IActionResult> EditarGrupo(Guid id)
         {
             var result = await _grupoFuncionarioServico.ObterPorId(id);
@@ -77,7 +77,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpGet("detalhes-grupo")]
-        [ClaimsAuthorize("GrupoFuncionario", "Detalhes")]
+        [ClaimsAutorizacao("GrupoFuncionario", "Detalhes")]
         public async Task<IActionResult> DetalhesGrupo(Guid id)
         {
             var result = await _grupoFuncionarioServico.ObterPorId(id);
@@ -92,7 +92,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpGet("deletar-grupo")]
-        [ClaimsAuthorize("GrupoFuncionario", "Delete")]
+        [ClaimsAutorizacao("GrupoFuncionario", "Delete")]
         public async Task<IActionResult> DeleteGrupo()
         {
             return View();

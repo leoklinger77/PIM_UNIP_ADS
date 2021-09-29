@@ -20,6 +20,7 @@ insert TB_Acesso values('4699633a-ebe7-4795-9d05-d3536bf80313',GETDATE(), null,'
 insert TB_Acesso values('4699633a-ebe7-4795-9d05-d3536bf80311',GETDATE(), null,'Hospede','Home, Novo, Editar, Detalhes, Deletar','4599636a-ebe7-4795-9d05-d3536bf80313')
 insert TB_Acesso values('4689633a-ebe7-4795-9d05-d3536bf80311',GETDATE(), null,'Anuncio','Home, Novo, Editar, Detalhes, Deletar','4599636a-ebe7-4795-9d05-d3536bf80313')
 insert TB_Acesso values('4679633a-ebe7-4795-9d05-d3536bf80311',GETDATE(), null,'Quarto','Home, Novo, Editar, Detalhes, Deletar','4599636a-ebe7-4795-9d05-d3536bf80313')
+insert TB_Acesso values('5679633a-ebe7-4795-9d05-d3536bf80311',GETDATE(), null,'Categoria','Home, Novo, Editar, Detalhes, Deletar','4599636a-ebe7-4795-9d05-d3536bf80313')
 
 INSERT dbo.TB_Funcionario VALUES ('99DCC0F2-65FE-4C33-85E8-CC0EE43B185D', '20210922 12:05:27.9023709', NULL, N'043EF481-C8C5-49AA-B239-216A98D097ED','4599636a-ebe7-4795-9d05-d3536bf80313',
 					'Leandro Klinger', '36018556820', '19951109 00:00:00.0000000')
@@ -39,6 +40,8 @@ insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Hospede',
 insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','GrupoFuncionario','Home, Novo, Editar, Detalhes, Deletar')
 insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Quarto','Home, Novo, Editar, Detalhes, Deletar')
 insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Anuncio','Home, Novo, Editar, Detalhes, Deletar')
+insert AspNetUserClaims values('19F8CC51-D54F-40C4-8841-C78C280B0DA6','Categoria','Home, Novo, Editar, Detalhes, Deletar')
+insert AspNetUserClaims values('19F8CC51-D54F-40C4-8841-C78C280B0DA6','Produto','Home, Novo, Editar, Detalhes, Deletar')
 
 /*
 	

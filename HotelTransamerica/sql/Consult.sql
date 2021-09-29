@@ -40,3 +40,11 @@ delete HotelTransamerica..AspNetUsers where Id = '3dadf95f-27d4-45ce-a6f0-8cd5e0
 
 select * from HotelTransamerica..TB_Anuncio
 select * from HotelTransamerica..TB_Foto
+
+
+select * from HotelTransamerica..TB_Quarto
+select * from HotelTransamerica..TB_Cama
+
+
+
+'2698ffb3-6398-478f-8262-53b5ed94b443'

@@ -1,0 +1,35 @@
+﻿@model PaginacaoViewModel<CategoriaViewModel>
+
+@{
+    ViewData["Title"] = "Lista de Categorias";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a class="btn btn-outline-info" asp-action="NovaCategoria">Nova Categoria</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Nome
+            </th>            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.List) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>            
+            <td>
+                <a class="btn btn-outline-info" asp-action="EditarCategoria" asp-route-id="@item.Id">Editar</a> |
+                <a class="btn btn-outline-info" asp-action="DetalhesCategoria" asp-route-id="@item.Id">Detalhes</a> |
+                <a class="btn btn-outline-info" asp-action="DeletarCategoria" asp-route-id="@item.Id">Deletar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

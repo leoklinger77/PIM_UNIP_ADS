@@ -26,6 +26,8 @@ namespace UnipPim.Hotel.Configuration
             services.AddScoped<IGrupoFuncionarioRepositorio, GrupoFuncionarioRepositorio>();
             services.AddScoped<IQuartoRepositorio, QuartoRepositorio>();
             services.AddScoped<IAnuncioRepositorio, AnuncioRepositorio>();
+            services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
+            services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
 
             //Servicos
             services.AddScoped<INotificacao, Noficacao>();
@@ -37,6 +39,8 @@ namespace UnipPim.Hotel.Configuration
             services.AddScoped<IGrupoFuncionarioServico, GrupoFuncionarioServico>();
             services.AddScoped<IQuartoServico, QuartoServico>();
             services.AddScoped<IAnuncioServico, AnuncioServico>();
+            services.AddScoped<ICategoriaServico, CategoriaServico>();
+            services.AddScoped<IProdutoServico, ProdutoServico>();
         }
     }
 }
