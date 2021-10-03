@@ -22,15 +22,16 @@ namespace UnipPim.Hotel.Infra.Data
         public DbSet<GrupoFuncionario> GrupoFuncionario { get; set; }
         public DbSet<Acesso> Acesso { get; set; }
         public DbSet<Funcionario> Funcionario { get; set; }
-
         public DbSet<Cama> Cama { get; set; }
         public DbSet<Quarto> Quarto { get; set; }
         public DbSet<Anuncio> Anuncio { get; set; }
         public DbSet<Foto> Foto { get; set; }
-
         public DbSet<Categoria> Categoria { get; set; }
         public DbSet<Produto> Produto { get; set; }
-
+        public DbSet<Frigobar> Frigobar { get; set; }
+        public DbSet<ProdutosFrigobar> ProdutosFrigobar { get; set; }
+        public DbSet<ProdutosConsumidos> ProdutosConsumidos { get; set; }
+        public DbSet<Reserva> Reserva { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {   

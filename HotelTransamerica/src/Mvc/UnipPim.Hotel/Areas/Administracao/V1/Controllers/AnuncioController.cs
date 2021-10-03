@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using UnipPim.Hotel.Controllers;
 using UnipPim.Hotel.Dominio.Interfaces;
@@ -42,17 +43,26 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         [HttpGet("novo-anuncio")]
         public async Task<IActionResult> NovoAnuncio()
         {
-            return View(await MapearAnuncioViewModelAsync(new AnuncioViewModel()));
+            return View(await MapearAnuncioViewModel(new AnuncioViewModel()));
         }
 
         [HttpPost("novo-anuncio")]
         public async Task<IActionResult> NovoAnuncio(AnuncioViewModel viewModel)
         {
-            if (!ModelState.IsValid) return View(viewModel);
+            viewModel = _mapper.Map<AnuncioViewModel>(ObterFotosDoRequest(viewModel));
+            if (!ModelState.IsValid)
+            {
+                return View(await MapearAnuncioViewModel(viewModel));
+            }
 
-            var foto = CriaAnuncio(viewModel);
+            if (viewModel.Fotos.Count() == 0)
+            {
+                AddErro("Obrigatório inserir 1 foto para cadastrar um anuncio.");
+                OperacaoValida();
+                return View(await MapearAnuncioViewModel(viewModel)); ;
+            }
 
-            await _anuncioServico.Insert(foto);
+            await _anuncioServico.Insert(_mapper.Map<Anuncio>(viewModel));
 
             if (OperacaoValida())
             {
@@ -65,13 +75,43 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         [HttpGet("editar-anuncio")]
         public async Task<IActionResult> EditarAnuncio(Guid id)
         {
-            return View();
+            var result = await _anuncioServico.ObterPorId(id);
+
+            if (OperacaoValida())
+            {
+                ErrosTempData();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(await MapearAnuncioViewModel(_mapper.Map<AnuncioViewModel>(result)));
         }
 
         [HttpPost("editar-anuncio")]
         public async Task<IActionResult> EditarAnuncio(Guid id, AnuncioViewModel viewModel)
         {
-            return View();
+            if (id != viewModel.Id) return BadRequest();
+
+            viewModel = _mapper.Map<AnuncioViewModel>(ObterFotosDoRequest(viewModel));
+            if (!ModelState.IsValid)
+            {
+                return View(await MapearAnuncioViewModel(viewModel));
+            }
+
+            if (viewModel.Fotos.Count() == 0)
+            {
+                AddErro("Obrigatório inserir 1 foto para cadastrar um anuncio.");
+                OperacaoValida();
+                return View(await MapearAnuncioViewModel(viewModel)); ;
+            }
+
+            await _anuncioServico.Update(_mapper.Map<Anuncio>(viewModel));
+
+            if (OperacaoValida())
+            {
+
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet("detalhes-anuncio")]
@@ -115,16 +155,33 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             return BadRequest();
         }
 
-        private Anuncio CriaAnuncio(AnuncioViewModel viewModel)
+        private Anuncio ObterFotosDoRequest(AnuncioViewModel viewModel)
         {
             var list = Request.Form["imagem"];
             string[] fotos = list.ToString().Split(',');
-            var anuncio = new Anuncio(viewModel.Nome, viewModel.Ativo, viewModel.Quantidade, viewModel.Custo, _user.UserId, viewModel.QuartoId);
-            foreach (var item in fotos)
+            Anuncio anuncio;
+            if (viewModel.Id != Guid.Empty)
             {
-                var caminho = item.Split('/');
-                anuncio.AddFoto(new Foto(caminho[3]));
+                anuncio = new Anuncio(viewModel.Id, viewModel.Nome, viewModel.Ativo, viewModel.Quantidade, viewModel.Custo, _user.UserId, viewModel.QuartoId);
             }
+            else
+            {
+                anuncio = new Anuncio(viewModel.Nome, viewModel.Ativo, viewModel.Quantidade, viewModel.Custo, _user.UserId, viewModel.QuartoId);
+            }
+            
+            if (!(fotos[0] == ""))
+                foreach (var item in fotos)
+                {
+                    var caminho = item.Split('/');
+                    if (caminho.Count() == 1)
+                    {
+                        anuncio.AddFoto(new Foto(caminho[0]));
+                    }
+                    else
+                    {
+                        anuncio.AddFoto(new Foto(caminho[3]));
+                    }
+                }
             return anuncio;
         }
 
@@ -170,7 +227,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             }
         }
 
-        private async Task<AnuncioViewModel> MapearAnuncioViewModelAsync(AnuncioViewModel viewModel)
+        private async Task<AnuncioViewModel> MapearAnuncioViewModel(AnuncioViewModel viewModel)
         {
             viewModel.ListaQuarto = _mapper.Map<IEnumerable<QuartoViewModel>>(await _anuncioServico.ListarQuartosDisponiveis());
             return viewModel;

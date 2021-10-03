@@ -22,6 +22,12 @@ namespace UnipPim.Hotel.Dominio.Servicos
             _produtoRepositorio = produtoRepositorio;
             _categoriaRepositorio = categoriaRepositorio;
         }
+
+        public async Task<IEnumerable<Produto>> ProdutosDisponiveis()
+        {
+            return await _produtoRepositorio.ProdutosDisponiveis();
+        }
+
         public async Task<IEnumerable<Categoria>> ListaCategoria()
         {
             return await _categoriaRepositorio.ObterTodos();
@@ -64,7 +70,7 @@ namespace UnipPim.Hotel.Dominio.Servicos
         {
             var result = await _produtoRepositorio.Find(x => x.CodigoBarras == entity.CodigoBarras);
 
-            if (result.Id != entity.Id)
+            if (result != null && result.Id != entity.Id)
             {
                 Notificar("Codigo de barras já cadastado para outro produto.");
                 return;
@@ -97,6 +103,5 @@ namespace UnipPim.Hotel.Dominio.Servicos
             _produtoRepositorio.Dispose();
         }
 
-        
     }
 }

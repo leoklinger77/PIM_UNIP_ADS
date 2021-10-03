@@ -22,15 +22,15 @@ insert TB_Acesso values('4689633a-ebe7-4795-9d05-d3536bf80311',GETDATE(), null,'
 insert TB_Acesso values('4679633a-ebe7-4795-9d05-d3536bf80311',GETDATE(), null,'Quarto','Home, Novo, Editar, Detalhes, Deletar','4599636a-ebe7-4795-9d05-d3536bf80313')
 insert TB_Acesso values('5679633a-ebe7-4795-9d05-d3536bf80311',GETDATE(), null,'Categoria','Home, Novo, Editar, Detalhes, Deletar','4599636a-ebe7-4795-9d05-d3536bf80313')
 
-INSERT dbo.TB_Funcionario VALUES ('99DCC0F2-65FE-4C33-85E8-CC0EE43B185D', '20210922 12:05:27.9023709', NULL, N'043EF481-C8C5-49AA-B239-216A98D097ED','4599636a-ebe7-4795-9d05-d3536bf80313',
+INSERT dbo.TB_Funcionario VALUES ('5599636a-ebe7-4795-9d05-d3536bf80313', '20210922 12:05:27.9023709', NULL, N'043EF481-C8C5-49AA-B239-216A98D097ED','4599636a-ebe7-4795-9d05-d3536bf80313',
 					'Leandro Klinger', '36018556820', '19951109 00:00:00.0000000')
 
 INSERT dbo.TB_Email VALUES ('13837F80-4BEA-4B81-892E-4B991928A2B9', '20210922 12:05:27.9023304', NULL,
-					'leandro.klingeroliveira@gmail.com', 2, N'99DCC0F2-65FE-4C33-85E8-CC0EE43B185D',NULL)
+					'leandro.klingeroliveira@gmail.com', 2, N'5599636a-ebe7-4795-9d05-d3536bf80313',NULL)
 
-INSERT dbo.TB_Telefone VALUES (N'3CFBF6C3-157A-40D6-AE3E-C484319A7759', '20210922 12:05:27.9023591', NULL, '11', '954645456', 1, N'99DCC0F2-65FE-4C33-85E8-CC0EE43B185D',null)
+INSERT dbo.TB_Telefone VALUES (N'3CFBF6C3-157A-40D6-AE3E-C484319A7759', '20210922 12:05:27.9023591', NULL, '11', '954645456', 1, N'5599636a-ebe7-4795-9d05-d3536bf80313',null)
 
-insert TB_Endereco values('3CFBF6C3-157A-40D6-AE3E-a484319A7759',GETDATE(),null,'06622280','Logradouro','71','oficial',null,'Tereza','C5EB2CED-F08D-4541-8B3D-FF8DC494B651','99DCC0F2-65FE-4C33-85E8-CC0EE43B185D',null)/*
+insert TB_Endereco values('3CFBF6C3-157A-40D6-AE3E-a484319A7759',GETDATE(),null,'06622280','Logradouro','71','oficial',null,'Tereza','C5EB2CED-F08D-4541-8B3D-FF8DC494B651','5599636a-ebe7-4795-9d05-d3536bf80313',null)/*
 
 Inserindo Clains Identity
 */
@@ -40,8 +40,8 @@ insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Hospede',
 insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','GrupoFuncionario','Home, Novo, Editar, Detalhes, Deletar')
 insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Quarto','Home, Novo, Editar, Detalhes, Deletar')
 insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Anuncio','Home, Novo, Editar, Detalhes, Deletar')
-insert AspNetUserClaims values('19F8CC51-D54F-40C4-8841-C78C280B0DA6','Categoria','Home, Novo, Editar, Detalhes, Deletar')
-insert AspNetUserClaims values('19F8CC51-D54F-40C4-8841-C78C280B0DA6','Produto','Home, Novo, Editar, Detalhes, Deletar')
+insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Categoria','Home, Novo, Editar, Detalhes, Deletar')
+insert AspNetUserClaims values('5599636a-ebe7-4795-9d05-d3536bf80313','Produto','Home, Novo, Editar, Detalhes, Deletar')
 
 /*
 	

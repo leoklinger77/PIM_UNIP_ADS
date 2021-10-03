@@ -44,11 +44,11 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         [HttpPost("novo-produtos")]
         public async Task<IActionResult> NovoProduto(ProdutoViewModel viewModel)
         {
-            if (!ModelState.IsValid) return View(viewModel);
+            if (!ModelState.IsValid) return View(await MapearListCategoria(viewModel));
 
             await _produtoServico.Insert(new Produto(viewModel.Nome,viewModel.CodigoBarras,viewModel.QuantidadeEstoque, viewModel.Valor, viewModel.CategoriaId));
 
-            if (OperacaoValida()) return View(viewModel);
+            if (OperacaoValida()) return View(await MapearListCategoria(viewModel));
 
             return RedirectToAction(nameof(Index));
         }
@@ -71,11 +71,11 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         {
             if (id != viewModel.Id) return BadRequest();
 
-            if (!ModelState.IsValid) return View(viewModel);
+            if (!ModelState.IsValid) return View(await MapearListCategoria(viewModel));
 
             await _produtoServico.Update(_mapper.Map<Produto>(viewModel));
 
-            if (OperacaoValida()) return View(viewModel);
+            if (OperacaoValida()) return View(await MapearListCategoria(viewModel));
 
             return RedirectToAction(nameof(Index));
         }

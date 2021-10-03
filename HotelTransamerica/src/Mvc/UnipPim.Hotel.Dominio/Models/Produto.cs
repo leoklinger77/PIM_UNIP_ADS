@@ -6,13 +6,14 @@ namespace UnipPim.Hotel.Dominio.Models
     public class Produto: Entity, IAggregateRoot
     {
         public Guid CategoriaId { get; private set; }
+        
         public string Nome { get; private set; }
         public string CodigoBarras { get; private set; }
         public int QuantidadeEstoque { get; private set; }
         public int QuantidadeVendida { get; private set; }
         public decimal Valor { get; private set; }
         public Categoria Categoria { get; private set; }
-
+        
         protected Produto() { }
 
         public Produto(string nome, string codigoBarras, int quantidadeEstoque, decimal valor, Guid categoriaId)
@@ -39,5 +40,7 @@ namespace UnipPim.Hotel.Dominio.Models
         {
             CodigoBarras = value;
         }
+
+        
     }
 }

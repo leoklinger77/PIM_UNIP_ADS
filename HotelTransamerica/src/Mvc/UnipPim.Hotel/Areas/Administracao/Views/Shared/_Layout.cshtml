@@ -9,10 +9,11 @@
     <title>@ViewData["Title"] - UnipPim.Hotel</title>
 
     <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
 
     <link href="~/css/site.css" rel="stylesheet">
 </head>
-<body>   
+<body>
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="container-fluid">
@@ -53,11 +54,11 @@
                         </li>
 
                         @*<li class="nav-item">
-            <a class="nav-link" href="#">
-                <span data-feather="users"></span>
-                Caixa
-            </a>
-        </li>*@
+                                <a class="nav-link" href="#">
+                                    <span data-feather="users"></span>
+                                    Caixa
+                                </a>
+                            </li>*@
 
                         <li class="nav-item">
                             <a class="nav-link" asp-action="Index" asp-controller="Funcionario" asp-area="Administracao">
@@ -77,18 +78,18 @@
                                 Cargo
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Index" asp-controller="Hospede" asp-area="Administracao">
+                                <span data-feather="users"></span>
+                                Hospedes
+                            </a>
+                        </li>
                         @*<li class="nav-item">
-            <a class="nav-link" href="#">
-                <span data-feather="users"></span>
-                Hospedes
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <span data-feather="bar-chart-2"></span>
-                Reservas
-            </a>
-        </li>*@
+                                <a class="nav-link" href="#">
+                                    <span data-feather="bar-chart-2"></span>
+                                    Reservas
+                                </a>
+                            </li>*@
                         <li class="nav-item">
                             <a class="nav-link" asp-action="Index" asp-controller="Anuncio" asp-area="Administracao">
                                 <span data-feather="layers"></span>
@@ -164,6 +165,7 @@
 
 
     <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/font-awesome/js/all.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections.Generic;
 using System.Linq;
 using UnipPim.Hotel.Dominio.Interfaces;
@@ -47,5 +48,30 @@ namespace UnipPim.Hotel.Controllers
             OperacaoValida();
             return View(obj);
         }
+
+        //Retorno Rota da API
+
+        protected ActionResult CustomResponse(object result = null)
+        {
+            if (OperacaoValida())
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
+            {
+                { "Messagens" , _notificacao.Erros().ToArray() }
+            }));
+        }
+
+        protected ActionResult CustomResponse(ModelStateDictionary modelState)
+        {
+            var erros = modelState.Values.SelectMany(e => e.Errors);
+            foreach (var erro in erros)
+            {
+                AddErro(erros.ToString());
+            }
+            return CustomResponse();
+        }             
     }
 }

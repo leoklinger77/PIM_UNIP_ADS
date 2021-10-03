@@ -16,7 +16,9 @@ namespace UnipPim.Hotel.Dominio.Models
         public Quarto Quarto { get; private set; }
 
         private List<Foto> _Fotos = new List<Foto>();
+        private List<Reserva> _reservas = new List<Reserva>();
         public IReadOnlyCollection<Foto> Fotos => _Fotos;
+        public IReadOnlyCollection<Reserva> Reservas => _reservas;
 
         protected Anuncio() { }
 
@@ -30,6 +32,19 @@ namespace UnipPim.Hotel.Dominio.Models
             QuartoId = quartoId;
         }
 
+        public Anuncio(Guid id, string nome, bool ativo, int quantidade, decimal custo, Guid funcionarioId, Guid quartoId)
+        {
+            Id = id;
+            Nome = nome;
+            Ativo = ativo;
+            Quantidade = quantidade;
+            Custo = custo;
+            FuncionarioId = funcionarioId;
+            QuartoId = quartoId;
+        }
+
+
+
         public void SetNome(string nome)
         {
             Nome = nome;
@@ -38,6 +53,32 @@ namespace UnipPim.Hotel.Dominio.Models
         public void AddFoto(Foto fotos)
         {
             _Fotos.Add(fotos);
+        }
+
+        public void RemoveFoto(Foto fotos)
+        {
+            _Fotos.Remove(fotos);
+        }
+
+        public void AtivarAnuncio()
+        {
+            Ativo = true;
+        }
+        public void DesativarAnuncio()
+        {
+            Ativo = false;
+        }
+        public void SetQuantidade(int value)
+        {
+            Quantidade = value;
+        }
+        public void SetCusto(decimal value)
+        {
+            Custo = value;
+        }
+        public void SetQuartoId(Guid value)
+        {
+            QuartoId = value;
         }
     }
 }

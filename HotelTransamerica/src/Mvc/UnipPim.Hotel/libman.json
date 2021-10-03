@@ -3,8 +3,12 @@
   "defaultProvider": "cdnjs",
   "libraries": [
     {
-      "library": "bootstrap@5.1.1",
-      "destination": "wwwroot/AreaAdministracao/lib/bootstrap/"
+      "library": "font-awesome@5.15.4",
+      "destination": "wwwroot/lib/font-awesome/",
+      "files": [
+        "css/all.min.css",
+        "js/all.min.js"
+      ]
     }
   ]
 }

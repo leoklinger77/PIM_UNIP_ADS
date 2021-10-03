@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnipPim.Hotel.Dominio.Models;
 using UnipPim.Hotel.Dominio.Tools;
 
@@ -7,5 +9,8 @@ namespace UnipPim.Hotel.Dominio.Interfaces.Servicos
     public interface IQuartoServico : IServicoBase<Quarto>
     {
         Task<Paginacao<Quarto>> PaginacaoListaQuarto(int page, int size, string query);
+        Task AddProdutoFrigobar(Guid quartoId, Guid produtoId, int quantitidade);
+
+        Task<Frigobar> ObterFrigobar(Guid id);
     }
 }

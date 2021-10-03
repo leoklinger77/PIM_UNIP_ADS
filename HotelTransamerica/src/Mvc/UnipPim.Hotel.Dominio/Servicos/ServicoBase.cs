@@ -36,5 +36,10 @@ namespace UnipPim.Hotel.Dominio.Servicos
 
             return false;
         }
+
+        protected bool TemosErros()
+        {
+            return _notifier.ContemErros();
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -25,11 +26,11 @@ namespace UnipPim.Hotel.Infra.Repositorios
             IPagedList<Produto> list;
             if (string.IsNullOrEmpty(query))
             {
-                list = await _context.Produto.AsNoTracking().ToPagedListAsync(page, size);
+                list = await _context.Produto.Include(x => x.Categoria).AsNoTracking().ToPagedListAsync(page, size);
             }
             else
             {
-                list = await _context.Produto.AsNoTracking()
+                list = await _context.Produto.Include(x => x.Categoria).AsNoTracking()
                     .Where(x => x.Nome.Contains(query))
                     .ToPagedListAsync(page, size);
             }
@@ -44,6 +45,10 @@ namespace UnipPim.Hotel.Infra.Repositorios
             };
         }
 
+        public async Task<IEnumerable<Produto>> ProdutosDisponiveis()
+        {
+            return await _context.Produto.AsNoTracking().Where(x => x.QuantidadeEstoque > 0).ToListAsync();
+        }
         public async Task<Produto> Find(Expression<Func<Produto, bool>> predicate)
         {
             return await _context.Produto.AsNoTracking().Where(predicate).FirstOrDefaultAsync();
@@ -52,7 +57,7 @@ namespace UnipPim.Hotel.Infra.Repositorios
         public async Task<Produto> ObterPorId(Guid id)
         {
             return await _context.Produto
-                            .Include(x=>x.Categoria)
+                            .Include(x => x.Categoria)
                             .AsNoTracking()
                             .Where(x => x.Id == id)
                             .FirstOrDefaultAsync();
@@ -81,5 +86,7 @@ namespace UnipPim.Hotel.Infra.Repositorios
         {
             _context?.DisposeAsync();
         }
+
+
     }
 }

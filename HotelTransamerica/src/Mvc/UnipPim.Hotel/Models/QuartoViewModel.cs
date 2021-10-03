@@ -52,6 +52,7 @@ namespace UnipPim.Hotel.Models
 
 
         public IEnumerable<CamaViewModel> ListaCama { get; set; }
+        public FrigobarViewModel Frigobar { get; set; }
     }
 
     public enum CamaTipoViewModel : int

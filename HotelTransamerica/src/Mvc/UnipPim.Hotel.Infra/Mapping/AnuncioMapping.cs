@@ -20,4 +20,5 @@ namespace UnipPim.Hotel.Infra.Mapping
             builder.ToTable("TB_Anuncio");
         }
     }
+
 }

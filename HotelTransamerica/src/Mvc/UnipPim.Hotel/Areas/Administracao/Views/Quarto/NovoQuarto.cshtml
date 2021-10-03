@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="NovoQuarto">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <vc:summary></vc:summary>
             <div class="form-group">
                 <label asp-for="Nome" class="control-label"></label>
                 <input asp-for="Nome" class="form-control" />
@@ -39,7 +39,7 @@
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="CamaCasal" /> @Html.DisplayNameFor(model => model.CamaCasal)
                 </label>
-                
+
                 <div class="form-group">
                     <label asp-for="CamaCasalQuantidade" class="control-label"></label>
                     <input asp-for="CamaCasalQuantidade" class="form-control" value="0" />
@@ -51,7 +51,7 @@
             <div class="row">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="CamaSolteiro" /> @Html.DisplayNameFor(model => model.CamaSolteiro)
-                </label>                
+                </label>
                 <div class="form-group">
                     <label asp-for="CamaSolteiroQuantidade" class="control-label"></label>
                     <input asp-for="CamaSolteiroQuantidade" class="form-control" value="0" />
@@ -63,7 +63,7 @@
             <div class="row">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="CamaBeliche" /> @Html.DisplayNameFor(model => model.CamaBeliche)
-                </label>                
+                </label>
                 <div class="form-group">
                     <label asp-for="CamaBelicheQuantidade" class="control-label"></label>
                     <input asp-for="CamaBelicheQuantidade" class="form-control" value="0" />
@@ -85,6 +85,7 @@
 
         </form>
     </div>
+    
 </div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

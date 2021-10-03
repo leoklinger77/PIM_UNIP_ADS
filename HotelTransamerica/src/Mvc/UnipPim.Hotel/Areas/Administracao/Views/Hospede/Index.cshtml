@@ -1,0 +1,48 @@
+﻿@model PaginacaoViewModel<HospedeViewModel>
+
+@{
+    ViewData["Title"] = "Lista de Hospedes";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<vc:summary></vc:summary>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nome Completo
+            </th>
+            <th>
+                Cpf
+            </th>
+            <th>
+                Nascimento
+            </th>            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.List) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeCompleto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cpf)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nascimento)
+            </td>            
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Desativar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

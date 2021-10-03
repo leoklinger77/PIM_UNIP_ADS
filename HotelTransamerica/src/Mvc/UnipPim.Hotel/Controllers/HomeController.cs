@@ -1,34 +1,35 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using UnipPim.Hotel.Dominio.Interfaces;
+using UnipPim.Hotel.Dominio.Interfaces.Servicos;
 using UnipPim.Hotel.Models;
 
 namespace UnipPim.Hotel.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : MainController
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IAnuncioServico _anuncioServico;
+        public HomeController(IMapper mapper,
+                                IUser user,
+                                INotificacao notificacao, IAnuncioServico anuncioServico)
+                                : base(mapper, user, notificacao)
         {
-            _logger = logger;
+            _anuncioServico = anuncioServico;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
         public IActionResult Privacy()
         {
             return View();
         }
 
-        [Route("erro/{id:length(3,3)}")]
+        [HttpGet("erro/{id:length(3,3)}")]
         public IActionResult Errors(int id)
         {
             var modelErro = new ErrorViewModel();

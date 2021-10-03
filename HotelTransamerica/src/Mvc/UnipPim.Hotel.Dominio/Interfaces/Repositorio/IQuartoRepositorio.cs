@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnipPim.Hotel.Dominio.Models;
 using UnipPim.Hotel.Dominio.Tools;
@@ -13,5 +14,8 @@ namespace UnipPim.Hotel.Dominio.Interfaces.Repositorio
         Task UpdateCama(Cama cama);
         Task DeleteCama(Cama cama);
         Task DeleteRangeCama(IEnumerable<Cama> cama);
+        Task AddFrigobar(Frigobar frigobar);
+        Task AddProdutoFrigobar(ProdutosFrigobar produtoFrigobar);
+        Task<Frigobar> ObterFrigobar(Guid id);
     }
 }

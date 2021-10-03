@@ -1,16 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnipPim.Hotel.Dominio.Interfaces;
 
 namespace UnipPim.Hotel.Dominio.Models
 {
     public class Quarto : Entity, IAggregateRoot
     {
+        public Guid? FrigobarId { get; private set; }
         public string Nome { get; private set; }
         public bool Televisor { get; private set; }
         public bool Hidromassagem { get; private set; }
         public string Descricao { get; private set; }
         public int NumeroQuarto { get; private set; }
         public bool Ocupado { get; private set; }
+
+        public Frigobar Frigobar { get; private set; }
 
         private List<Anuncio> _anuncios = new List<Anuncio>();
         public IReadOnlyCollection<Anuncio> Anuncios => _anuncios;
@@ -75,6 +79,12 @@ namespace UnipPim.Hotel.Dominio.Models
         public void LimparListaCamas()
         {
             _camas.Clear();
+        }
+
+        public void AddFrigobar(Frigobar frigobar)
+        {
+            Frigobar = frigobar;
+            FrigobarId = frigobar.Id;
         }
     }
 }

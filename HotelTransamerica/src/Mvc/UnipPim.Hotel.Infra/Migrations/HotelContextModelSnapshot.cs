@@ -352,6 +352,29 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.ToTable("TB_Foto");
                 });
 
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Frigobar", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("ValorTotalProdutos")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TB_Frigobar");
+                });
+
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Funcionario", b =>
                 {
                     b.Property<Guid>("Id")
@@ -476,6 +499,72 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.ToTable("TB_Produto");
                 });
 
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.ProdutosConsumidos", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("FrigobarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ProdutoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FrigobarId");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("TB_ProdutosConsumidos");
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.ProdutosFrigobar", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("FrigobarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ProdutoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FrigobarId");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("TB_ProdutosFrigobar");
+                });
+
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Quarto", b =>
                 {
                     b.Property<Guid>("Id")
@@ -484,6 +573,9 @@ namespace UnipPim.Hotel.Infra.Migrations
 
                     b.Property<string>("Descricao")
                         .HasColumnType("varchar(255)");
+
+                    b.Property<Guid?>("FrigobarId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Hidromassagem")
                         .HasColumnType("bit");
@@ -507,6 +599,8 @@ namespace UnipPim.Hotel.Infra.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FrigobarId");
 
                     b.ToTable("TB_Quarto");
                 });
@@ -647,6 +741,39 @@ namespace UnipPim.Hotel.Infra.Migrations
                         .WithMany("Produtos")
                         .HasForeignKey("CategoriaId")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.ProdutosConsumidos", b =>
+                {
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Frigobar", "Frigobar")
+                        .WithMany("ProdutosConsumidos")
+                        .HasForeignKey("FrigobarId")
+                        .IsRequired();
+
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.ProdutosFrigobar", b =>
+                {
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Frigobar", "Frigobar")
+                        .WithMany("ProdutosFrigobar")
+                        .HasForeignKey("FrigobarId")
+                        .IsRequired();
+
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Quarto", b =>
+                {
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Frigobar", "Frigobar")
+                        .WithMany()
+                        .HasForeignKey("FrigobarId");
                 });
 
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Telefone", b =>

@@ -45,6 +45,6 @@ select * from HotelTransamerica..TB_Foto
 select * from HotelTransamerica..TB_Quarto
 select * from HotelTransamerica..TB_Cama
 
-
+select * from HotelTransamerica..TB_Produto
 
 '2698ffb3-6398-478f-8262-53b5ed94b443'

@@ -7,11 +7,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVC", "MVC", "{C8D6E3A4-A4B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{716E255F-475D-433D-AC16-8C43908AB0ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnipPim.Hotel", "src\Mvc\UnipPim.Hotel\UnipPim.Hotel.csproj", "{D13A76F9-0800-4754-8F76-F535E8B94D36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnipPim.Hotel", "src\Mvc\UnipPim.Hotel\UnipPim.Hotel.csproj", "{D13A76F9-0800-4754-8F76-F535E8B94D36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnipPim.Hotel.Dominio", "src\Mvc\UnipPim.Hotel.Dominio\UnipPim.Hotel.Dominio.csproj", "{03BD33EA-38C1-4F69-B4D7-46BA7C6720B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnipPim.Hotel.Dominio", "src\Mvc\UnipPim.Hotel.Dominio\UnipPim.Hotel.Dominio.csproj", "{03BD33EA-38C1-4F69-B4D7-46BA7C6720B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnipPim.Hotel.Infra", "src\Mvc\UnipPim.Hotel.Infra\UnipPim.Hotel.Infra.csproj", "{ED249865-FCDE-446A-9C1C-6E003894E6FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnipPim.Hotel.Infra", "src\Mvc\UnipPim.Hotel.Infra\UnipPim.Hotel.Infra.csproj", "{ED249865-FCDE-446A-9C1C-6E003894E6FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnipPim.Hotel.Desktop", "src\Desktop\UnipPim.Hotel.Desktop\UnipPim.Hotel.Desktop.csproj", "{9EA78C4E-0D99-4EC8-AE82-931EE8472E34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnipPim.Hotel.Desktop.Service", "src\Desktop\UnipPim.Hotel.Desktop.Service\UnipPim.Hotel.Desktop.Service.csproj", "{F2C8E697-CB8E-4E20-ABF6-EB0927499243}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +35,14 @@ Global
 		{ED249865-FCDE-446A-9C1C-6E003894E6FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED249865-FCDE-446A-9C1C-6E003894E6FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED249865-FCDE-446A-9C1C-6E003894E6FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EA78C4E-0D99-4EC8-AE82-931EE8472E34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EA78C4E-0D99-4EC8-AE82-931EE8472E34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EA78C4E-0D99-4EC8-AE82-931EE8472E34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EA78C4E-0D99-4EC8-AE82-931EE8472E34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2C8E697-CB8E-4E20-ABF6-EB0927499243}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2C8E697-CB8E-4E20-ABF6-EB0927499243}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2C8E697-CB8E-4E20-ABF6-EB0927499243}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2C8E697-CB8E-4E20-ABF6-EB0927499243}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +51,8 @@ Global
 		{D13A76F9-0800-4754-8F76-F535E8B94D36} = {C8D6E3A4-A4B5-4AF4-82CD-D2C532E64DE9}
 		{03BD33EA-38C1-4F69-B4D7-46BA7C6720B5} = {C8D6E3A4-A4B5-4AF4-82CD-D2C532E64DE9}
 		{ED249865-FCDE-446A-9C1C-6E003894E6FE} = {C8D6E3A4-A4B5-4AF4-82CD-D2C532E64DE9}
+		{9EA78C4E-0D99-4EC8-AE82-931EE8472E34} = {716E255F-475D-433D-AC16-8C43908AB0ED}
+		{F2C8E697-CB8E-4E20-ABF6-EB0927499243} = {716E255F-475D-433D-AC16-8C43908AB0ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05CEA8FD-2E05-4E77-B67C-AE57D16F92E3}
