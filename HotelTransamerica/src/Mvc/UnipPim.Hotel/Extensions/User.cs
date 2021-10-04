@@ -66,6 +66,6 @@ namespace UnipPim.Hotel.Extensions
             }
             var claim = principal.FindFirst("Email");
             return claim?.Value;
-        }
+        }        
     }
 }

@@ -129,7 +129,22 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         [HttpPost("deleta-anuncio")]
         public async Task<IActionResult> ConfirmaDeleteAnuncio(Guid id)
         {
-            return View();
+            var result = await _anuncioServico.ObterPorId(id);
+            if(OperacaoValida())
+            {
+                ErrosTempData();
+                return RedirectToAction(nameof(Index));
+            }
+            
+            await _anuncioServico.Delete(result);
+
+            if (OperacaoValida())
+            {
+                ErrosTempData();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost("upload-imagem")]

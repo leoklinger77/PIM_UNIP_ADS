@@ -11,7 +11,7 @@ namespace UnipPim.Hotel.Dominio.Interfaces
         Guid UserId { get; }
         string GetUserEmail();        
         bool IsAuthentication();
-        bool HasRoles(string role);
+        bool HasRoles(string role);        
         IEnumerable<Claim> FindClaims();
         HttpContext FindHttpContext();
     }

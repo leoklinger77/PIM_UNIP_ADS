@@ -8,7 +8,9 @@ namespace UnipPim.Hotel.Dominio.Interfaces.Servicos
     public interface IAnuncioServico : IServicoBase<Anuncio>
     {
         Task<Paginacao<Anuncio>> PaginacaoListaAnuncio(int page, int size, string query);
-
         Task<IEnumerable<Quarto>> ListarQuartosDisponiveis();
+        Task Delete(Anuncio anuncio);
+
+        Task<IEnumerable<Anuncio>> TresAnunciosAleatorios();
     }
 }

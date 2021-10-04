@@ -1,25 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using UnipPim.Hotel.Desktop.Service.Interfaces;
+using UnipPim.Hotel.Desktop.Service.ModelsDTO;
 
 namespace UnipPim.Hotel.Desktop
 {
     public partial class Login : Form
     {
-        public Login()
+        private readonly ILoginService _loginService;
+        private readonly IUser _user;
+        private readonly ServiceProvider _provider;
+        
+        public Login(ServiceProvider provider)
         {
             InitializeComponent();
+            _provider = provider;
+            _user = provider.GetService<IUser>();
+            _loginService = provider.GetService<ILoginService>();
         }
 
-        private void btnLogar_Click(object sender, EventArgs e)
+        private async void btnLogar_Click(object sender, EventArgs e)
         {
+            LoginRequest LoginRequest = new LoginRequest() { Email = txtEmail.Text, Password = txtSenha.Text };
 
+            var response = await _loginService.Login(LoginRequest);
+
+            if(response.Status == 200)
+            {
+                this.Hide();
+                Form form = new Home(_provider);
+                form.Closed += (s, args) => this.Close();
+                form.Show();
+            }
+            else
+            {
+                string erro = "";
+                for (int i = 0; i < response.errors.Messagens.Count; i++)                
+                {
+                    if (i == response.errors.Messagens.Count - 1)
+                    {
+                        erro += response.errors.Messagens[i];
+                    }
+                    else
+                    {
+                        erro += response.errors.Messagens[i] + ", ";
+                    }                    
+                }
+                lblErrorLogin.Text = erro;
+            }
         }
+
+        private void linkLblEsqueceuSenha_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var processes = Process.GetProcessesByName("Chrome");
+            var path = processes.FirstOrDefault()?.MainModule?.FileName;
+            Process.Start(path, "https://localhost:44342/Identity/Account/ForgotPassword");
+        }       
     }
 }

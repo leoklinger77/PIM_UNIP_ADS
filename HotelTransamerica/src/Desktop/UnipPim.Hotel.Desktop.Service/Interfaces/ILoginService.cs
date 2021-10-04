@@ -5,6 +5,6 @@ namespace UnipPim.Hotel.Desktop.Service.Interfaces
 {
     public interface ILoginService
     {
-        Task<UserResponseLogin> Login(LoginRequest login);
+        Task<ResponseResult> Login(LoginRequest login);
     }
 }

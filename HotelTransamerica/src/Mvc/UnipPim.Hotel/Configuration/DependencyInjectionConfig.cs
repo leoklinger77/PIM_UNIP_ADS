@@ -34,6 +34,7 @@ namespace UnipPim.Hotel.Configuration
             //Servicos
             services.AddScoped<INotificacao, Noficacao>();
             services.AddScoped<IEmailSender, EnviarEmail>();
+
             services.AddScoped<IFuncionarioServico, FuncionarioServico>();
             services.AddScoped<ICargoServico, CargoServico>();            
             services.AddScoped<IEstadoServico, EstadoServico>();

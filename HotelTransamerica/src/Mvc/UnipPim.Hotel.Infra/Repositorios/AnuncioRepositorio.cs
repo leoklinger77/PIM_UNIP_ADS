@@ -44,6 +44,10 @@ namespace UnipPim.Hotel.Infra.Repositorios
                 Query = query
             };
         }
+        public async Task<IEnumerable<Anuncio>> TresAnunciosAleatorios()
+        {
+            return await _hotelContext.Anuncio.Include(x => x.Fotos).Include(x => x.Quarto).OrderBy(x => Guid.NewGuid()).Take(3).ToListAsync();
+        }
 
         public async Task<IEnumerable<Quarto>> ObterQuartosDisponiveis()
         {
@@ -99,6 +103,6 @@ namespace UnipPim.Hotel.Infra.Repositorios
             _hotelContext?.DisposeAsync();
         }
 
-        
+
     }
 }

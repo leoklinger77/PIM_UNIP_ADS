@@ -13,6 +13,7 @@ namespace UnipPim.Hotel.Desktop.Service.ModelsDTO
             errors = new ResponseErrorMessages();
         }
     }
+
     public class ResponseErrorMessages
     {
         public List<string> Messagens { get; set; }

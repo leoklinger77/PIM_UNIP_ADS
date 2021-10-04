@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using UnipPim.Hotel.Dominio.Interfaces;
 using UnipPim.Hotel.Dominio.Interfaces.Repositorio;
@@ -24,6 +23,9 @@ namespace UnipPim.Hotel.Dominio.Servicos
 
         public async Task<Paginacao<Anuncio>> PaginacaoListaAnuncio(int page, int size, string query)
             => await _anuncioRepositorio.Paginacao(page, size, query);
+
+        public async Task<IEnumerable<Anuncio>> TresAnunciosAleatorios() 
+            => await _anuncioRepositorio.TresAnunciosAleatorios();
 
         public async Task<IEnumerable<Quarto>> ListarQuartosDisponiveis()
         {
@@ -100,14 +102,31 @@ namespace UnipPim.Hotel.Dominio.Servicos
             await Task.CompletedTask;
         }
 
+        public void Dispose()
+        {
+            _anuncioRepositorio.Dispose();
+        }        
+
+        public async Task Delete(Anuncio anuncio)
+        {
+
+            foreach (var item in anuncio.Fotos)
+            {
+                await _anuncioRepositorio.DeleteFoto(item);
+            }
+
+            await _anuncioRepositorio.Delete(anuncio);
+
+            await _anuncioRepositorio.SaveChanges();
+
+            await Task.CompletedTask;
+        }
+
         public async Task Delete(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public void Dispose()
-        {
-            _anuncioRepositorio.Dispose();
-        }
+        
     }
 }

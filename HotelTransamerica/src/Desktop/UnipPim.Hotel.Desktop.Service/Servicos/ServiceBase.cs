@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -9,6 +10,12 @@ namespace UnipPim.Hotel.Desktop.Service.Servicos
 {
     public class ServiceBase
     {
+        protected CookieContainer cookies;
+        protected string UriBase = "https://localhost:44342/";
+        protected HttpClientHandler handler;
+
+        public ServiceBase(){}
+
         protected StringContent ObterContext(object data)
         {
             var result = JsonSerializer.Serialize(data);
@@ -21,26 +28,7 @@ namespace UnipPim.Hotel.Desktop.Service.Servicos
             var result = await responseMessage.Content.ReadAsStringAsync();
 
             return JsonSerializer.Deserialize<T>(result, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-        }
-
-        private async Task<bool> ResponseIsNull(HttpResponseMessage responseMessage)
-            => string.IsNullOrEmpty(await responseMessage.Content.ReadAsStringAsync());
-
-
-        protected async Task<dynamic> ReturnResponse<T>(HttpResponseMessage response)
-        {
-            if (!TratarErrosResponse(response))
-            {
-                return new UserResponseLogin
-                {
-                    ResponseResult = await DeserializeResponse<ResponseResult>(response)
-                };
-            }
-
-            if (await ResponseIsNull(response)) return ReturnOk();
-
-            return await DeserializeResponse<T>(response);
-        }
+        }           
 
         protected bool TratarErrosResponse(HttpResponseMessage response)
         {
@@ -62,7 +50,7 @@ namespace UnipPim.Hotel.Desktop.Service.Servicos
 
         protected ResponseResult ReturnOk()
         {
-            return new ResponseResult();
+            return new ResponseResult() { Title = "Sucesso", Status = 200};
         }
     }
 }

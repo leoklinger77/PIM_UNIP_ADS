@@ -7,13 +7,13 @@ using UnipPim.Hotel.Dominio.Interfaces;
 
 namespace UnipPim.Hotel.Controllers
 {
-    public abstract class MainController : Controller
+    public abstract class ApiController : ControllerBase
     {
         protected readonly IMapper _mapper;
         protected readonly IUser _user;
         private readonly INotificacao _notificacao;
 
-        protected MainController(IMapper mapper, IUser user, INotificacao notificacao)
+        protected ApiController(IMapper mapper, IUser user, INotificacao notificacao)
         {
             _mapper = mapper;
             _user = user;
@@ -23,33 +23,16 @@ namespace UnipPim.Hotel.Controllers
         protected void AddErro(string erro)
         {
             _notificacao.AddError(erro);
-        }
-
-        protected void ErrosTempData()
-        {
-            TempData["Erro"] = _notificacao.Erros().ToArray();
-        }
+        }        
 
         protected bool OperacaoValida()
         {
             if (_notificacao.ContemErros())
-            {
-                foreach (var item in _notificacao.Erros())
-                {
-                    ModelState.AddModelError(string.Empty, item);
-                }
+            {                
                 return true;
             }
             return false;
-        }
-
-        protected IActionResult CustomView(object obj = null)
-        {
-            OperacaoValida();
-            return View(obj);
-        }
-
-        //Retorno Rota da API
+        }               
 
         protected ActionResult CustomResponse(object result = null)
         {

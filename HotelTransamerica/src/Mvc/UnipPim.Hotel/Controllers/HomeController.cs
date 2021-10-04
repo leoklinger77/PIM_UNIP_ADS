@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnipPim.Hotel.Dominio.Interfaces;
 using UnipPim.Hotel.Dominio.Interfaces.Servicos;
 using UnipPim.Hotel.Models;
@@ -18,9 +20,11 @@ namespace UnipPim.Hotel.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var result = await _anuncioServico.TresAnunciosAleatorios();
+
+            return View(_mapper.Map<IEnumerable<AnuncioViewModel>>(result));
         }
 
         [HttpGet]

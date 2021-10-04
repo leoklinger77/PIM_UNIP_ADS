@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UnipPim.Hotel.Data;
+using UnipPim.Hotel.Extensions;
 
 namespace UnipPim.Hotel.Configuration
 {
@@ -14,10 +16,13 @@ namespace UnipPim.Hotel.Configuration
                 options.UseSqlServer(
                     configuration.GetConnectionString("Connection")));
 
-            
-
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddRoles<IdentityRole>()
+                .AddErrorDescriber<IdentityMessagePtBr>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            
         }
     }
 }

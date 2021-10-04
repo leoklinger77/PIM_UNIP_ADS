@@ -35,9 +35,10 @@ namespace UnipPim.Hotel.Desktop
             this.label2 = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.txtSenha = new System.Windows.Forms.TextBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.linkLblEsqueceuSenha = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.lblErrorLogin = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,18 +81,20 @@ namespace UnipPim.Hotel.Desktop
             // 
             this.txtSenha.Location = new System.Drawing.Point(366, 145);
             this.txtSenha.Name = "txtSenha";
+            this.txtSenha.PasswordChar = '*';
             this.txtSenha.Size = new System.Drawing.Size(244, 23);
             this.txtSenha.TabIndex = 4;
             // 
-            // linkLabel1
+            // linkLblEsqueceuSenha
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(366, 171);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(105, 15);
-            this.linkLabel1.TabIndex = 5;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Esqueceu a senha?";
+            this.linkLblEsqueceuSenha.AutoSize = true;
+            this.linkLblEsqueceuSenha.Location = new System.Drawing.Point(366, 171);
+            this.linkLblEsqueceuSenha.Name = "linkLblEsqueceuSenha";
+            this.linkLblEsqueceuSenha.Size = new System.Drawing.Size(105, 15);
+            this.linkLblEsqueceuSenha.TabIndex = 5;
+            this.linkLblEsqueceuSenha.TabStop = true;
+            this.linkLblEsqueceuSenha.Text = "Esqueceu a senha?";
+            this.linkLblEsqueceuSenha.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblEsqueceuSenha_LinkClicked);
             // 
             // pictureBox1
             // 
@@ -112,14 +115,24 @@ namespace UnipPim.Hotel.Desktop
             this.label3.TabIndex = 7;
             this.label3.Text = "Sistema Desktop Hotel Transamerica";
             // 
+            // lblErrorLogin
+            // 
+            this.lblErrorLogin.AutoSize = true;
+            this.lblErrorLogin.ForeColor = System.Drawing.Color.Red;
+            this.lblErrorLogin.Location = new System.Drawing.Point(366, 228);
+            this.lblErrorLogin.Name = "lblErrorLogin";
+            this.lblErrorLogin.Size = new System.Drawing.Size(0, 15);
+            this.lblErrorLogin.TabIndex = 8;
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(678, 272);
+            this.Controls.Add(this.lblErrorLogin);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.linkLabel1);
+            this.Controls.Add(this.linkLblEsqueceuSenha);
             this.Controls.Add(this.txtSenha);
             this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.label2);
@@ -141,9 +154,10 @@ namespace UnipPim.Hotel.Desktop
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.TextBox txtSenha;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel linkLblEsqueceuSenha;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblErrorLogin;
     }
 }
 

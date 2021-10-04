@@ -13,5 +13,6 @@ namespace UnipPim.Hotel.Dominio.Interfaces.Repositorio
         Task UdateFoto(Foto foto);
         Task DeleteFoto(Foto foto);
         Task<IEnumerable<Quarto>> ObterQuartosDisponiveis();
+        Task<IEnumerable<Anuncio>> TresAnunciosAleatorios();
     }
 }
