@@ -34,7 +34,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             _anuncioServico = anuncioServico;
         }
 
-        [HttpGet("lista-anuncio")]
+        [HttpGet("lista-anuncio")]        
         public async Task<IActionResult> Index(int page = 1, int size = 8, string query = null)
         {
             return View(_mapper.Map<PaginacaoViewModel<AnuncioViewModel>>(await _anuncioServico.PaginacaoListaAnuncio(page, size, query)));
@@ -117,7 +117,15 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         [HttpGet("detalhes-anuncio")]
         public async Task<IActionResult> DetalhesAnuncio(Guid id)
         {
-            return View();
+            var result = await _anuncioServico.ObterPorId(id);
+
+            if (OperacaoValida())
+            {
+                ErrosTempData();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(_mapper.Map<AnuncioViewModel>(result));
         }
 
         [HttpGet("deleta-anuncio")]

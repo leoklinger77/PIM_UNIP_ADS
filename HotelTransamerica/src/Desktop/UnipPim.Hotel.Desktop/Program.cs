@@ -12,7 +12,7 @@ namespace UnipPim.Hotel.Desktop
         [STAThread]
         static void Main()
         {
-            //Injectioin Dependency
+            //Injection Dependency
             var serviceCollection = new ServiceCollection();
             ConfigService(serviceCollection);
             var serviceProvider = serviceCollection.BuildServiceProvider();

@@ -10,15 +10,13 @@ namespace UnipPim.Hotel.Desktop
 {
     public partial class Login : Form
     {
-        private readonly ILoginService _loginService;
-        private readonly IUser _user;
-        private readonly ServiceProvider _provider;
+        private readonly ILoginService _loginService;        
+        private readonly IServiceProvider _provider;
         
-        public Login(ServiceProvider provider)
+        public Login(IServiceProvider provider)
         {
             InitializeComponent();
-            _provider = provider;
-            _user = provider.GetService<IUser>();
+            _provider = provider;            
             _loginService = provider.GetService<ILoginService>();
         }
 

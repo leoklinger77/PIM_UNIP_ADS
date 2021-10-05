@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using UnipPim.Hotel.Controllers;
 using UnipPim.Hotel.Dominio.Interfaces;
-using UnipPim.Hotel.Extensions;
 using UnipPim.Hotel.Models;
 
 namespace UnipPim.Hotel.Areas.Api.V1.Controllers

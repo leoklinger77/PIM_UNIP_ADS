@@ -8,6 +8,7 @@ using UnipPim.Hotel.Models;
 
 namespace UnipPim.Hotel.Controllers
 {
+    
     public class HomeController : MainController
     {
         private readonly IAnuncioServico _anuncioServico;
@@ -19,7 +20,7 @@ namespace UnipPim.Hotel.Controllers
             _anuncioServico = anuncioServico;
         }
 
-        [HttpGet]
+        [HttpGet]        
         public async Task<IActionResult> Index()
         {
             var result = await _anuncioServico.TresAnunciosAleatorios();

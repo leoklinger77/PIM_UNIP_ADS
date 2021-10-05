@@ -140,7 +140,7 @@ namespace UnipPim.Hotel.Desktop
             this.Controls.Add(this.btnLogar);
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Hotel Transamerica";
+            this.Text = "Hotel Transamerica - Login";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
