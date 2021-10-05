@@ -37,11 +37,11 @@ namespace UnipPim.Hotel.Areas.Identity.Pages.Account
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                return NotFound($"Unable to load user with email '{email}'.");
+                return NotFound($"Não foi possível carregar o usuário com e-mail '{email}'.");
             }
 
             Email = email;
-            // Once you add a real email sender, you should remove this code that lets you confirm the account
+            // Depois de adicionar um remetente de e-mail real, você deve remover este código que permite confirmar a conta
             DisplayConfirmAccountLink = true;
             if (DisplayConfirmAccountLink)
             {
