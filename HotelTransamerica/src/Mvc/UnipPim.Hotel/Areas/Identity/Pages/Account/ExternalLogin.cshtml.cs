@@ -60,7 +60,7 @@ namespace UnipPim.Hotel.Areas.Identity.Pages.Account
 
         public IActionResult OnPost(string provider, string returnUrl = null)
         {
-            // Request a redirect to the external login provider.
+            // Solicite um redirecionamento para o provedor de login externo.
             var redirectUrl = Url.Page("./ExternalLogin", pageHandler: "Callback", values: new { returnUrl });
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
             return new ChallengeResult(provider, properties);
@@ -71,21 +71,21 @@ namespace UnipPim.Hotel.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (remoteError != null)
             {
-                ErrorMessage = $"Error from external provider: {remoteError}";
+                ErrorMessage = $"Erro de provedor externo: { remoteError}";
                 return RedirectToPage("./Login", new {ReturnUrl = returnUrl });
             }
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
-                ErrorMessage = "Error loading external login information.";
+                ErrorMessage = "Erro ao carregar informações de login externo.";
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
 
-            // Sign in the user with this external login provider if the user already has a login.
+            // Faça o login do usuário com este provedor de login externo se o usuário já tiver um login.
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor : true);
             if (result.Succeeded)
             {
-                _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
+                _logger.LogInformation("{Name} logado com { LoginProvider} fornecedor.", info.Principal.Identity.Name, info.LoginProvider);
                 return LocalRedirect(returnUrl);
             }
             if (result.IsLockedOut)
@@ -94,7 +94,7 @@ namespace UnipPim.Hotel.Areas.Identity.Pages.Account
             }
             else
             {
-                // If the user does not have an account, then ask the user to create an account.
+                // Se o usuário não tiver uma conta, peça ao usuário para criar uma conta.
                 ReturnUrl = returnUrl;
                 ProviderDisplayName = info.ProviderDisplayName;
                 if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
@@ -111,11 +111,11 @@ namespace UnipPim.Hotel.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostConfirmationAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
-            // Get the information about the user from the external login provider
+            // Obtenha as informações sobre o usuário do provedor de login externo
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
-                ErrorMessage = "Error loading external login information during confirmation.";
+                ErrorMessage = "Erro ao carregar informações de login externo durante a confirmação.";
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
 
@@ -129,7 +129,7 @@ namespace UnipPim.Hotel.Areas.Identity.Pages.Account
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
-                        _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
+                        _logger.LogInformation("O usuário criou uma conta usando {Name} de fornecedor.", info.LoginProvider);
 
                         var userId = await _userManager.GetUserIdAsync(user);
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -140,10 +140,10 @@ namespace UnipPim.Hotel.Areas.Identity.Pages.Account
                             values: new { area = "Identity", userId = userId, code = code },
                             protocol: Request.Scheme);
 
-                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                        await _emailSender.SendEmailAsync(Input.Email, "Confirme seu email",
+                            $"Por favor, confirme sua conta <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicando aqui</a>.");
 
-                        // If account confirmation is required, we need to show the link if we don't have a real email sender
+                        // Se a confirmação da conta for necessária, precisamos mostrar o link se não tivermos um remetente de e-mail real
                         if (_userManager.Options.SignIn.RequireConfirmedAccount)
                         {
                             return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
