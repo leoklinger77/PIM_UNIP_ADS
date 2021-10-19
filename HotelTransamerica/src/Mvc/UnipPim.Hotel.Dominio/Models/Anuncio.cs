@@ -11,7 +11,7 @@ namespace UnipPim.Hotel.Dominio.Models
         public string Nome { get; private set; }
         public bool Ativo { get; private set; }
         public int Quantidade { get; private set; }
-        public decimal Custo { get; private set; }
+        public decimal Custo { get; private set; }        
         public Funcionario Funcionario { get; private set; }
         public Quarto Quarto { get; private set; }
 

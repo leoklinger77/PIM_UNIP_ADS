@@ -12,8 +12,8 @@ namespace UnipPim.Hotel.Dominio.Models.Validacoes
 
             RuleFor(x => x.Nome)
                 .NotEmpty()
-                .WithMessage("O campo ClaimType é obrigatório.")
-                .Length(1, 50).WithMessage("O campo ClaimType precisa ter entre 1 e 50 caracteres");            
+                .WithMessage("O campo Nome é obrigatório.")
+                .Length(10, 100).WithMessage("O campo Nome precisa ter entre 10 e 100 caracteres");            
         }
     }
 }

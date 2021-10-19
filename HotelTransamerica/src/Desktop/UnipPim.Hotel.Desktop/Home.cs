@@ -5,20 +5,18 @@ namespace UnipPim.Hotel.Desktop
 {
     public partial class Home : Form
     {
-        private readonly IServiceProvider _provider;
+        private readonly IServiceProvider _provider;        
 
         public Home(IServiceProvider provider)
         {
             InitializeComponent();
-            _provider = provider;
+            _provider = provider;            
         }
 
         private void abrirCaixaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Caixa frmfilho = new Caixa(_provider);
-
+            AberturaCaixa frmfilho = new AberturaCaixa(_provider);
             frmfilho.MdiParent = this;
-
             frmfilho.Show();
         }
 

@@ -23,10 +23,7 @@ namespace UnipPim.Hotel.Configuration
             CreateMap<AnuncioViewModel, Anuncio>().ReverseMap();
             CreateMap<FotoViewModel, Foto>().ReverseMap();
             CreateMap<CategoriaViewModel, Categoria>().ReverseMap();
-            CreateMap<ProdutoViewModel, Produto>().ReverseMap();
-            CreateMap<FrigobarViewModel, Frigobar>().ReverseMap();
-            CreateMap<ProdutosFrigobarViewModel, ProdutosFrigobar>().ReverseMap();
-            CreateMap<ProdutosConsumidosViewModel, ProdutosConsumidos>().ReverseMap();
+            CreateMap<ProdutoViewModel, Produto>().ReverseMap();            
             CreateMap<HospedeViewModel, Hospede>().ReverseMap();
 
 

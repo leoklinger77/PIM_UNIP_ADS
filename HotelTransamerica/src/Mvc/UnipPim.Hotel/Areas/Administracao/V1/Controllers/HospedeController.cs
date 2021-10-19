@@ -27,5 +27,10 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         {
             return View(_mapper.Map<PaginacaoViewModel<HospedeViewModel>>(await _hospedeServico.PaginacaoListaFuncionario(page, size, query)));
         }
+
+        public async Task<IActionResult> Editar()
+        {
+            return View();
+        }
     }
 }

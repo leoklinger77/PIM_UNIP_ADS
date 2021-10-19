@@ -59,14 +59,14 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             {
                 AddErro("Obrigatório inserir 1 foto para cadastrar um anuncio.");
                 OperacaoValida();
-                return View(await MapearAnuncioViewModel(viewModel)); ;
+                return View(await MapearAnuncioViewModel(viewModel));
             }
 
             await _anuncioServico.Insert(_mapper.Map<Anuncio>(viewModel));
 
             if (OperacaoValida())
             {
-
+                return View(await MapearAnuncioViewModel(viewModel));
             }
 
             return RedirectToAction(nameof(Index));

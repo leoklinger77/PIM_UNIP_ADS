@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnipPim.Hotel.Dominio.Interfaces;
@@ -27,6 +28,19 @@ namespace UnipPim.Hotel.Controllers
 
             return View(_mapper.Map<IEnumerable<AnuncioViewModel>>(result));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> DetalhesAnuncio(Guid anuncioId)
+        {
+            var result = await _anuncioServico.ObterPorId(anuncioId);
+
+            if (OperacaoValida())
+            {
+                return BadRequest();
+            }
+
+            return View(_mapper.Map<AnuncioViewModel>(result));
+        }        
 
         [HttpGet]
         public IActionResult Privacy()

@@ -27,6 +27,8 @@ namespace UnipPim.Hotel.Models
         [Range(0.01, double.MaxValue, ErrorMessage = "O campo {0} deve ser maior que R$0,00.")]
         public decimal Custo { get;  set; }
 
+        public int QuantidadeMaxPessoas { get; set; }
+
         public FuncionarioViewModel Funcionario { get;  set; }
         public QuartoViewModel Quarto { get;  set; }
         public IEnumerable<FotoViewModel> Fotos { get; set; } = new List<FotoViewModel>();

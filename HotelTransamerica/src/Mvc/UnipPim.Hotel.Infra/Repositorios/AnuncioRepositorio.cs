@@ -61,7 +61,7 @@ namespace UnipPim.Hotel.Infra.Repositorios
 
         public async Task<Anuncio> ObterPorId(Guid id)
         {
-            return await _hotelContext.Anuncio.Include(x => x.Fotos).Where(x => x.Id == id).FirstOrDefaultAsync();
+            return await _hotelContext.Anuncio.Include(x => x.Fotos).Include(x=>x.Quarto).Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task Insert(Anuncio entity)

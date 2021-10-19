@@ -8,9 +8,6 @@ namespace UnipPim.Hotel.Dominio.Interfaces.Servicos
 {
     public interface IQuartoServico : IServicoBase<Quarto>
     {
-        Task<Paginacao<Quarto>> PaginacaoListaQuarto(int page, int size, string query);
-        Task AddProdutoFrigobar(Guid quartoId, Guid produtoId, int quantitidade);
-
-        Task<Frigobar> ObterFrigobar(Guid id);
+        Task<Paginacao<Quarto>> PaginacaoListaQuarto(int page, int size, string query);        
     }
 }

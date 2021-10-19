@@ -14,8 +14,6 @@ namespace UnipPim.Hotel.Dominio.Models
         public int NumeroQuarto { get; private set; }
         public bool Ocupado { get; private set; }
 
-        public Frigobar Frigobar { get; private set; }
-
         private List<Anuncio> _anuncios = new List<Anuncio>();
         public IReadOnlyCollection<Anuncio> Anuncios => _anuncios;
 
@@ -81,10 +79,5 @@ namespace UnipPim.Hotel.Dominio.Models
             _camas.Clear();
         }
 
-        public void AddFrigobar(Frigobar frigobar)
-        {
-            Frigobar = frigobar;
-            FrigobarId = frigobar.Id;
-        }
     }
 }

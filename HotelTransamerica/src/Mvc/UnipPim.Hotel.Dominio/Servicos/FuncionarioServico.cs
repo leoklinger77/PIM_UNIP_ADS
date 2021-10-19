@@ -62,8 +62,9 @@ namespace UnipPim.Hotel.Dominio.Servicos
             await Task.CompletedTask;
         }
 
-        public async Task DeletarFuncionario(Funcionario funcionario)
+        public async Task DeletarFuncionario(Guid id)
         {
+            var funcionario = await ObterPorId(id);
             //TODO Validações de Chave Estrangeira do funcionario - se houve em outra tabela não pode ser deletado.
 
             await _funcionarioRepositorio.Delete(funcionario);

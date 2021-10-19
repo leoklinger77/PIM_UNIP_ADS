@@ -48,33 +48,13 @@ namespace UnipPim.Hotel.Infra.Repositorios
         public async Task<Quarto> Find(Expression<Func<Quarto, bool>> predicate)
         {
             return await _hotelContext.Quarto.AsNoTracking().Where(predicate).FirstOrDefaultAsync();
-        }
-
-        public async Task<Frigobar> ObterFrigobar(Guid id)
-        {
-            var frigobar =  await _hotelContext
-               .Frigobar
-               .Include(x => x.ProdutosConsumido)
-               .Include(x => x.ProdutosFrigobar)
-               .AsNoTracking().Where(x => x.Id == id).FirstOrDefaultAsync();
-                        
-            foreach (var item in frigobar.ProdutosFrigobar)            
-                item.Produto = await _hotelContext.Produto.AsNoTracking().Where(x => x.Id == item.ProdutoId).FirstAsync();
-
-            foreach (var item in frigobar.ProdutosConsumido)
-                item.Produto = await _hotelContext.Produto.AsNoTracking().Where(x => x.Id == item.ProdutoId).FirstAsync();
-
-            return frigobar;
-        }
+        }        
 
         public async Task<Quarto> ObterPorId(Guid id)
         {
             return await _hotelContext
                 .Quarto
-                .Include(x => x.Camas)
-                .Include(x => x.Frigobar)
-                .Include(x => x.Frigobar.ProdutosConsumido)
-                .Include(x => x.Frigobar.ProdutosFrigobar)
+                .Include(x => x.Camas)                
                 .AsNoTracking().Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
@@ -119,17 +99,5 @@ namespace UnipPim.Hotel.Infra.Repositorios
         {
             _hotelContext?.DisposeAsync();
         }
-
-        public async Task AddFrigobar(Frigobar frigobar)
-        {
-            await _hotelContext.Frigobar.AddAsync(frigobar);
-        }
-
-        public async Task AddProdutoFrigobar(ProdutosFrigobar produtoFrigobar)
-        {
-            await _hotelContext.ProdutosFrigobar.AddAsync(produtoFrigobar);
-        }
-
-
     }
 }

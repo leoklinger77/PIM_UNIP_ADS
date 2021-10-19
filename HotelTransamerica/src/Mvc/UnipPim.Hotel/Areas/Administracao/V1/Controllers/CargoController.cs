@@ -121,15 +121,9 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         [ClaimsAutorizacao("Cargo", "Deletar")]
         public async Task<IActionResult> ConfirmaDeletarCargo(Guid id)
         {
-            var resultado = await ObterCargoPorId(id);
+            if (id == Guid.Empty) return BadRequest();
 
-            if (OperacaoValida())
-            {
-                ErrosTempData();
-                return RedirectToAction(nameof(Index));
-            }
-
-            await _cargoServico.DeletarCargo(resultado);
+            await _cargoServico.DeletarCargo(id);
 
             if (OperacaoValida())
             {

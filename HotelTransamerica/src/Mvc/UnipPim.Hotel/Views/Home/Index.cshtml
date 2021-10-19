@@ -96,7 +96,7 @@
                         <p class="lead">@item.Quarto.Descricao</p>
                     </div>
                     <div class="col-md-5">
-                        <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="~/imagem/anuncio/@item.Fotos.First().Caminho" width="500" height="500" />
+                        <a asp-action="DetalhesAnuncio" asp-controller="Home" asp-route-anuncioId="@item.Id"><img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="~/imagem/anuncio/@item.Fotos.First().Caminho" width="500" height="500" /></a>
                     </div>
                 </div>
             }
@@ -110,8 +110,8 @@
                         <p class="lead">@item.Quarto.Descricao</p>
                     </div>
                     <div class="col-md-5 order-md-1">
-                        <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="~/imagem/anuncio/@item.Fotos.First().Caminho" width="500" height="500" />
-                    </div>
+                        <a asp-action="DetalhesAnuncio" asp-controller="Home" asp-route-anuncioId="@item.Id"><img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="~/imagem/anuncio/@item.Fotos.First().Caminho" width="500" height="500" /></a>
+</div>
                 </div>
             }
             contador++;

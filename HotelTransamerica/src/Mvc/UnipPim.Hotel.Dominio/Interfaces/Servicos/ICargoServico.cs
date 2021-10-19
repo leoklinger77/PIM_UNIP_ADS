@@ -15,6 +15,6 @@ namespace UnipPim.Hotel.Dominio.Interfaces.Servicos
         Task Update(Cargo cargo);
 
         Task<Cargo> ObterPorId(Guid id);
-        Task DeletarCargo(Cargo resultado);
+        Task DeletarCargo(Guid id);
     }
 }

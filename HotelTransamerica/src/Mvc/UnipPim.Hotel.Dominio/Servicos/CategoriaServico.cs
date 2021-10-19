@@ -12,10 +12,13 @@ namespace UnipPim.Hotel.Dominio.Servicos
     public class CategoriaServico : ServicoBase, ICategoriaServico
     {
         private readonly ICategoriaRepositorio _categoriaRepositorio;
-        public CategoriaServico(INotificacao notifier, 
-            ICategoriaRepositorio categoriaRepositorio) : base(notifier)
+        private readonly IProdutoRepositorio _produtoRepositorio;
+        public CategoriaServico(INotificacao notifier,
+            ICategoriaRepositorio categoriaRepositorio, 
+            IProdutoRepositorio produtoRepositorio) : base(notifier)
         {
             _categoriaRepositorio = categoriaRepositorio;
+            _produtoRepositorio = produtoRepositorio;
         }
 
         public async Task<Paginacao<Categoria>> PaginacaoListaCategoria(int page, int size, string query)
@@ -62,6 +65,13 @@ namespace UnipPim.Hotel.Dominio.Servicos
             var result = await ObterPorId(id);
 
             if (result is null) return;
+
+
+            if (await _produtoRepositorio.Find(x => x.CategoriaId == id) != null)
+            {
+                Notificar("Categoria não pode ser excluida, pois possui produtos atrelados.");
+                return;
+            }           
 
             await _categoriaRepositorio.Delete(result);
 

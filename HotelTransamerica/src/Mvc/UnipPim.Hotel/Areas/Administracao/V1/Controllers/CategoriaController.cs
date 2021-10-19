@@ -68,7 +68,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(result);
+            return View(_mapper.Map<CategoriaViewModel>(result));
         }
 
         [HttpPost("editar-categoria")]

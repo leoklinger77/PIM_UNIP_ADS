@@ -43,10 +43,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         [HttpGet("novo-quarto")]
         public async Task<IActionResult> NovoQuarto()
         {
-            return View(new QuartoViewModel()
-            {
-                Frigobar = new FrigobarViewModel() { ListaProdutos = _mapper.Map<IEnumerable<ProdutoViewModel>>(await _produtoServico.ProdutosDisponiveis()) },
-            });
+            return View(new QuartoViewModel());
         }
 
         [HttpPost("novo-quarto")]
@@ -169,37 +166,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             }
 
             return RedirectToAction(nameof(Index));
-        }
-
-        [HttpGet("Frigobar")]
-        public async Task<IActionResult> Frigobar(Guid quartoId)
-        {
-            var result = await _quartoServico.ObterPorId(quartoId);
-
-            if (OperacaoValida())
-            {
-                ErrosTempData();
-                return RedirectToAction(nameof(Index));
-            }
-            var r = await _quartoServico.ObterFrigobar(result.FrigobarId.Value);
-            var frigobar = _mapper.Map<FrigobarViewModel>(r);
-            if (frigobar is null) frigobar = new FrigobarViewModel();
-            var prodList = await _produtoServico.ProdutosDisponiveis();
-            frigobar.ListaProdutos = _mapper.Map<IEnumerable<ProdutoViewModel>>(prodList);
-            return View(frigobar);
-        }
-
-        [HttpGet("adicionar-produto-frigobar")]
-        public async Task<IActionResult> AdicionarProdutoFrigobar(Guid id, Guid produtoId, int quantidade)
-        {
-            await _quartoServico.AddProdutoFrigobar(id, produtoId, quantidade);
-            if (OperacaoValida())
-            {
-                ErrosTempData();
-                return RedirectToAction(nameof(Frigobar), new { quartoId = id });
-            }
-            return RedirectToAction(nameof(Frigobar), new { quartoId = id });
-        }
+        }          
 
         private async Task<QuartoViewModel> QuartoViewModelMapping(Quarto quarto)
         {

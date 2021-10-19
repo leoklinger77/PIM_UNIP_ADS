@@ -12,6 +12,6 @@ namespace UnipPim.Hotel.Dominio.Interfaces.Servicos
 
         Task Insert(Funcionario funcionario);
         Task Update(Funcionario funcionario);
-        Task DeletarFuncionario(Funcionario funcionario);
+        Task DeletarFuncionario(Guid id);
     }
 }

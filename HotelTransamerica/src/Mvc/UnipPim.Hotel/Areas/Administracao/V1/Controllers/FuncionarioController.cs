@@ -81,7 +81,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 
             if (!await CriarLoginFuncionario(newFuncionario.Id, viewModel.Email, viewModel.GrupoFuncionarioId))
             {
-                await _funcionarioServico.DeletarFuncionario(newFuncionario);
+                await _funcionarioServico.DeletarFuncionario(newFuncionario.Id);
                 return View(await PopulaListaCargoEGrupos(viewModel));
             }
             return RedirectToAction(nameof(Index));
@@ -161,25 +161,17 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
                 AddErro("Não é possivel excluir um usuario que está logado.");
                 ErrosTempData();
                 return RedirectToAction(nameof(Index));
-            }
+            }          
 
-            var resultado = await ObterFuncionarioPorId(id);
-
-            if (OperacaoValida())
-            {
-                ErrosTempData();
-                return RedirectToAction(nameof(Index));
-            }
-
-            await _funcionarioServico.DeletarFuncionario(resultado);
+            await _funcionarioServico.DeletarFuncionario(id);
 
             if (OperacaoValida())
             {
                 ErrosTempData();
                 return RedirectToAction(nameof(Index));
             }
-
-            await DeletarLoginFuncionario(resultado.Emails.First().EnderecoEmail);
+            
+            await DeletarLoginFuncionario(ObterFuncionarioPorId(id).Result.Emails.First().EnderecoEmail);
 
             return RedirectToAction(nameof(Index));
         }

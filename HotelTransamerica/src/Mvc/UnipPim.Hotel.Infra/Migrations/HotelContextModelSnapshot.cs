@@ -605,6 +605,45 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.ToTable("TB_Quarto");
                 });
 
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Reserva", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AnuncioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CheckIn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CheckOut")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("CustoAdicional")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("HospedeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("ValorReserva")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnuncioId");
+
+                    b.HasIndex("HospedeId");
+
+                    b.ToTable("TB_Reserva");
+                });
+
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Telefone", b =>
                 {
                     b.Property<Guid>("Id")
@@ -746,7 +785,7 @@ namespace UnipPim.Hotel.Infra.Migrations
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.ProdutosConsumidos", b =>
                 {
                     b.HasOne("UnipPim.Hotel.Dominio.Models.Frigobar", "Frigobar")
-                        .WithMany("ProdutosConsumidos")
+                        .WithMany("ProdutosConsumido")
                         .HasForeignKey("FrigobarId")
                         .IsRequired();
 
@@ -774,6 +813,19 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.HasOne("UnipPim.Hotel.Dominio.Models.Frigobar", "Frigobar")
                         .WithMany()
                         .HasForeignKey("FrigobarId");
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Reserva", b =>
+                {
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Anuncio", "Anuncio")
+                        .WithMany("Reservas")
+                        .HasForeignKey("AnuncioId")
+                        .IsRequired();
+
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Hospede", "Hospede")
+                        .WithMany()
+                        .HasForeignKey("HospedeId")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Telefone", b =>

@@ -12,11 +12,13 @@ namespace UnipPim.Hotel.Dominio.Servicos
 {
     public class CargoServico : ServicoBase, ICargoServico
     {
-        private readonly ICargoRepositorio _cargoRepositorio;        
+        private readonly ICargoRepositorio _cargoRepositorio;
+        private readonly IFuncionarioRepositorio _funcionarioRepositorio;
 
-        public CargoServico(INotificacao notifier, ICargoRepositorio cargoRepositorio) : base(notifier)
+        public CargoServico(INotificacao notifier, ICargoRepositorio cargoRepositorio, IFuncionarioRepositorio funcionarioRepositorio) : base(notifier)
         {
             _cargoRepositorio = cargoRepositorio;
+            _funcionarioRepositorio = funcionarioRepositorio;
         }
 
         public async Task<IEnumerable<Cargo>> ObterTodos()
@@ -73,11 +75,17 @@ namespace UnipPim.Hotel.Dominio.Servicos
             await Task.CompletedTask;
         }
 
-        public async Task DeletarCargo(Cargo resultado)
+        public async Task DeletarCargo(Guid id)
         {
-            //TODO Verificar se possui funcionarios - caso possuia não pode ser deletado;
+            var result = await ObterPorId(id);
 
-            await _cargoRepositorio.Delete(resultado);
+            if(await _funcionarioRepositorio.Find(x=>x.CargoId == result.Id) != null)
+            {
+                Notificar("Cargo possui funcionarios. Não pode ser deletado.");
+                return;
+            }
+
+            await _cargoRepositorio.Delete(result);
 
             await _cargoRepositorio.SaveChanges();
 

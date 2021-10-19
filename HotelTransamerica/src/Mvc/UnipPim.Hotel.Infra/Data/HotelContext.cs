@@ -27,10 +27,7 @@ namespace UnipPim.Hotel.Infra.Data
         public DbSet<Anuncio> Anuncio { get; set; }
         public DbSet<Foto> Foto { get; set; }
         public DbSet<Categoria> Categoria { get; set; }
-        public DbSet<Produto> Produto { get; set; }
-        public DbSet<Frigobar> Frigobar { get; set; }
-        public DbSet<ProdutosFrigobar> ProdutosFrigobar { get; set; }
-        public DbSet<ProdutosConsumidos> ProdutosConsumidos { get; set; }
+        public DbSet<Produto> Produto { get; set; }        
         public DbSet<Reserva> Reserva { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

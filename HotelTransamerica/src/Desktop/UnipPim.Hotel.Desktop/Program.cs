@@ -29,6 +29,7 @@ namespace UnipPim.Hotel.Desktop
         {
             services.AddSingleton<IUser, User>();
             services.AddSingleton<ILoginService, LoginService>();
+            services.AddSingleton<ICaixaService, CaixaService>();
         }
     }
 }

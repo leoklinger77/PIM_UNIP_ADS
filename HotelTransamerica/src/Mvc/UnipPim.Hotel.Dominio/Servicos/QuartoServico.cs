@@ -26,10 +26,7 @@ namespace UnipPim.Hotel.Dominio.Servicos
         public async Task<Paginacao<Quarto>> PaginacaoListaQuarto(int page, int size, string query)
             => await _quartoRepositorio.Paginacao(page, size, query);
 
-        public async Task<Frigobar> ObterFrigobar(Guid id)
-        {
-            return await _quartoRepositorio.ObterFrigobar(id);
-        }
+        
 
         public async Task<IEnumerable<Produto>> ProdutosDisponiveis()
         {
@@ -129,31 +126,6 @@ namespace UnipPim.Hotel.Dominio.Servicos
         public void Dispose()
         {
             _quartoRepositorio.Dispose();
-        }
-
-        public async Task AddProdutoFrigobar(Guid quartoId, Guid produtoId, int quantitidade)
-        {
-            var quarto = await ObterPorId(quartoId);
-            var frigobar = await ObterFrigobar(quarto.FrigobarId.Value);
-            var product = await _produtoRepositorio.ObterPorId(produtoId);
-
-            if (TemosErros()) return;
-
-            if (frigobar is null)
-            {
-                frigobar = new Frigobar(new List<ProdutosFrigobar>());
-                quarto.AddFrigobar(frigobar);
-                await _quartoRepositorio.AddFrigobar(frigobar);
-            }
-
-            var produtoFrigobar = new ProdutosFrigobar(produtoId, product, product.Valor, quantitidade);
-            quarto.Frigobar.AddProdutoFrigobar(produtoFrigobar);
-            
-            await _quartoRepositorio.AddProdutoFrigobar(produtoFrigobar);
-            await _quartoRepositorio.Update(quarto);
-            await _quartoRepositorio.SaveChanges();
-
-            await Task.CompletedTask;
-        }        
+        }      
     }
 }
