@@ -1,14 +1,16 @@
 ﻿@model GrupoFuncionarioViewModel
 
 @{
+    <br />
+
     ViewData["Title"] = "EditarGrupo";
 }
 
-<h1>EditarGrupo</h1>
+<h1>Editar Grupo</h1>
 
-<h4>GrupoFuncionario</h4>
+<h4>Grupo funcionário</h4>
 <hr />
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-4">
         <form asp-action="EditarGrupo">
             <vc:summary></vc:summary>
@@ -17,31 +19,36 @@
                 <input asp-for="Nome" class="form-control" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
+            <br />
             <input type="hidden" asp-for="Id" />
 
             <div class="form-group">
-                <label>Funcionario</label>
-                <select asp-for="Funcionario" asp-items="@(new SelectList(Model.Funcionario))" class="form-select" style="width:200px; height:130px" multiple aria-label="multiple select example">                   
+                <label>Funcionário</label>
+                <select asp-for="Funcionario" asp-items="@(new SelectList(Model.Funcionario))" class="form-select" style="width:340px; height:80px" multiple aria-label="multiple select example">
                 </select>
             </div>
+            <br />
             <div class="form-group">
                 <label>Cargo</label>
-                <select asp-for="Cargo" asp-items="@(new SelectList(Model.Cargo))" class="form-select" style="width: 200px; height: 130px" multiple aria-label="multiple select example">                   
+                <select asp-for="Cargo" asp-items="@(new SelectList(Model.Cargo))" class="form-select" style="width: 340px; height: 80px" multiple aria-label="multiple select example">
                 </select>
             </div>
+            <br />
             <div class="form-group">
                 <label>Hospede</label>
-                <select asp-for="Hospede" asp-items="@(new SelectList(Model.Hospede))" class="form-select" style="width: 200px; height: 130px" multiple aria-label="multiple select example">
+                <select asp-for="Hospede" asp-items="@(new SelectList(Model.Hospede))" class="form-select" style="width: 340px; height: 80px" multiple aria-label="multiple select example">
                 </select>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <br />
+            <div class="form-group d-grid gap-2 col-12 mx-auto">
+                <input type="submit" value="Salvar" class="btn btn-success" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div style="text-align: center">
+    <br />
+    <a asp-action="Index">Voltar a lista</a>
 </div>
 

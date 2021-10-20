@@ -1,13 +1,14 @@
 ﻿@model PaginacaoViewModel<GrupoFuncionarioViewModel>
 
 @{
+    <br />
     ViewData["Title"] = "Grupos de Acesso";
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <p>
-    <a class="btn btn-outline-info" asp-action="NovoGrupo">Novo Grupo</a>
+    <a class="btn btn-success" asp-action="NovoGrupo">Novo Grupo</a>
 </p>
 <vc:summary></vc:summary>
 <table class="table">
@@ -28,9 +29,9 @@
             </td>
             
             <td>
-                <a class="btn btn-outline-info" asp-action="EditarGrupo" asp-route-id="@item.Id">Editar</a> |
-                <a class="btn btn-outline-info" asp-action="DetalhesGrupo" asp-route-id="@item.Id">Detalhes</a> |
-                <a class="btn btn-outline-info" asp-action="DeleteGrupo" asp-route-id="@item.Id">Deletar</a>
+                <a class="btn btn-primary" asp-action="EditarGrupo" asp-route-id="@item.Id">Editar</a> |
+                <a class="btn btn-secondary" asp-action="DetalhesGrupo" asp-route-id="@item.Id">Detalhes</a> |
+                <a class="btn btn-danger" asp-action="DeleteGrupo" asp-route-id="@item.Id">Deletar</a>
             </td>
         </tr>
 }
