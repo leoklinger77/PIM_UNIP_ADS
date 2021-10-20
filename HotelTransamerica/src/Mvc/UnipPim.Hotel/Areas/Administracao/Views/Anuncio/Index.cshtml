@@ -1,13 +1,14 @@
 ﻿@model PaginacaoViewModel<AnuncioViewModel>
 
 @{
-    ViewData["Title"] = "Lista de anuncios";
+    <br />
+    ViewData["Title"] = "Lista de Anúncios";
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <p>
-    <a class="btn btn-outline-info" asp-action="NovoAnuncio">Novo Anuncio</a>
+    <a class="btn btn-outline-info" asp-action="NovoAnuncio">Novo Anúncio</a>
 </p>
 <vc:summary></vc:summary>
 <table class="table">

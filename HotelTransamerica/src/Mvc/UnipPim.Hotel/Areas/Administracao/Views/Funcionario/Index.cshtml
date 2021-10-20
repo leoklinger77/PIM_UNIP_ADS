@@ -1,6 +1,7 @@
 ﻿@model PaginacaoViewModel<FuncionarioViewModel>
 
 @{
+    <br />
     ViewData["Title"] = "Lista de Funcionários";
        
 }
@@ -8,7 +9,7 @@
 <h1>@ViewData["Title"]</h1>
 
 <p>
-    <a class="btn btn-outline-info" asp-action="NovoFuncionario">Novo Funcionario</a>
+    <a class="btn btn-outline-info" asp-action="NovoFuncionario">Novo Funcionário</a>
 </p>
 <vc:summary></vc:summary>
 <table class="table">
@@ -18,7 +19,7 @@
                 Nome Completo
             </th>
             <th>
-                Cpf
+                CPF
             </th>
             <th>
                 Nascimento
@@ -46,9 +47,9 @@
                     @Html.DisplayFor(modelItem => item.Cargo.Nome)
                 </td>
                 <td>
-                    <a class="btn btn-outline-info" asp-action="EditarFuncionario" asp-route-id="@item.Id">Edit</a> |
-                    <a class="btn btn-outline-info" asp-action="DetalhesFuncionario" asp-route-id="@item.Id">Details</a> |
-                    <a class="btn btn-outline-info" asp-action="DeletarFuncionario" asp-route-id="@item.Id">Delete</a>
+                    <a class="btn btn-outline-info" asp-action="EditarFuncionario" asp-route-id="@item.Id">Editar</a> |
+                    <a class="btn btn-outline-info" asp-action="DetalhesFuncionario" asp-route-id="@item.Id">Detalhes</a> |
+                    <a class="btn btn-outline-info" asp-action="DeletarFuncionario" asp-route-id="@item.Id">Deletar</a>
                 </td>
             </tr>
         }
