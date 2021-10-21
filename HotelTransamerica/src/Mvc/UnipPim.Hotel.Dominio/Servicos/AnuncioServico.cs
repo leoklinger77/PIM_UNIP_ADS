@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnipPim.Hotel.Dominio.Interfaces;
 using UnipPim.Hotel.Dominio.Interfaces.Repositorio;
@@ -65,17 +66,20 @@ namespace UnipPim.Hotel.Dominio.Servicos
 
             var anuncioDb = await ObterPorId(entity.Id);
 
-            foreach (var item in anuncioDb.Fotos)
-            {                
+            foreach (var item in anuncioDb.Fotos.Except(entity.Fotos))
+            {
                 await _anuncioRepositorio.DeleteFoto(item);
-                anuncioDb.RemoveFoto(item);
             }
 
             foreach (var item in entity.Fotos)
             {
-                anuncioDb.AddFoto(item);
-                await _anuncioRepositorio.AddFoto(item);
+                if(anuncioDb.Fotos.Where(x => x.Caminho == item.Caminho) == null)               
+                {
+                    anuncioDb.AddFoto(item);
+                    await _anuncioRepositorio.AddFoto(item);
+                }                
             }
+                       
 
             if (entity.Ativo)
                 anuncioDb.AtivarAnuncio();
@@ -102,13 +106,9 @@ namespace UnipPim.Hotel.Dominio.Servicos
             await Task.CompletedTask;
         }
 
-        public void Dispose()
+        public async Task Delete(Guid id)
         {
-            _anuncioRepositorio.Dispose();
-        }        
-
-        public async Task Delete(Anuncio anuncio)
-        {
+            var anuncio = await ObterPorId(id);
 
             foreach (var item in anuncio.Fotos)
             {
@@ -121,12 +121,9 @@ namespace UnipPim.Hotel.Dominio.Servicos
 
             await Task.CompletedTask;
         }
-
-        public async Task Delete(Guid id)
+        public void Dispose()
         {
-            throw new NotImplementedException();
+            _anuncioRepositorio.Dispose();
         }
-
-        
     }
 }

@@ -7,6 +7,7 @@ using UnipPim.Hotel.Dominio.Interfaces;
 
 namespace UnipPim.Hotel.Controllers
 {
+    [ApiController]
     public abstract class ApiController : ControllerBase
     {
         protected readonly IMapper _mapper;

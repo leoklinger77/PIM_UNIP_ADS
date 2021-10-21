@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace UnipPim.Hotel.Models
 {
@@ -35,6 +36,7 @@ namespace UnipPim.Hotel.Models
         public decimal Valor { get;  set; }
         public CategoriaViewModel Categoria { get;  set; }
 
+        [JsonIgnore]
         public IEnumerable<CategoriaViewModel> ListaCategoria { get; set; } = new List<CategoriaViewModel>();
     }
 }

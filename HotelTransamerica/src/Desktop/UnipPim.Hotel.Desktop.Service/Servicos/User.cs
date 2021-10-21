@@ -26,6 +26,8 @@ namespace UnipPim.Hotel.Desktop.Service.Servicos
             _cookies = cookie;
         }
 
+        
+
         public string GetEmail()
         {
             return _email;

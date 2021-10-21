@@ -8,8 +8,7 @@ using UnipPim.Hotel.Models;
 
 namespace UnipPim.Hotel.Areas.Api.V1.Controllers
 {
-    [Area("Api")]
-    [ApiController]
+    [Area("Api")]    
     [Route("Api/V1/[controller]")]
     public class AutenticacaoController : ApiController
     {

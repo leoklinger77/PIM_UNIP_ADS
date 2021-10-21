@@ -9,8 +9,6 @@ namespace UnipPim.Hotel.Dominio.Interfaces.Servicos
     {
         Task<Paginacao<Anuncio>> PaginacaoListaAnuncio(int page, int size, string query);
         Task<IEnumerable<Quarto>> ListarQuartosDisponiveis();
-        Task Delete(Anuncio anuncio);
-
         Task<IEnumerable<Anuncio>> TresAnunciosAleatorios();
     }
 }

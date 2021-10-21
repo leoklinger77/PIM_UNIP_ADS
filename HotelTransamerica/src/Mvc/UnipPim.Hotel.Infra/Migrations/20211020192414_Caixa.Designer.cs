@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UnipPim.Hotel.Infra.Data;
 
 namespace UnipPim.Hotel.Infra.Migrations
 {
     [DbContext(typeof(HotelContext))]
-    partial class HotelContextModelSnapshot : ModelSnapshot
+    [Migration("20211020192414_Caixa")]
+    partial class Caixa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,10 +99,7 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.Property<DateTime>("Abertura")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CaixaTipo")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("Fechamento")
+                    b.Property<DateTime>("Fechamento")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("FuncionarioId")
@@ -116,8 +115,6 @@ namespace UnipPim.Hotel.Infra.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FuncionarioId");
 
                     b.ToTable("TB_Caixa");
                 });
@@ -697,14 +694,6 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.HasOne("UnipPim.Hotel.Dominio.Models.Quarto", "Quarto")
                         .WithMany("Anuncios")
                         .HasForeignKey("QuartoId")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Caixa", b =>
-                {
-                    b.HasOne("UnipPim.Hotel.Dominio.Models.Funcionario", "Funcionario")
-                        .WithMany("Caixas")
-                        .HasForeignKey("FuncionarioId")
                         .IsRequired();
                 });
 

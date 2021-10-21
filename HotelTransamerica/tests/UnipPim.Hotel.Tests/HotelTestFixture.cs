@@ -19,7 +19,10 @@ namespace UnipPim.Hotel.Tests
         public CategoriaServico CategoriaServico;
         public CargoServico CargoServico;
         public FuncionarioServico FuncionarioServico;
+        public AnuncioServico AnuncioServico;
+        public CaixaServico CaixaServico;
 
+        //Servicos
         public ProdutoServico ObterProdutoServico()
         {
             AutoMocker = new AutoMocker();
@@ -44,7 +47,22 @@ namespace UnipPim.Hotel.Tests
             FuncionarioServico = AutoMocker.CreateInstance<FuncionarioServico>();
             return FuncionarioServico;
         }
+        public AnuncioServico ObterAnuncioServico()
+        {
+            AutoMocker = new AutoMocker();
+            AnuncioServico = AutoMocker.CreateInstance<AnuncioServico>();
+            return AnuncioServico;
+        }
+        public CaixaServico ObterCaixaServico()
+        {
+            AutoMocker = new AutoMocker();
+            CaixaServico = AutoMocker.CreateInstance<CaixaServico>();
+            return CaixaServico;
+        }
 
+
+
+        //Dominio
         public IEnumerable<Categoria> GerarCategorias(int quantidade)
         {
             return new Faker<Categoria>(locale: "pt_BR")
@@ -66,6 +84,50 @@ namespace UnipPim.Hotel.Tests
                .CustomInstantiator(f =>
                                     new Funcionario(f.Name.FullName(), f.Person.Cpf(), f.Date.Past(16), Guid.NewGuid(), Guid.NewGuid())
                                    ).Generate(quantidade);
+        }
+        public IEnumerable<Anuncio> GerarAnuncio(int quantidade)
+        {
+            return new Faker<Anuncio>(locale: "pt_BR")
+               .CustomInstantiator(f =>
+                                    new Anuncio(f.Name.JobTitle(), true, f.Random.Number(0, 500), decimal.Parse(f.Commerce.Price()), Guid.NewGuid(), Guid.NewGuid())
+                                   ).Generate(quantidade);
+        }
+        public IEnumerable<Foto> GerarFotos(int quantidade)
+        {
+            return new Faker<Foto>(locale: "pt_BR")
+               .CustomInstantiator(f =>
+                                    new Foto(f.Image.DataUri(40, 40))
+                                   ).Generate(quantidade);
+        }
+        public IEnumerable<OrderVenda> GerarOrderVendaComItensVenda(int qtdeOrder, int qtdeItensVenda)
+        {
+            var orderVenda = new Faker<OrderVenda>(locale: "pt_BR")
+               .CustomInstantiator(f =>
+                                    new OrderVenda(f.Person.Cpf())
+                                   ).Generate(qtdeOrder);
+
+            foreach (var item in orderVenda)
+            {
+                for (int i = 0; i < qtdeItensVenda; i++)
+                {
+                    item.AddItem(new Faker<ItensVenda>(locale: "pt_BR")
+                                    .CustomInstantiator(f =>
+                                                        new ItensVenda(item.Id, Guid.NewGuid(), decimal.Parse(f.Commerce.Price(0, 5000, 2)), f.Random.Int(0, 10))
+                                                        ));
+                }
+
+            }
+
+            return orderVenda;
+
+        }
+
+        public IEnumerable<ItensVenda> GerarItensVenda(int quantidade, Guid orderVendaId)
+        {
+            return new Faker<ItensVenda>(locale: "pt_BR")
+                                    .CustomInstantiator(f =>
+                                                        new ItensVenda(orderVendaId, Guid.NewGuid(), decimal.Parse(f.Commerce.Price(0, 5000, 2)), f.Random.Int(1, 10))
+                                                        ).Generate(quantidade);
         }
 
         public void Dispose() { }

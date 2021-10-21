@@ -21,9 +21,13 @@ namespace UnipPim.Hotel.Dominio.Models
         private List<Telefone> _telefones = new List<Telefone>();
         private List<Endereco> _enderecos = new List<Endereco>();
 
+
+        private List<Caixa> _caixa = new List<Caixa>();
+
         public IReadOnlyCollection<Email> Emails => _emails;
         public IReadOnlyCollection<Telefone> Telefones => _telefones;
         public IReadOnlyCollection<Endereco> Enderecos => _enderecos;
+        public IReadOnlyCollection<Caixa> Caixas => _caixa;
         protected Funcionario() { }
 
         public Funcionario(string nomeCompleto, string cpf, DateTime nascimento, Guid cargoId, Guid grupoFuncionarioId)

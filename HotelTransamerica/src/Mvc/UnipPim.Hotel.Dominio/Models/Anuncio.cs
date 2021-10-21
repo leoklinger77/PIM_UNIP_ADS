@@ -52,6 +52,7 @@ namespace UnipPim.Hotel.Dominio.Models
 
         public void AddFoto(Foto fotos)
         {
+            fotos.SetAnuncio(Id);
             _Fotos.Add(fotos);
         }
 

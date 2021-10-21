@@ -19,7 +19,7 @@ namespace UnipPim.Hotel.Desktop.Service.ServicosHttp.Servicos
 
         public async Task<ResponseResult> Login(LoginRequest login)
         {
-            cookies = new CookieContainer();
+            cookies = new CookieContainer();                      
             handler = new HttpClientHandler();
             handler.CookieContainer = cookies;
 

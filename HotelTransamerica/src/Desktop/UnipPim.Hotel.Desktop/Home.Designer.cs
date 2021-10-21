@@ -68,8 +68,7 @@ namespace UnipPim.Hotel.Desktop
             this.fileMenu.ImageTransparentColor = System.Drawing.SystemColors.ActiveBorder;
             this.fileMenu.Name = "fileMenu";
             this.fileMenu.Size = new System.Drawing.Size(66, 20);
-            this.fileMenu.Text = "&Arquivos";
-            this.fileMenu.Click += new System.EventHandler(this.fileMenu_Click);
+            this.fileMenu.Text = "&Arquivos";            
             // 
             // abrirCaixaToolStripMenuItem
             // 
@@ -83,6 +82,7 @@ namespace UnipPim.Hotel.Desktop
             this.fecharCaixaToolStripMenuItem.Name = "fecharCaixaToolStripMenuItem";
             this.fecharCaixaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.fecharCaixaToolStripMenuItem.Text = "Fechar Caixa";
+            this.fecharCaixaToolStripMenuItem.Click += new System.EventHandler(this.fecharCaixaToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 

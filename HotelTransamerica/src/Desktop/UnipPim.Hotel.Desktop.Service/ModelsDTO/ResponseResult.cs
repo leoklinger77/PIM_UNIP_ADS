@@ -2,6 +2,13 @@
 
 namespace UnipPim.Hotel.Desktop.Service.ModelsDTO
 {
+
+    public class ResponseResult<T>
+    {
+        public T Class { get; set; }
+        public ResponseResult Response { get; set; }
+    }
+
     public class ResponseResult
     {
         public string Title { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnipPim.Hotel.Dominio.Interfaces;
 
 namespace UnipPim.Hotel.Dominio.Models
@@ -13,7 +14,9 @@ namespace UnipPim.Hotel.Dominio.Models
         public int QuantidadeVendida { get; private set; }
         public decimal Valor { get; private set; }
         public Categoria Categoria { get; private set; }
-        
+        private List<ItensVenda> _itensVendas = new List<ItensVenda>();
+        public IReadOnlyCollection<ItensVenda> ItensVendas => _itensVendas;
+
         protected Produto() { }
 
         public Produto(string nome, string codigoBarras, int quantidadeEstoque, decimal valor, Guid categoriaId)

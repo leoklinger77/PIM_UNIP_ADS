@@ -5,7 +5,7 @@ using UnipPim.Hotel.Dominio.Interfaces.Repositorio;
 using UnipPim.Hotel.Dominio.Servicos;
 using Xunit;
 
-namespace UnipPim.Hotel.Tests.Unidade
+namespace UnipPim.Hotel.Tests.Unidade.Servico
 {
     [Collection(nameof(HotelCollection))]
     public class CategoriaServicoTest

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UnipPim.Hotel.Infra.Data;
 
 namespace UnipPim.Hotel.Infra.Migrations
 {
     [DbContext(typeof(HotelContext))]
-    partial class HotelContextModelSnapshot : ModelSnapshot
+    [Migration("20211020223109_Caixa2")]
+    partial class Caixa2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,7 +102,7 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.Property<int>("CaixaTipo")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Fechamento")
+                    b.Property<DateTime>("Fechamento")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("FuncionarioId")

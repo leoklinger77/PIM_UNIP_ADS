@@ -19,5 +19,10 @@ namespace UnipPim.Hotel.Dominio.Models
         {
             Caminho = camiho;
         }
+
+        internal void SetAnuncio(Guid anuncioId)
+        {
+            AnuncioId = anuncioId;
+        }
     }
 }

@@ -51,7 +51,7 @@ namespace UnipPim.Hotel.Infra.Repositorios
         }
         public async Task<Produto> Find(Expression<Func<Produto, bool>> predicate)
         {
-            return await _context.Produto.AsNoTracking().Where(predicate).FirstOrDefaultAsync();
+            return await _context.Produto.Include(x => x.Categoria).AsNoTracking().Where(predicate).FirstOrDefaultAsync();
         }
 
         public async Task<Produto> ObterPorId(Guid id)

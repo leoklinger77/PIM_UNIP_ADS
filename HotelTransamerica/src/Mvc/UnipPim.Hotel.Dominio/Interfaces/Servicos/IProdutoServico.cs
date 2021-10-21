@@ -10,5 +10,7 @@ namespace UnipPim.Hotel.Dominio.Interfaces.Servicos
         Task<Paginacao<Produto>> PaginacaoListaProduto(int page, int size, string query);
         Task<IEnumerable<Categoria>> ListaCategoria();
         Task<IEnumerable<Produto>> ProdutosDisponiveis();
+
+        Task<Produto> ObterPorCodigoDeBarras(string code);
     }
 }

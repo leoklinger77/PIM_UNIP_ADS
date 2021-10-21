@@ -11,7 +11,6 @@ namespace UnipPim.Hotel.Infra.Data
     {
         public HotelContext(DbContextOptions<HotelContext> options) : base(options) { }
 
-        
         public DbSet<Cargo> Cargo { get; set; }
         public DbSet<Email> Email { get; set; }
         public DbSet<Telefone> Telefone { get; set; }
@@ -30,6 +29,10 @@ namespace UnipPim.Hotel.Infra.Data
         public DbSet<Produto> Produto { get; set; }        
         public DbSet<Reserva> Reserva { get; set; }
 
+        public DbSet<Caixa> Caixa { get; set; }
+        public DbSet<OrderVenda> OrderVenda { get; set; }
+        public DbSet<ItensVenda> ItensVenda { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {   
             foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetProperties().Where(p => p.ClrType == typeof(string))))
@@ -39,35 +42,36 @@ namespace UnipPim.Hotel.Infra.Data
                 relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(HotelContext).Assembly);
+
+            //ManyToMany
+            modelBuilder.Entity<ItensVenda>()
+                .HasKey(x => new { x.OrderVendaId, x.ProdutoId });
+            modelBuilder.Entity<ItensVenda>()
+                .HasOne(x => x.Produto)
+                .WithMany(x => x.ItensVendas)
+                .HasForeignKey(x => x.ProdutoId);
+            modelBuilder.Entity<ItensVenda>()
+                .HasOne(x => x.OrderVenda)
+                .WithMany(x => x.ItensVendas)
+                .HasForeignKey(x => x.OrderVendaId);
         }
 
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
-            foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("InsertDate") != null))
+            foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("InsertDate") != null || entry.Entity.GetType().GetProperty("UpdateDate") != null))
             {
                 if (entry.State == EntityState.Added)
                 {
-                    entry.Property("InsertDate").CurrentValue = DateTime.Now;
+                    entry.Property("InsertDate").CurrentValue = DateTime.Now;                    
+
                 }
 
                 if (entry.State == EntityState.Modified)
                 {
                     entry.Property("InsertDate").IsModified = false;
-                }
-            }
-
-            foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("UpdateDate") != null))
-            {
-                if (entry.State == EntityState.Added)
-                {
-                    entry.Property("InsertDate").IsModified = false;
-                }
-
-                if (entry.State == EntityState.Modified)
-                {                    
                     entry.Property("UpdateDate").CurrentValue = DateTime.Now;
                 }
-            }
+            }           
 
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken); 
         }

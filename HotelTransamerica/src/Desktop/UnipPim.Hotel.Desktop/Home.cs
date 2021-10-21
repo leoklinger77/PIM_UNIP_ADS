@@ -1,28 +1,58 @@
 ﻿using System;
 using System.Windows.Forms;
+using UnipPim.Hotel.Desktop.Service.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 
 namespace UnipPim.Hotel.Desktop
 {
     public partial class Home : Form
     {
-        private readonly IServiceProvider _provider;        
+        private readonly IServiceProvider _provider;
+        private readonly ICaixaService _caixaService;
 
         public Home(IServiceProvider provider)
         {
             InitializeComponent();
-            _provider = provider;            
+            _provider = provider;
+            _caixaService = provider.GetService<ICaixaService>();
         }
 
-        private void abrirCaixaToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void abrirCaixaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AberturaCaixa frmfilho = new AberturaCaixa(_provider);
-            frmfilho.MdiParent = this;
-            frmfilho.Show();
+            var response = await _caixaService.ObterCaixa();
+
+            if (response.Class != null)
+            {
+
+                Caixa frmfilho = new Caixa(_provider);
+                frmfilho.MdiParent = this;
+                frmfilho.Show();
+            }
+            else
+            {
+                AberturaCaixa frmfilho = new AberturaCaixa(_provider);
+                frmfilho.MdiParent = this;
+                frmfilho.Show();
+            }
         }
 
-        private void fileMenu_Click(object sender, EventArgs e)
+        private async void fecharCaixaToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            var response = await _caixaService.FecharCaixa();
 
+            if (response.Status == 200)
+            {
+                if (Application.OpenForms.OfType<Caixa>().Count() > 0)
+                {
+                    var caixa = Application.OpenForms.OfType<Caixa>().First();
+                    caixa.Close();
+                }
+            }
+            else
+            {
+
+            }
         }
 
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)

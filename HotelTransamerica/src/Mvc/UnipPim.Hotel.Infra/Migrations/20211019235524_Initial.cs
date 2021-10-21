@@ -51,21 +51,6 @@ namespace UnipPim.Hotel.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TB_Frigobar",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    InsertDate = table.Column<DateTime>(nullable: false),
-                    UpdateDate = table.Column<DateTime>(nullable: true),
-                    Quantidade = table.Column<int>(nullable: false),
-                    ValorTotalProdutos = table.Column<decimal>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TB_Frigobar", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TB_GrupoFuncionario",
                 columns: table => new
                 {
@@ -93,6 +78,26 @@ namespace UnipPim.Hotel.Infra.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TB_Hospede", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TB_Quarto",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    InsertDate = table.Column<DateTime>(nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: true),
+                    FrigobarId = table.Column<Guid>(nullable: true),
+                    Nome = table.Column<string>(type: "varchar(255)", nullable: true),
+                    Televisor = table.Column<bool>(nullable: false),
+                    Hidromassagem = table.Column<bool>(nullable: false),
+                    Descricao = table.Column<string>(type: "varchar(255)", nullable: true),
+                    NumeroQuarto = table.Column<int>(nullable: false),
+                    Ocupado = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TB_Quarto", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -137,32 +142,6 @@ namespace UnipPim.Hotel.Infra.Migrations
                         name: "FK_TB_Cidade_TB_Estado_EstadoId",
                         column: x => x.EstadoId,
                         principalTable: "TB_Estado",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TB_Quarto",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    InsertDate = table.Column<DateTime>(nullable: false),
-                    UpdateDate = table.Column<DateTime>(nullable: true),
-                    FrigobarId = table.Column<Guid>(nullable: true),
-                    Nome = table.Column<string>(type: "varchar(255)", nullable: true),
-                    Televisor = table.Column<bool>(nullable: false),
-                    Hidromassagem = table.Column<bool>(nullable: false),
-                    Descricao = table.Column<string>(type: "varchar(255)", nullable: true),
-                    NumeroQuarto = table.Column<int>(nullable: false),
-                    Ocupado = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TB_Quarto", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TB_Quarto_TB_Frigobar_FrigobarId",
-                        column: x => x.FrigobarId,
-                        principalTable: "TB_Frigobar",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -238,64 +217,6 @@ namespace UnipPim.Hotel.Infra.Migrations
                         name: "FK_TB_Dependente_TB_Hospede_ResponsavelId",
                         column: x => x.ResponsavelId,
                         principalTable: "TB_Hospede",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TB_ProdutosConsumidos",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    InsertDate = table.Column<DateTime>(nullable: false),
-                    UpdateDate = table.Column<DateTime>(nullable: true),
-                    FrigobarId = table.Column<Guid>(nullable: false),
-                    ProdutoId = table.Column<Guid>(nullable: false),
-                    Valor = table.Column<decimal>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TB_ProdutosConsumidos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TB_ProdutosConsumidos_TB_Frigobar_FrigobarId",
-                        column: x => x.FrigobarId,
-                        principalTable: "TB_Frigobar",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_TB_ProdutosConsumidos_TB_Produto_ProdutoId",
-                        column: x => x.ProdutoId,
-                        principalTable: "TB_Produto",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TB_ProdutosFrigobar",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    InsertDate = table.Column<DateTime>(nullable: false),
-                    UpdateDate = table.Column<DateTime>(nullable: true),
-                    FrigobarId = table.Column<Guid>(nullable: false),
-                    ProdutoId = table.Column<Guid>(nullable: false),
-                    Valor = table.Column<decimal>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TB_ProdutosFrigobar", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TB_ProdutosFrigobar_TB_Frigobar_FrigobarId",
-                        column: x => x.FrigobarId,
-                        principalTable: "TB_Frigobar",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_TB_ProdutosFrigobar_TB_Produto_ProdutoId",
-                        column: x => x.ProdutoId,
-                        principalTable: "TB_Produto",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -473,6 +394,37 @@ namespace UnipPim.Hotel.Infra.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TB_Reserva",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    InsertDate = table.Column<DateTime>(nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: true),
+                    AnuncioId = table.Column<Guid>(nullable: false),
+                    HospedeId = table.Column<Guid>(nullable: false),
+                    CheckIn = table.Column<DateTime>(nullable: false),
+                    CheckOut = table.Column<DateTime>(nullable: false),
+                    CustoAdicional = table.Column<decimal>(nullable: false),
+                    ValorReserva = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TB_Reserva", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TB_Reserva_TB_Anuncio_AnuncioId",
+                        column: x => x.AnuncioId,
+                        principalTable: "TB_Anuncio",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TB_Reserva_TB_Hospede_HospedeId",
+                        column: x => x.HospedeId,
+                        principalTable: "TB_Hospede",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_TB_Acesso_GrupoFuncionarioId",
                 table: "TB_Acesso",
@@ -549,29 +501,14 @@ namespace UnipPim.Hotel.Infra.Migrations
                 column: "CategoriaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TB_ProdutosConsumidos_FrigobarId",
-                table: "TB_ProdutosConsumidos",
-                column: "FrigobarId");
+                name: "IX_TB_Reserva_AnuncioId",
+                table: "TB_Reserva",
+                column: "AnuncioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TB_ProdutosConsumidos_ProdutoId",
-                table: "TB_ProdutosConsumidos",
-                column: "ProdutoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TB_ProdutosFrigobar_FrigobarId",
-                table: "TB_ProdutosFrigobar",
-                column: "FrigobarId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TB_ProdutosFrigobar_ProdutoId",
-                table: "TB_ProdutosFrigobar",
-                column: "ProdutoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TB_Quarto_FrigobarId",
-                table: "TB_Quarto",
-                column: "FrigobarId");
+                name: "IX_TB_Reserva_HospedeId",
+                table: "TB_Reserva",
+                column: "HospedeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TB_Telefone_FuncionarioId",
@@ -605,10 +542,10 @@ namespace UnipPim.Hotel.Infra.Migrations
                 name: "TB_Foto");
 
             migrationBuilder.DropTable(
-                name: "TB_ProdutosConsumidos");
+                name: "TB_Produto");
 
             migrationBuilder.DropTable(
-                name: "TB_ProdutosFrigobar");
+                name: "TB_Reserva");
 
             migrationBuilder.DropTable(
                 name: "TB_Telefone");
@@ -617,10 +554,10 @@ namespace UnipPim.Hotel.Infra.Migrations
                 name: "TB_Cidade");
 
             migrationBuilder.DropTable(
-                name: "TB_Anuncio");
+                name: "TB_Categoria");
 
             migrationBuilder.DropTable(
-                name: "TB_Produto");
+                name: "TB_Anuncio");
 
             migrationBuilder.DropTable(
                 name: "TB_Hospede");
@@ -635,16 +572,10 @@ namespace UnipPim.Hotel.Infra.Migrations
                 name: "TB_Quarto");
 
             migrationBuilder.DropTable(
-                name: "TB_Categoria");
-
-            migrationBuilder.DropTable(
                 name: "TB_Cargo");
 
             migrationBuilder.DropTable(
                 name: "TB_GrupoFuncionario");
-
-            migrationBuilder.DropTable(
-                name: "TB_Frigobar");
         }
     }
 }

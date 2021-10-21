@@ -136,15 +136,8 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 
         [HttpPost("deleta-anuncio")]
         public async Task<IActionResult> ConfirmaDeleteAnuncio(Guid id)
-        {
-            var result = await _anuncioServico.ObterPorId(id);
-            if(OperacaoValida())
-            {
-                ErrosTempData();
-                return RedirectToAction(nameof(Index));
-            }
-            
-            await _anuncioServico.Delete(result);
+        {            
+            await _anuncioServico.Delete(id);
 
             if (OperacaoValida())
             {
@@ -178,6 +171,10 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             return BadRequest();
         }
 
+
+
+
+
         private Anuncio ObterFotosDoRequest(AnuncioViewModel viewModel)
         {
             var list = Request.Form["imagem"];
@@ -207,7 +204,6 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
                 }
             return anuncio;
         }
-
         private bool UpdateImagem(IFormFile file, string imgName)
         {
             if (file == null || file.Length == 0)
@@ -229,7 +225,6 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 
             return true;
         }
-
         private bool RemoveImagem(string imgName)
         {
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagem/anuncio", imgName);
@@ -249,7 +244,6 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
                 return false;
             }
         }
-
         private async Task<AnuncioViewModel> MapearAnuncioViewModel(AnuncioViewModel viewModel)
         {
             viewModel.ListaQuarto = _mapper.Map<IEnumerable<QuartoViewModel>>(await _anuncioServico.ListarQuartosDisponiveis());

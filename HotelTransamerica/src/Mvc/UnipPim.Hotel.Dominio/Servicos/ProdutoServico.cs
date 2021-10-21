@@ -38,6 +38,17 @@ namespace UnipPim.Hotel.Dominio.Servicos
             return await _produtoRepositorio.Paginacao(page, size, query);
         }
 
+        public async Task<Produto> ObterPorCodigoDeBarras(string code)
+        {
+            var result = await _produtoRepositorio.Find(x => x.CodigoBarras == code);
+
+            if (result is null)
+            {
+                Notificar("Produto não encontrado.");
+            }
+            return result;
+        }
+
         public async Task<Produto> ObterPorId(Guid id)
         {
             var result = await _produtoRepositorio.ObterPorId(id);
@@ -102,6 +113,7 @@ namespace UnipPim.Hotel.Dominio.Servicos
         {
             _produtoRepositorio.Dispose();
         }
+
 
     }
 }
