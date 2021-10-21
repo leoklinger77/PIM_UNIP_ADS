@@ -1,7 +1,8 @@
 ﻿@model FuncionarioViewModel
 
 @{
-    ViewData["Title"] = "Detalhes Funcionario: " + Model.NomeCompleto;
+    <br />
+    ViewData["Title"] = "Detalhes Funcionário: " + Model.NomeCompleto;
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -108,6 +109,6 @@
     </dl>
 </div>
 <div>
-    <a class="btn btn-outline-info" asp-action="EditarFuncionario" asp-route-id="@Model.Id">Editar</a> |
-    <a class="btn btn-outline-info" asp-action="Index">Voltar para lista</a>
+    <a class="btn btn-success" asp-action="EditarFuncionario" asp-route-id="@Model.Id">Editar</a> |
+    <a class="btn btn-primary" asp-action="Index">Voltar para lista</a>
 </div>
