@@ -1,13 +1,14 @@
 ﻿@model PaginacaoViewModel<CargoViewModel>
 
 @{
+    <br />
     ViewData["Title"] = "Lista de Cargo";
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="NovoCargo" class="btn btn-outline-info">Novo Cargo</a>
+    <a asp-action="NovoCargo" class="btn btn-success">Novo Cargo</a>
 </p>
 <vc:summary></vc:summary>
 <table class="table">
@@ -27,9 +28,9 @@
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
                 <td>
-                    <a class="btn btn-outline-info" asp-action="EditarCargo" asp-route-id="@item.Id">Editar</a> |
-                    <a class="btn btn-outline-info" asp-action="DetalhesCargo" asp-route-id="@item.Id">Detalhes</a> |
-                    <a class="btn btn-outline-info" asp-action="DeletarCargo" asp-route-id="@item.Id">Deletar</a>
+                    <a class="btn btn-primary" asp-action="EditarCargo" asp-route-id="@item.Id">Editar</a> |
+                    <a class="btn btn-secondary" asp-action="DetalhesCargo" asp-route-id="@item.Id">Detalhes</a> |
+                    <a class="btn btn-danger" asp-action="DeletarCargo" asp-route-id="@item.Id">Deletar</a>
                 </td>
             </tr>
         }

@@ -1,79 +1,81 @@
 ﻿@model FuncionarioViewModel
 
 @{
-    ViewData["Title"] = "Editar Funcionario";
+    <br />
+    ViewData["Title"] = "Editar Funcionário";
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="EditarFuncionario">
-            <vc:summary></vc:summary>
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="Email" />
-            <div class="form-group">
-                <label asp-for="CargoId" class="control-label"></label>
-                <select asp-for="CargoId" class="form-control" asp-items="@(new SelectList(Model.ListaCargo,"Id","Nome"))"></select>
-                <span asp-validation-for="CargoId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GrupoFuncionarioId" class="control-label"></label>
-                <select asp-for="GrupoFuncionarioId" class="form-control" asp-items="@(new SelectList(Model.ListaGrupoFuncionario,"Id","Nome"))"><option></option></select>
-                <span asp-validation-for="GrupoFuncionarioId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NomeCompleto" class="control-label"></label>
-                <input asp-for="NomeCompleto" class="form-control" />
-                <span asp-validation-for="NomeCompleto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cpf" class="control-label"></label>
-                <input asp-for="Cpf" class="form-control" disabled />
-                <span asp-validation-for="Cpf" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Nascimento" class="control-label"></label>
-                <input asp-for="Nascimento" class="form-control" disabled />
-                <span asp-validation-for="Nascimento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" disabled />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
 
-            <div class="form-group">
-                <label asp-for="TelefoneCelular" class="control-label"></label>
-                <input asp-for="TelefoneCelular" class="form-control" />
-                <span asp-validation-for="TelefoneCelular" class="text-danger"></span>
-            </div>
+<div asp-action="EditarFuncionario">
+    <vc:summary></vc:summary>
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="Email" />
+    <form class="row g-3">
+        <div class="col-md-5">
+            <label asp-for="CargoId" class="control-label"></label>
+            <select asp-for="CargoId" class="form-control" asp-items="@(new SelectList(Model.ListaCargo,"Id","Nome"))"></select>
+            <span asp-validation-for="CargoId" class="text-danger"></span>
+        </div>
+        <div class="col-md-5">
+            <label asp-for="GrupoFuncionarioId" class="control-label">Grupo atual</label>
+            <select asp-for="GrupoFuncionarioId" class="form-control" asp-items="@(new SelectList(Model.ListaGrupoFuncionario,"Id","Nome"))"><option></option></select>
+            <span asp-validation-for="GrupoFuncionarioId" class="text-danger"></span>
+        </div>
+        <div class="col-md-10">
+            <label asp-for="NomeCompleto" class="control-label"></label>
+            <input asp-for="NomeCompleto" class="form-control" />
+            <span asp-validation-for="NomeCompleto" class="text-danger"></span>
+        </div>
+        <div class="col-md-5">
+            <label asp-for="Nascimento" class="control-label"></label>
+            <input asp-for="Nascimento" class="form-control" disabled />
+            <span asp-validation-for="Nascimento" class="text-danger"></span>
+        </div>
+        <div class="col-md-5">
+            <label asp-for="Cpf" class="control-label">CPF</label>
+            <input asp-for="Cpf" class="form-control" disabled />
+            <span asp-validation-for="Cpf" class="text-danger"></span>
+        </div>
+        <div class="col-md-10">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" disabled />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="TelefoneFixo" class="control-label"></label>
-                <input asp-for="TelefoneFixo" class="form-control" />
-                <span asp-validation-for="TelefoneFixo" class="text-danger"></span>
-            </div>
+        <div class="col-md-5">
+            <label asp-for="TelefoneCelular" class="control-label"></label>
+            <input asp-for="TelefoneCelular" class="form-control" />
+            <span asp-validation-for="TelefoneCelular" class="text-danger"></span>
+        </div>
 
-            <hr />
+        <div class="col-md-5">
+            <label asp-for="TelefoneFixo" class="control-label"></label>
+            <input asp-for="TelefoneFixo" class="form-control" />
+            <span asp-validation-for="TelefoneFixo" class="text-danger"></span>
+        </div>
 
-            <partial name="_Endereco" />
+        <hr />
 
-            <br />
+        <partial name="_Endereco" />
 
-            <div class="form-group">
-                <input type="submit" value="Salvar" class="btn btn-primary" />
-                <a class="btn btn-outline-info" asp-action="Index">Voltar para lista</a>
-            </div>
-        </form>
-    </div>
+        <br />
+        <div class="col-12">
+            <input type="submit" value="Salvar" class="btn btn-success" />
+            <a class="btn btn-primary" asp-action="Index">Voltar para lista</a>
+        </div>
+
+        <br />
+    </form>
 </div>
+
 
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-<script>
-    BuscaCep();
-</script>
+    <script>
+        BuscaCep();
+    </script>
 }

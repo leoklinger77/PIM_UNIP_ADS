@@ -1,6 +1,7 @@
 ﻿@model GrupoFuncionarioViewModel
 
 @{
+    <br />
     ViewData["Title"] = "Novo Grupo";
 }
 
@@ -17,14 +18,14 @@
             </div>
 
             <div class="form-group">
-                <label>Administracao</label>
+                <label>Administração</label>
                 <select asp-for="Home" class="form-select" style="width: 200px; height: 130px" multiple aria-label="multiple select example">
-                    <option value="Home">Visualizar</option>                   
+                    <option value="Home">Visualizar</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label>Funcionario</label>
+                <label>Funcionário</label>
                 <select asp-for="Funcionario" class="form-select" style="width:200px; height:130px" multiple aria-label="multiple select example">
                     <option value="Home">Visualizar</option>
                     <option value="Novo">Criar</option>
@@ -44,7 +45,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>Hospede</label>
+                <label>Hóspede</label>
                 <select asp-for="Hospede" class="form-select" style="width: 200px; height: 130px" multiple aria-label="multiple select example">
 
                     <option value="Home">Visualizar</option>
@@ -55,14 +56,15 @@
                 </select>
             </div>
 
+            <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-success" />
+                <a class="btn btn-secondary" asp-action="Index">Voltar para lista</a>
             </div>
         </form>
     </div>
 </div>
-
+<br />
 <div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
