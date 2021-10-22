@@ -36,6 +36,11 @@ namespace UnipPim.Hotel.Desktop.Service.Servicos
             }
         }
 
+        public Task<ResponseResult<ProdutoDTO>> BuscarProdutoPorCodigoDeBarras(string codigo)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<ResponseResult> FecharCaixa()
         {
             cookies = new CookieContainer();
