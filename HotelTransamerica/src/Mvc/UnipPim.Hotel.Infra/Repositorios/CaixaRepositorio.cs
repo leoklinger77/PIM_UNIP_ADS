@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -53,7 +54,25 @@ namespace UnipPim.Hotel.Infra.Repositorios
         {
             _hotelContext?.DisposeAsync();
         }
-
         
+        public async Task<OrderVenda> ObterOrderRascunho(Guid funcId)
+        {
+            return await _hotelContext.OrderVenda.AsNoTracking().Where(x => x.Caixa.FuncionarioId == funcId && x.Tipo == OrderTipo.Rascunho).FirstOrDefaultAsync();
+        }
+
+        public async Task Insert(OrderVenda order)
+        {
+            await _hotelContext.OrderVenda.AddAsync(order);
+        }
+
+        public async Task Update(OrderVenda order)
+        {
+            _hotelContext.OrderVenda.Update(order);
+        }
+
+        public async Task Update(IEnumerable<ItensVenda> itensVendas)
+        {
+            _hotelContext.ItensVenda.UpdateRange(itensVendas);
+        }
     }
 }

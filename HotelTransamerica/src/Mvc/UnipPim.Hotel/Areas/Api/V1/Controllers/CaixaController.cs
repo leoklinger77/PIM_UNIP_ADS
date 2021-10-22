@@ -73,5 +73,32 @@ namespace UnipPim.Hotel.Areas.Api.V1.Controllers
 
             return CustomResponse(_mapper.Map<ProdutoViewModel>(produto));
         }
+
+        [HttpPost("order-venda")]
+        public async Task<IActionResult> GetAbrirOrderVenda(AbrirOrderVendaViewModel viewModel)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var orderVenda = await _caixaServico.IniciarOrderDeVenda(_user.UserId, viewModel.Cpf);
+
+            if (OperacaoValida()) return CustomResponse();
+
+            return CustomResponse(orderVenda);
+        }
+
+        [HttpGet("add-produto")]
+        public async Task<IActionResult> GetAddProdutoOrder(Guid orderVendaId, Guid produtoId, int quantidade)
+        {
+            if (Guid.Empty == orderVendaId || Guid.Empty == produtoId || quantidade <= 0)
+            {
+                return BadRequest();
+            }
+
+            await _caixaServico.AddProdutoNaOrder(_user.UserId, orderVendaId, produtoId, quantidade);
+
+            if (OperacaoValida()) return CustomResponse();
+
+            return CustomResponse();
+        }
     }
 }

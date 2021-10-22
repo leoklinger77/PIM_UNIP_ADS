@@ -8,6 +8,8 @@ namespace UnipPim.Hotel.Dominio.Interfaces.Servicos
     {
         Task<Caixa> ObterCaixa(Guid funcionario);
         Task AbrirCaixa(Guid funcionario, decimal valorDeAbertura);
-        Task FecharCaixa(Guid funcionario);
+        Task FecharCaixa(Guid funcionario);        
+        Task<OrderVenda> IniciarOrderDeVenda(Guid funcId, string cpf);
+        Task AddProdutoNaOrder(Guid funcId, Guid orderVendaId, Guid produtoId, int quantidade);
     }
 }

@@ -36,6 +36,27 @@ namespace UnipPim.Hotel.Desktop.Service.Servicos
             }
         }
 
+        public async Task<ResponseResult<ProdutoDTO>> BuscarProdutoPorCodigoDeBarras(string codigo)
+        {
+            cookies = new CookieContainer();
+            foreach (var item in _user.GetCookie())
+                cookies.Add(item);
+            handler = new HttpClientHandler();
+            handler.CookieContainer = cookies;
+
+            using (var client = new HttpClient(handler))
+            {
+                var response = await client.GetAsync(new Uri($"{UriBase}Api/V1/Caixa/produto/{codigo}"));
+
+                if (TratarErrosResponse(response))
+                {
+                    return new ResponseResult<ProdutoDTO>() { Class = await DeserializeResponse<ProdutoDTO>(response) };
+                }
+
+                return new ResponseResult<ProdutoDTO>() { Response = await DeserializeResponse<ResponseResult>(response) };
+            }
+        }
+
         public async Task<ResponseResult> FecharCaixa()
         {
             cookies = new CookieContainer();

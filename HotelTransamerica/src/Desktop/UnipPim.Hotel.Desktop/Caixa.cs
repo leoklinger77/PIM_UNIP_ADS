@@ -21,6 +21,15 @@ namespace UnipPim.Hotel.Desktop
 
         private async void txtCodeBarras_TextChanged(object sender, EventArgs e)
         {
+            string x = txtCodeBarras.Text.Length > 0 ? txtCodeBarras.Text.Substring(txtCodeBarras.Text.Length - 1) : string.Empty;
+
+            if (x.ToUpper() == "X")
+            {
+                txtQuantidade.Text = txtCodeBarras.Text.Substring(0, txtCodeBarras.Text.Length - 1);
+                txtCodeBarras.Text = string.Empty;
+                return;
+            }
+
             if (txtCodeBarras.Text.Length == 13 || txtCodeBarras.Text.Length == 14)
             {
 

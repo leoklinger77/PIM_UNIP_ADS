@@ -11,6 +11,6 @@ namespace UnipPim.Hotel.Dominio.Interfaces.Servicos
         Task<IEnumerable<Categoria>> ListaCategoria();
         Task<IEnumerable<Produto>> ProdutosDisponiveis();
 
-        Task<Produto> ObterPorCodigoDeBarras(string code);
+        Task<Produto> ObterPorCodigoDeBarras(string code);        
     }
 }
