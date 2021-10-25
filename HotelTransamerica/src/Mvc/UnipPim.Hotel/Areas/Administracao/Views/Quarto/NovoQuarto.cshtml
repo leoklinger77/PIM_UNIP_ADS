@@ -6,11 +6,13 @@
 }
 
 <h1>@ViewData["Title"]</h1>
-
 <hr />
+
 <div>
     <form asp-action="NovoQuarto">
+
         <vc:summary></vc:summary>
+
         <div class="row g-3">
             <div class="col-md-6">
                 <label asp-for="Nome" class="control-label"></label>
@@ -91,7 +93,7 @@
     </form>
 
 </div>
-<br />
+ <br />
 @section Scripts {
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
