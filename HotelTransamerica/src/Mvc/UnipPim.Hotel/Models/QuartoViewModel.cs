@@ -14,11 +14,11 @@ namespace UnipPim.Hotel.Models
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
-        [Display(Name = "Possui Televisor?")]
+        [Display(Name = "Televisor")]
         public bool Televisor { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
-        [Display(Name = "Possui Hidromassagem?")]
+        [Display(Name = "Hidromassagem")]
         public bool Hidromassagem { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
