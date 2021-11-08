@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="NovoFuncionario">
+        <form asp-action="NovoFuncionario" method="post">
             <vc:summary></vc:summary>
             <div class="form-group">
                 <label asp-for="CargoId" class="control-label"></label>
@@ -55,7 +55,7 @@
             </div>
 
             <hr />
-
+            
             <partial name="_Endereco" />
 
             <br />
