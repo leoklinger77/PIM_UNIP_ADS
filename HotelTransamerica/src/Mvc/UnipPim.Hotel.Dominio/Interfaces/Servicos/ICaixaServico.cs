@@ -11,5 +11,7 @@ namespace UnipPim.Hotel.Dominio.Interfaces.Servicos
         Task FecharCaixa(Guid funcionario);        
         Task<OrderVenda> IniciarOrderDeVenda(Guid funcId, string cpf);
         Task AddProdutoNaOrder(Guid funcId, Guid orderVendaId, Guid produtoId, int quantidade);
+        Task UpdateProdutoNaOrder(Guid funcId, Guid orderVendaId, Guid produtoId, int quantidade);
+        Task RemoverProdutoNaOrder(Guid funcId, Guid orderVendaId, Guid produtoId);
     }
 }

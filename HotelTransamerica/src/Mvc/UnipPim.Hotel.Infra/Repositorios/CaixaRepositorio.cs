@@ -54,10 +54,10 @@ namespace UnipPim.Hotel.Infra.Repositorios
         {
             _hotelContext?.DisposeAsync();
         }
-        
+
         public async Task<OrderVenda> ObterOrderRascunho(Guid funcId)
         {
-            return await _hotelContext.OrderVenda.AsNoTracking().Where(x => x.Caixa.FuncionarioId == funcId && x.Tipo == OrderTipo.Rascunho).FirstOrDefaultAsync();
+            return await _hotelContext.OrderVenda.Include(x => x.ItensVendas).AsNoTracking().Where(x => x.Caixa.FuncionarioId == funcId && x.Tipo == OrderTipo.Rascunho).FirstOrDefaultAsync();
         }
 
         public async Task Insert(OrderVenda order)
@@ -73,6 +73,16 @@ namespace UnipPim.Hotel.Infra.Repositorios
         public async Task Update(IEnumerable<ItensVenda> itensVendas)
         {
             _hotelContext.ItensVenda.UpdateRange(itensVendas);
+        }
+
+        public async Task Insert(ItensVenda item)
+        {
+            await _hotelContext.ItensVenda.AddAsync(item);
+        }
+
+        public async Task RemoverItemVenda(ItensVenda itemVenda)
+        {
+            _hotelContext.ItensVenda.Remove(itemVenda);
         }
     }
 }

@@ -36,7 +36,7 @@ namespace UnipPim.Hotel.Desktop.Service.Servicos
             }
         }
 
-<<<<<<< HEAD
+
         public async Task<ResponseResult<ProdutoDTO>> BuscarProdutoPorCodigoDeBarras(string codigo)
         {
             cookies = new CookieContainer();
@@ -56,12 +56,8 @@ namespace UnipPim.Hotel.Desktop.Service.Servicos
 
                 return new ResponseResult<ProdutoDTO>() { Response = await DeserializeResponse<ResponseResult>(response) };
             }
-=======
-        public Task<ResponseResult<ProdutoDTO>> BuscarProdutoPorCodigoDeBarras(string codigo)
-        {
-            throw new NotImplementedException();
->>>>>>> 5d6c448af37ef0f319c3a10c18a9b1a0cbde8c3b
         }
+        
 
         public async Task<ResponseResult> FecharCaixa()
         {

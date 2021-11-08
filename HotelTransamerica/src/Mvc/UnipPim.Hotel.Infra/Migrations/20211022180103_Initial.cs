@@ -275,6 +275,30 @@ namespace UnipPim.Hotel.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TB_Caixa",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    InsertDate = table.Column<DateTime>(nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: true),
+                    FuncionarioId = table.Column<Guid>(nullable: false),
+                    ValorInicial = table.Column<decimal>(nullable: false),
+                    Abertura = table.Column<DateTime>(nullable: false),
+                    Fechamento = table.Column<DateTime>(nullable: true),
+                    CaixaTipo = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TB_Caixa", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TB_Caixa_TB_Funcionario_FuncionarioId",
+                        column: x => x.FuncionarioId,
+                        principalTable: "TB_Funcionario",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TB_Email",
                 columns: table => new
                 {
@@ -425,6 +449,63 @@ namespace UnipPim.Hotel.Infra.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TB_OrderVenda",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    InsertDate = table.Column<DateTime>(nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: true),
+                    CaixaId = table.Column<Guid>(nullable: false),
+                    Instante = table.Column<DateTime>(nullable: false),
+                    Cpf = table.Column<string>(type: "varchar(255)", nullable: true),
+                    Desconto = table.Column<decimal>(nullable: false),
+                    ValorTotal = table.Column<decimal>(nullable: false),
+                    QuantidadeTotal = table.Column<int>(nullable: false),
+                    Tipo = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TB_OrderVenda", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TB_OrderVenda_TB_Caixa_CaixaId",
+                        column: x => x.CaixaId,
+                        principalTable: "TB_Caixa",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ItensVenda",
+                columns: table => new
+                {
+                    OrderVendaId = table.Column<Guid>(nullable: false),
+                    ProdutoId = table.Column<Guid>(nullable: false),
+                    PrecoVenda = table.Column<decimal>(nullable: false),
+                    Quantidade = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItensVenda", x => new { x.OrderVendaId, x.ProdutoId });
+                    table.ForeignKey(
+                        name: "FK_ItensVenda_TB_OrderVenda_OrderVendaId",
+                        column: x => x.OrderVendaId,
+                        principalTable: "TB_OrderVenda",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ItensVenda_TB_Produto_ProdutoId",
+                        column: x => x.ProdutoId,
+                        principalTable: "TB_Produto",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItensVenda_ProdutoId",
+                table: "ItensVenda",
+                column: "ProdutoId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_TB_Acesso_GrupoFuncionarioId",
                 table: "TB_Acesso",
@@ -439,6 +520,11 @@ namespace UnipPim.Hotel.Infra.Migrations
                 name: "IX_TB_Anuncio_QuartoId",
                 table: "TB_Anuncio",
                 column: "QuartoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TB_Caixa_FuncionarioId",
+                table: "TB_Caixa",
+                column: "FuncionarioId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TB_Cama_QuaroId",
@@ -496,6 +582,11 @@ namespace UnipPim.Hotel.Infra.Migrations
                 column: "GrupoFuncionarioId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TB_OrderVenda_CaixaId",
+                table: "TB_OrderVenda",
+                column: "CaixaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TB_Produto_CategoriaId",
                 table: "TB_Produto",
                 column: "CategoriaId");
@@ -524,6 +615,9 @@ namespace UnipPim.Hotel.Infra.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ItensVenda");
+
+            migrationBuilder.DropTable(
                 name: "TB_Acesso");
 
             migrationBuilder.DropTable(
@@ -542,19 +636,19 @@ namespace UnipPim.Hotel.Infra.Migrations
                 name: "TB_Foto");
 
             migrationBuilder.DropTable(
-                name: "TB_Produto");
-
-            migrationBuilder.DropTable(
                 name: "TB_Reserva");
 
             migrationBuilder.DropTable(
                 name: "TB_Telefone");
 
             migrationBuilder.DropTable(
-                name: "TB_Cidade");
+                name: "TB_OrderVenda");
 
             migrationBuilder.DropTable(
-                name: "TB_Categoria");
+                name: "TB_Produto");
+
+            migrationBuilder.DropTable(
+                name: "TB_Cidade");
 
             migrationBuilder.DropTable(
                 name: "TB_Anuncio");
@@ -563,13 +657,19 @@ namespace UnipPim.Hotel.Infra.Migrations
                 name: "TB_Hospede");
 
             migrationBuilder.DropTable(
+                name: "TB_Caixa");
+
+            migrationBuilder.DropTable(
+                name: "TB_Categoria");
+
+            migrationBuilder.DropTable(
                 name: "TB_Estado");
 
             migrationBuilder.DropTable(
-                name: "TB_Funcionario");
+                name: "TB_Quarto");
 
             migrationBuilder.DropTable(
-                name: "TB_Quarto");
+                name: "TB_Funcionario");
 
             migrationBuilder.DropTable(
                 name: "TB_Cargo");

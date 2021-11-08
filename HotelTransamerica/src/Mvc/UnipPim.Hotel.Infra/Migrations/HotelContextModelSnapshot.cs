@@ -500,11 +500,14 @@ namespace UnipPim.Hotel.Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CaixaId")
+                    b.Property<Guid>("CaixaId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Cpf")
                         .HasColumnType("varchar(255)");
+
+                    b.Property<decimal>("Desconto")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("InsertDate")
                         .HasColumnType("datetime2");
@@ -683,6 +686,76 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.ToTable("TB_Telefone");
                 });
 
+            modelBuilder.Entity("UnipPim.Hotel.Pagamento.Dominio.Models.Pagamento", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CvvCartao")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("ExpiracaoCartao")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NomeCartao")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("NumeroCartao")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<Guid>("PedidoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pagamentos");
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Pagamento.Dominio.Models.Transacao", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("PagamentoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PedidoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("StatusTransacao")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PagamentoId")
+                        .IsUnique();
+
+                    b.ToTable("Transacoes");
+                });
+
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Acesso", b =>
                 {
                     b.HasOne("UnipPim.Hotel.Dominio.Models.GrupoFuncionario", null)
@@ -798,9 +871,10 @@ namespace UnipPim.Hotel.Infra.Migrations
 
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.OrderVenda", b =>
                 {
-                    b.HasOne("UnipPim.Hotel.Dominio.Models.Caixa", null)
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Caixa", "Caixa")
                         .WithMany("OrderVendas")
-                        .HasForeignKey("CaixaId");
+                        .HasForeignKey("CaixaId")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Produto", b =>
@@ -833,6 +907,14 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.HasOne("UnipPim.Hotel.Dominio.Models.Hospede", "Hospede")
                         .WithMany("Telefones")
                         .HasForeignKey("HospedeId");
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Pagamento.Dominio.Models.Transacao", b =>
+                {
+                    b.HasOne("UnipPim.Hotel.Pagamento.Dominio.Models.Pagamento", "Pagamento")
+                        .WithOne("Transacao")
+                        .HasForeignKey("UnipPim.Hotel.Pagamento.Dominio.Models.Transacao", "PagamentoId")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

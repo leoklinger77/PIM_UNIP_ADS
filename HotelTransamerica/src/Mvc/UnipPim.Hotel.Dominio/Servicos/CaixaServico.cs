@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using UnipPim.Hotel.Dominio.Interfaces;
 using UnipPim.Hotel.Dominio.Interfaces.Repositorio;
@@ -107,10 +108,63 @@ namespace UnipPim.Hotel.Dominio.Servicos
                 return;
             }
 
-            orderAtivaExist.AddItem(new ItensVenda(orderVendaId, produtoId, product.Valor, quantidade));
+            int qtde = orderAtivaExist.ItensVendas.Count;
+            var item = new ItensVenda(orderVendaId, produtoId, product.Valor, quantidade);
+            orderAtivaExist.AddItem(item);
 
+            if(qtde < orderAtivaExist.ItensVendas.Count)
+            {
+                await _caixaRepositorio.Insert(item);
+            }
+            else
+            {
+                await _caixaRepositorio.Update(orderAtivaExist.ItensVendas);
+            }            
+            await _caixaRepositorio.Update(orderAtivaExist);
+            await _caixaRepositorio.SaveChanges();
+        }
 
-            await _caixaRepositorio.Update(orderAtivaExist.ItensVendas);
+        public async Task UpdateProdutoNaOrder(Guid funcId, Guid orderVendaId, Guid produtoId, int quantidade)
+        {
+            var orderAtivaExist = await _caixaRepositorio.ObterOrderRascunho(funcId);
+            if (orderAtivaExist == null)
+            {
+                Notificar("Order não existente.");
+                return;
+            }
+            var itemVenda = orderAtivaExist.ItensVendas.FirstOrDefault(x => x.ProdutoId == produtoId);
+            if (itemVenda == null)
+            {
+                Notificar("Produto não existe");
+                return;
+            }
+                                    
+            orderAtivaExist.UpdateItem(new ItensVenda(orderVendaId, produtoId, itemVenda.PrecoVenda, quantidade));
+            
+            await _caixaRepositorio.RemoverItemVenda(itemVenda);
+            await _caixaRepositorio.Update(orderAtivaExist);
+            await _caixaRepositorio.SaveChanges();
+        }
+
+        public async Task RemoverProdutoNaOrder(Guid funcId, Guid orderVendaId, Guid produtoId)
+        {
+            var orderAtivaExist = await _caixaRepositorio.ObterOrderRascunho(funcId);
+            if (orderAtivaExist == null)
+            {
+                Notificar("Order não existente.");
+                return;
+            }
+
+            var itemVenda = orderAtivaExist.ItensVendas.FirstOrDefault(x => x.ProdutoId == produtoId);
+            if (itemVenda == null)
+            {
+                Notificar("Produto não existe");
+                return;
+            }
+
+            orderAtivaExist.RemoveItem(itemVenda);
+
+            await _caixaRepositorio.RemoverItemVenda(itemVenda);
             await _caixaRepositorio.Update(orderAtivaExist);
             await _caixaRepositorio.SaveChanges();
         }

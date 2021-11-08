@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UnipPim.Hotel.Dominio\UnipPim.Hotel.Dominio.csproj" />
+    <ProjectReference Include="..\UnipPim.Hotel.Pagamento.Dominio\UnipPim.Hotel.Pagamento.Dominio.csproj" />
   </ItemGroup>
 
 </Project>

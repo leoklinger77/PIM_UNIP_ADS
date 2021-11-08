@@ -100,5 +100,35 @@ namespace UnipPim.Hotel.Areas.Api.V1.Controllers
 
             return CustomResponse();
         }
+
+        [HttpGet("update-produto")]
+        public async Task<IActionResult> GetUpdateProdutoOrder(Guid orderVendaId, Guid produtoId, int quantidade)
+        {
+            if (Guid.Empty == orderVendaId || Guid.Empty == produtoId || quantidade <= 0)
+            {
+                return BadRequest();
+            }
+
+            await _caixaServico.UpdateProdutoNaOrder(_user.UserId, orderVendaId, produtoId, quantidade);
+
+            if (OperacaoValida()) return CustomResponse();
+
+            return CustomResponse();
+        }
+
+        [HttpGet("remover-produto")]
+        public async Task<IActionResult> GetRemoverProdutoOrder(Guid orderVendaId, Guid produtoId)
+        {
+            if (Guid.Empty == orderVendaId || Guid.Empty == produtoId)
+            {
+                return BadRequest();
+            }
+
+            await _caixaServico.RemoverProdutoNaOrder(_user.UserId, orderVendaId, produtoId);
+
+            if (OperacaoValida()) return CustomResponse();
+
+            return CustomResponse();
+        }
     }
 }

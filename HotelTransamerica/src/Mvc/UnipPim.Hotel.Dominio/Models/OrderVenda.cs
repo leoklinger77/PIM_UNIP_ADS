@@ -11,6 +11,7 @@ namespace UnipPim.Hotel.Dominio.Models
         public Guid CaixaId { get; private set; }
         public DateTime Instante { get; private set; }
         public string Cpf { get; private set; }
+        public decimal Desconto { get; private set; }
         public decimal ValorTotal { get; private set; }
         public int QuantidadeTotal { get; private set; }
         public OrderTipo Tipo { get; private set; }
@@ -47,7 +48,6 @@ namespace UnipPim.Hotel.Dominio.Models
 
             Calcula();
         }
-
         public void RemoveItem(ItensVenda itensVenda)
         {
             var item = _itensVendas.Where(x => x.ProdutoId == itensVenda.ProdutoId).FirstOrDefault();
@@ -56,11 +56,26 @@ namespace UnipPim.Hotel.Dominio.Models
                 throw new DomainException("Produto não encontrado");
             }
             _itensVendas.Remove(itensVenda);
+
+            Calcula();
+        }
+
+        public void UpdateItem(ItensVenda itensVenda)
+        {
+            var item = _itensVendas.Where(x => x.ProdutoId == itensVenda.ProdutoId).FirstOrDefault();
+            if (item == null)
+            {
+                throw new DomainException("Produto não encontrado");
+            }
+            _itensVendas.Remove(item);
+            _itensVendas.Add(itensVenda);
+
+            Calcula();
         }
 
         private void Calcula()
         {
-            ValorTotal = _itensVendas.Sum(x => x.PrecoVenda);
+            ValorTotal = _itensVendas.Sum(x => x.PrecoVenda * x.Quantidade);
             QuantidadeTotal = _itensVendas.Sum(x => x.Quantidade);
         }
     }

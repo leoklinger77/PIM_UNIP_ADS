@@ -103,7 +103,7 @@ namespace UnipPim.Hotel.Tests
         {
             var orderVenda = new Faker<OrderVenda>(locale: "pt_BR")
                .CustomInstantiator(f =>
-                                    new OrderVenda(f.Person.Cpf())
+                                    new OrderVenda(Guid.NewGuid(),f.Person.Cpf())
                                    ).Generate(qtdeOrder);
 
             foreach (var item in orderVenda)

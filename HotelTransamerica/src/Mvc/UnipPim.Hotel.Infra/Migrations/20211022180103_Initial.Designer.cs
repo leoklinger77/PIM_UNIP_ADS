@@ -10,7 +10,7 @@ using UnipPim.Hotel.Infra.Data;
 namespace UnipPim.Hotel.Infra.Migrations
 {
     [DbContext(typeof(HotelContext))]
-    [Migration("20211019235524_Initial")]
+    [Migration("20211022180103_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,6 +88,40 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.HasIndex("QuartoId");
 
                     b.ToTable("TB_Anuncio");
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Caixa", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Abertura")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CaixaTipo")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Fechamento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("FuncionarioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("ValorInicial")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FuncionarioId");
+
+                    b.ToTable("TB_Caixa");
                 });
 
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Cama", b =>
@@ -441,6 +475,67 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.ToTable("TB_Hospede");
                 });
 
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.ItensVenda", b =>
+                {
+                    b.Property<Guid>("OrderVendaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProdutoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("PrecoVenda")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderVendaId", "ProdutoId");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("ItensVenda");
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.OrderVenda", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CaixaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Cpf")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<decimal>("Desconto")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Instante")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("QuantidadeTotal")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipo")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("ValorTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CaixaId");
+
+                    b.ToTable("TB_OrderVenda");
+                });
+
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Produto", b =>
                 {
                     b.Property<Guid>("Id")
@@ -613,6 +708,14 @@ namespace UnipPim.Hotel.Infra.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Caixa", b =>
+                {
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Funcionario", "Funcionario")
+                        .WithMany("Caixas")
+                        .HasForeignKey("FuncionarioId")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Cama", b =>
                 {
                     b.HasOne("UnipPim.Hotel.Dominio.Models.Quarto", "Quarto")
@@ -682,6 +785,27 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.HasOne("UnipPim.Hotel.Dominio.Models.GrupoFuncionario", "GrupoFuncionario")
                         .WithMany("Funcionarios")
                         .HasForeignKey("GrupoFuncionarioId")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.ItensVenda", b =>
+                {
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.OrderVenda", "OrderVenda")
+                        .WithMany("ItensVendas")
+                        .HasForeignKey("OrderVendaId")
+                        .IsRequired();
+
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Produto", "Produto")
+                        .WithMany("ItensVendas")
+                        .HasForeignKey("ProdutoId")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.OrderVenda", b =>
+                {
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Caixa", "Caixa")
+                        .WithMany("OrderVendas")
+                        .HasForeignKey("CaixaId")
                         .IsRequired();
                 });
 
