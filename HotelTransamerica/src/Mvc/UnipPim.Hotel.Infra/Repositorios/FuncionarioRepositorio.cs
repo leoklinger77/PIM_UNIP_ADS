@@ -26,11 +26,11 @@ namespace UnipPim.Hotel.Infra.Repositorios
             IPagedList<Funcionario> list;
             if (string.IsNullOrEmpty(query))
             {
-                list = await _context.Funcionario.AsNoTracking().ToPagedListAsync(page, size);
+                list = await _context.Funcionario.Include(x => x.Cargo).AsNoTracking().ToPagedListAsync(page, size);
             }
             else
             {
-                list = await _context.Funcionario.AsNoTracking()
+                list = await _context.Funcionario.Include(x => x.Cargo).AsNoTracking()
                                 .Where(x => x.NomeCompleto.Contains(query) || x.Cpf.Contains(query))
                                 .ToPagedListAsync(page, size);
             }
