@@ -62,5 +62,36 @@ namespace UnipPim.Hotel.Desktop
             form.Closed += (s, args) => this.Close();
             form.Show();
         }
+
+        private async void checkInToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var response = await _caixaService.ObterCaixa();
+            if (response.Class != null)
+            {
+                //CheckIn frmfilho = new CheckIn(_provider);
+                //frmfilho.MdiParent = this;
+                //frmfilho.Show();
+            }
+            else
+            {
+                MessageBox.Show("Caixa fechado. Por favor, abra o caixa.");
+            }
+
+        }
+
+        private async void checkOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var response = await _caixaService.ObterCaixa();
+            if (response.Class != null)
+            {
+                CheckOut frmfilho = new CheckOut(_provider);
+                frmfilho.MdiParent = this;
+                frmfilho.Show();
+            }
+            else
+            {
+                MessageBox.Show("Caixa fechado. Por favor, abra o caixa.");
+            }
+        }
     }
 }

@@ -8,17 +8,20 @@ namespace UnipPim.Hotel.Dominio.Models
     {
         public string NomeCompleto { get; private set; }
         public string Cpf { get; private set; }
-        public DateTime Nascimento { get; private set; }        
+        public DateTime Nascimento { get; private set; }
+
 
         private List<Email> _emails = new List<Email>();
         private List<Telefone> _telefones = new List<Telefone>();
         private List<Endereco> _enderecos = new List<Endereco>();
-        private List<Dependente> _dependentes = new List<Dependente>();
-
         public IReadOnlyCollection<Email> Emails => _emails;
         public IReadOnlyCollection<Telefone> Telefones => _telefones;
         public IReadOnlyCollection<Endereco> Enderecos => _enderecos;
-        public IReadOnlyCollection<Dependente> Dependentes => _dependentes;
+
+
+        public Guid? ResponsavelId { get; private set; }
+        public Hospede Responsavel { get; private set; }
+
 
         protected Hospede() { }
 
@@ -27,6 +30,21 @@ namespace UnipPim.Hotel.Dominio.Models
             NomeCompleto = nomeCompleto;
             Cpf = cpf;
             Nascimento = nascimento;            
+        }
+        public Hospede(Guid id, string nomeCompleto, string cpf, DateTime nascimento)
+        {
+            Id = id;
+            NomeCompleto = nomeCompleto;
+            Cpf = cpf;
+            Nascimento = nascimento;
+        }
+
+        public Hospede(string nomeCompleto, string cpf, DateTime nascimento, Guid responsavelId)
+        {
+            ResponsavelId = responsavelId;
+            NomeCompleto = nomeCompleto;
+            Cpf = cpf;
+            Nascimento = nascimento;
         }
 
         public void SetNomeCompleto(string nomeCompleto)

@@ -1,102 +1,92 @@
 ﻿@model AnuncioViewModel
 @{
     ViewData["Title"] = "DetalhesAnuncio";
+    
 }
 
 
-<div class="card">
-    <div class="row no-gutters">
-        <aside class="col-md-6">
-            <article class="gallery-wrap">
-                <div class="img-big-wrap">
-                    <a href="#"><img src="~/imagem/anuncio/@Model.Fotos.First().Caminho"></a>
-                </div>
-                <div class="thumbs-wrap">
-                    @{
-                        foreach (var item in Model.Fotos)
-                        {
-                            <a href="#" class="item-thumb"> <img src="~/imagem/anuncio/@item.Caminho"></a>
-                        }
-                    }
-                </div>
-            </article>
-        </aside>
-        <main class="col-md-6 border-left">
-            <article class="content-body">
 
-                <h2 class="title">@Model.Nome</h2>
+<div class="container marketing">
+    <div class="row">
+        
+        <div class="card">
+            <div class="row no-gutters">
+                <aside class="col-md-6">
+                    <article class="gallery-wrap">
+                        <div class="img-big-wrap">
+                            <a href="#"><img src="~/imagem/anuncio/@Model.Fotos.First().Caminho"></a>
+                        </div>
+                        <div class="thumbs-wrap">
+                            @{
+                                foreach (var item in Model.Fotos)
+                                {
+                                    <a href="#" class="item-thumb"> <img src="~/imagem/anuncio/@item.Caminho"></a>
+                                }
+                            }
+                        </div>
+                    </article>
+                </aside>
+                <main class="col-md-6 border-left">
+                    <article class="content-body">
 
-                <div class="rating-wrap my-3">
-                    <small class="label-rating text-muted">132 reviews</small>
-                    <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 orders </small>
-                </div>
-                <div class="mb-3">
-                    <var class="price h4">@Model.Custo.ToString("C")</var>
-                    <span class="text-muted">/por noite</span>
-                </div>
-                <div class="mb-3">
-                    <div class="col-sm-6">
-                        @Html.DisplayNameFor(model => model.Quarto.Hidromassagem)
-                    </div>
-                    <div class="col-sm-6">
-                        @Html.DisplayFor(model => model.Quarto.Hidromassagem)
-                    </div>
+                        <h2 class="title">@Model.Nome</h2>
 
-                    <div class="col-sm-6">
-                        @Html.DisplayNameFor(model => model.Quarto.Televisor)
-                    </div>
-                    <div class="col-sm-6">
-                        @Html.DisplayFor(model => model.Quarto.Televisor)
-                    </div>
+                        <div class="rating-wrap my-3">
+                            <small class="label-rating text-muted">132 reviews</small>
+                            <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 orders </small>
+                        </div>
+                        <div class="mb-3">
+                            <var class="price h4">@Model.Custo.ToString("C")</var>
+                            <span class="text-muted">/por noite</span>
+                        </div>
+                        <div class="mb-3">
+                            <div class="col-sm-6">
+                                @Html.DisplayNameFor(model => model.Quarto.Hidromassagem)
+                            </div>
+                            <div class="col-sm-6">
+                                @Html.DisplayFor(model => model.Quarto.Hidromassagem)
+                            </div>
 
-                    <div class="col-sm-6">
-                        @Html.DisplayNameFor(model => model.Quarto.CamaCasal)
-                    </div>
-                    <div class="col-sm-6">
-                        @Html.DisplayFor(model => model.Quarto.CamaCasalQuantidade)
-                    </div>
+                            <div class="col-sm-6">
+                                @Html.DisplayNameFor(model => model.Quarto.Televisor)
+                            </div>
+                            <div class="col-sm-6">
+                                @Html.DisplayFor(model => model.Quarto.Televisor)
+                            </div>
 
-                    <div class="col-sm-6">
-                        @Html.DisplayNameFor(model => model.Quarto.CamaSolteiro)
-                    </div>
-                    <div class="col-sm-6">
-                        @Html.DisplayFor(model => model.Quarto.CamaSolteiroQuantidade)
-                    </div>
+                            <div class="col-sm-6">
+                                @Html.DisplayNameFor(model => model.Quarto.CamaCasal)
+                            </div>
+                            <div class="col-sm-6">
+                                @Html.DisplayFor(model => model.Quarto.CamaCasalQuantidade)
+                            </div>
 
-                    <div class="col-sm-6">
-                        @Html.DisplayNameFor(model => model.Quarto.CamaBeliche)
-                    </div>
-                    <div class="col-sm-6">
-                        @Html.DisplayFor(model => model.Quarto.CamaBelicheQuantidade)
-                    </div>
-                </div>
+                            <div class="col-sm-6">
+                                @Html.DisplayNameFor(model => model.Quarto.CamaSolteiro)
+                            </div>
+                            <div class="col-sm-6">
+                                @Html.DisplayFor(model => model.Quarto.CamaSolteiroQuantidade)
+                            </div>
 
+                            <div class="col-sm-6">
+                                @Html.DisplayNameFor(model => model.Quarto.CamaBeliche)
+                            </div>
+                            <div class="col-sm-6">
+                                @Html.DisplayFor(model => model.Quarto.CamaBelicheQuantidade)
+                            </div>
+                        </div>
 
+                        <div class="mb-3">
+                        </div>
 
+                        <p>@Model.Quarto.Descricao</p>
 
+                        <hr>
 
-                <div class="mb-3">
-                    <label>Quantidade de Pessoas</label>
-                    <select>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
-
-                <div class="mb-3">
-
-                </div>
-
-                <p>@Model.Quarto.Descricao</p>
-
-                <hr>
-
-                <a asp-action="IniciarReserva" asp-controller="CheckoutReserva" asp-route-anuncioId="@Model.Id" class="btn  btn-primary"> Reservar </a>
-            </article>
-        </main>
+                        <a asp-action="IniciarReserva" asp-controller="CheckoutReserva" asp-route-anuncioId="@Model.Id"  class="btn  btn-primary"> Reservar </a>
+                    </article>
+                </main>
+            </div>
+        </div>
     </div>
 </div>
-

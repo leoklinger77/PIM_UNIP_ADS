@@ -2,26 +2,29 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using UnipPim.Hotel.Dominio.Interfaces;
+using UnipPim.Hotel.Dominio.Interfaces.Repositorio;
 using UnipPim.Hotel.Dominio.Interfaces.Servicos;
 using UnipPim.Hotel.Dominio.Models;
 
 namespace UnipPim.Hotel.Dominio.Servicos
 {
-    public class ReservaServico : IReservaServico
+    public class ReservaServico : ServicoBase, IReservaServico
     {
-        public Task Delete(Guid id)
+        private readonly IReservaRepositorio _reservaRepositorio;
+
+        public ReservaServico(INotificacao notifier, IReservaRepositorio reservaRepositorio) : base(notifier)
         {
-            throw new NotImplementedException();
+            _reservaRepositorio = reservaRepositorio;
         }
 
-        public void Dispose()
+        public async Task Insert(Reserva entity)
         {
-            throw new NotImplementedException();
-        }
+            await _reservaRepositorio.Insert(entity);
 
-        public Task Insert(Reserva entity)
-        {
-            throw new NotImplementedException();
+            await _reservaRepositorio.SaveChanges();
+
+            await Task.CompletedTask;
         }
 
         public Task<Reserva> ObterPorId(Guid id)
@@ -32,6 +35,16 @@ namespace UnipPim.Hotel.Dominio.Servicos
         public Task Update(Reserva entity)
         {
             throw new NotImplementedException();
+        }
+
+        public Task Delete(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+
         }
     }
 }

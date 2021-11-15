@@ -3,6 +3,8 @@
 @{
     <br />
     ViewData["Title"] = "Novo Quarto";
+
+    Model.CamaCasal = true;
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -47,7 +49,7 @@
 
                 <div class="row g-2 col-md-3">
                     <label asp-for="CamaCasalQuantidade" class="control-label">Quantidade</label>
-                    <input asp-for="CamaCasalQuantidade" class="form-control" value="0" />
+                    <input asp-for="CamaCasalQuantidade" class="form-control" value="1" />
                     <span asp-validation-for="CamaCasalQuantidade" class="text-danger"></span>
                 </div>
             </div>

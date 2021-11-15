@@ -27,11 +27,7 @@ namespace UnipPim.Hotel.Infra.Mapping
 
             builder.HasMany(x => x.Enderecos)
                 .WithOne(x => x.Hospede)
-                .HasForeignKey(x => x.HospedeId);
-
-            builder.HasMany(x => x.Dependentes)
-                .WithOne(x => x.Responsabel)
-                .HasForeignKey(x => x.ResponsavelId);
+                .HasForeignKey(x => x.HospedeId);            
 
             builder.ToTable("TB_Hospede");
         }

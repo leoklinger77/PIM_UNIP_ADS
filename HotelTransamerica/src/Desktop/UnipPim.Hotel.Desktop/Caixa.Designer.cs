@@ -284,7 +284,7 @@ namespace UnipPim.Hotel.Desktop
             this.Name = "Caixa";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Caixa de Venda";
+            this.Text = "Caixa de Venda";            
             ((System.ComponentModel.ISupportInitialize)(this.ItensGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

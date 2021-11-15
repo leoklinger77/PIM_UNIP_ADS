@@ -54,7 +54,7 @@ namespace UnipPim.Hotel.Desktop
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip.Size = new System.Drawing.Size(1096, 24);
+            this.menuStrip.Size = new System.Drawing.Size(1304, 24);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "MenuStrip";
             // 
@@ -68,31 +68,31 @@ namespace UnipPim.Hotel.Desktop
             this.fileMenu.ImageTransparentColor = System.Drawing.SystemColors.ActiveBorder;
             this.fileMenu.Name = "fileMenu";
             this.fileMenu.Size = new System.Drawing.Size(66, 20);
-            this.fileMenu.Text = "&Arquivos";            
+            this.fileMenu.Text = "&Arquivos";
             // 
             // abrirCaixaToolStripMenuItem
             // 
             this.abrirCaixaToolStripMenuItem.Name = "abrirCaixaToolStripMenuItem";
-            this.abrirCaixaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.abrirCaixaToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.abrirCaixaToolStripMenuItem.Text = "Abrir Caixa";
             this.abrirCaixaToolStripMenuItem.Click += new System.EventHandler(this.abrirCaixaToolStripMenuItem_Click);
             // 
             // fecharCaixaToolStripMenuItem
             // 
             this.fecharCaixaToolStripMenuItem.Name = "fecharCaixaToolStripMenuItem";
-            this.fecharCaixaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fecharCaixaToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.fecharCaixaToolStripMenuItem.Text = "Fechar Caixa";
             this.fecharCaixaToolStripMenuItem.Click += new System.EventHandler(this.fecharCaixaToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(138, 6);
             // 
             // sairToolStripMenuItem
             // 
             this.sairToolStripMenuItem.Name = "sairToolStripMenuItem";
-            this.sairToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sairToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.sairToolStripMenuItem.Text = "Sair";
             this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
             // 
@@ -110,21 +110,23 @@ namespace UnipPim.Hotel.Desktop
             this.checkInToolStripMenuItem.Name = "checkInToolStripMenuItem";
             this.checkInToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.checkInToolStripMenuItem.Text = "Check In";
+            this.checkInToolStripMenuItem.Click += new System.EventHandler(this.checkInToolStripMenuItem_Click);
             // 
             // checkOutToolStripMenuItem
             // 
             this.checkOutToolStripMenuItem.Name = "checkOutToolStripMenuItem";
             this.checkOutToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.checkOutToolStripMenuItem.Text = "Check Out";
+            this.checkOutToolStripMenuItem.Click += new System.EventHandler(this.checkOutToolStripMenuItem_Click);
             // 
             // statusStrip
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 584);
+            this.statusStrip.Location = new System.Drawing.Point(0, 737);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            this.statusStrip.Size = new System.Drawing.Size(1096, 22);
+            this.statusStrip.Size = new System.Drawing.Size(1304, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "StatusStrip";
             // 
@@ -138,7 +140,7 @@ namespace UnipPim.Hotel.Desktop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1096, 606);
+            this.ClientSize = new System.Drawing.Size(1304, 759);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
             this.IsMdiContainer = true;

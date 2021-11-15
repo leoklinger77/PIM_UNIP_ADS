@@ -58,37 +58,13 @@
 
 <div class="container marketing">
 
-
-    <div class="row">
-        <div class="col-lg-4">
-            <img class="bd-placeholder-img rounded-circle" src="~/imagem/anuncio/347d3a73-d777-400a-98ca-7a698d0ac501.jpg" width="140" height="140" />
-            <h2>Heading</h2>
-            <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-            <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-        </div>
-        <div class="col-lg-4">
-            <img class="bd-placeholder-img rounded-circle" src="~/imagem/anuncio/347d3a73-d777-400a-98ca-7a698d0ac501.jpg" width="140" height="140" />
-
-            <h2>Heading</h2>
-            <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
-            <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-        </div>
-        <div class="col-lg-4">
-            <img class="bd-placeholder-img rounded-circle" src="~/imagem/anuncio/347d3a73-d777-400a-98ca-7a698d0ac501.jpg" width="140" height="140" />
-
-            <h2>Heading</h2>
-            <p>And lastly this, the third column of representative placeholder content.</p>
-            <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-        </div>
-    </div>
-
     @{
         int contador = 1;
         foreach (var item in Model)
         {
             if (contador != 2)
             {
-                <hr class="featurette-divider">
+                
 
                 <div class="row featurette">
                     <div class="col-md-7">
@@ -111,12 +87,12 @@
                     </div>
                     <div class="col-md-5 order-md-1">
                         <a asp-action="DetalhesAnuncio" asp-controller="Home" asp-route-anuncioId="@item.Id"><img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="~/imagem/anuncio/@item.Fotos.First().Caminho" width="500" height="500" /></a>
-</div>
+                    </div>
                 </div>
             }
             contador++;
         }
-    }   
+    }
 
     <hr class="featurette-divider">
 

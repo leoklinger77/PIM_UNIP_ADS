@@ -3,10 +3,30 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace UnipPim.Hotel.Infra.Migrations
 {
-    public partial class Initial : Migration
+    public partial class AltHost : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Pagamentos",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    InsertDate = table.Column<DateTime>(nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: true),
+                    PedidoId = table.Column<Guid>(nullable: false),
+                    Status = table.Column<string>(type: "varchar(255)", nullable: true),
+                    Valor = table.Column<decimal>(nullable: false),
+                    NomeCartao = table.Column<string>(type: "varchar(255)", nullable: true),
+                    NumeroCartao = table.Column<string>(type: "varchar(255)", nullable: true),
+                    ExpiracaoCartao = table.Column<string>(type: "varchar(255)", nullable: true),
+                    CvvCartao = table.Column<string>(type: "varchar(255)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pagamentos", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "TB_Cargo",
                 columns: table => new
@@ -73,11 +93,18 @@ namespace UnipPim.Hotel.Infra.Migrations
                     UpdateDate = table.Column<DateTime>(nullable: true),
                     NomeCompleto = table.Column<string>(type: "varchar(255)", nullable: false),
                     Cpf = table.Column<string>(type: "varchar(11)", nullable: false),
-                    Nascimento = table.Column<DateTime>(nullable: false)
+                    Nascimento = table.Column<DateTime>(nullable: false),
+                    ResponsavelId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TB_Hospede", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TB_Hospede_TB_Hospede_ResponsavelId",
+                        column: x => x.ResponsavelId,
+                        principalTable: "TB_Hospede",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -98,6 +125,29 @@ namespace UnipPim.Hotel.Infra.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TB_Quarto", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Transacoes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    InsertDate = table.Column<DateTime>(nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: true),
+                    PedidoId = table.Column<Guid>(nullable: false),
+                    PagamentoId = table.Column<Guid>(nullable: false),
+                    Total = table.Column<decimal>(nullable: false),
+                    StatusTransacao = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Transacoes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Transacoes_Pagamentos_PagamentoId",
+                        column: x => x.PagamentoId,
+                        principalTable: "Pagamentos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -194,29 +244,6 @@ namespace UnipPim.Hotel.Infra.Migrations
                         name: "FK_TB_Funcionario_TB_GrupoFuncionario_GrupoFuncionarioId",
                         column: x => x.GrupoFuncionarioId,
                         principalTable: "TB_GrupoFuncionario",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TB_Dependente",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    InsertDate = table.Column<DateTime>(nullable: false),
-                    UpdateDate = table.Column<DateTime>(nullable: true),
-                    NomeCompleto = table.Column<string>(type: "varchar(255)", nullable: false),
-                    Cpf = table.Column<string>(type: "varchar(11)", nullable: false),
-                    Nascimento = table.Column<DateTime>(nullable: false),
-                    ResponsavelId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TB_Dependente", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TB_Dependente_TB_Hospede_ResponsavelId",
-                        column: x => x.ResponsavelId,
-                        principalTable: "TB_Hospede",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -537,11 +564,6 @@ namespace UnipPim.Hotel.Infra.Migrations
                 column: "EstadoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TB_Dependente_ResponsavelId",
-                table: "TB_Dependente",
-                column: "ResponsavelId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TB_Email_FuncionarioId",
                 table: "TB_Email",
                 column: "FuncionarioId");
@@ -582,6 +604,11 @@ namespace UnipPim.Hotel.Infra.Migrations
                 column: "GrupoFuncionarioId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TB_Hospede_ResponsavelId",
+                table: "TB_Hospede",
+                column: "ResponsavelId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TB_OrderVenda_CaixaId",
                 table: "TB_OrderVenda",
                 column: "CaixaId");
@@ -610,6 +637,12 @@ namespace UnipPim.Hotel.Infra.Migrations
                 name: "IX_TB_Telefone_HospedeId",
                 table: "TB_Telefone",
                 column: "HospedeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transacoes_PagamentoId",
+                table: "Transacoes",
+                column: "PagamentoId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -622,9 +655,6 @@ namespace UnipPim.Hotel.Infra.Migrations
 
             migrationBuilder.DropTable(
                 name: "TB_Cama");
-
-            migrationBuilder.DropTable(
-                name: "TB_Dependente");
 
             migrationBuilder.DropTable(
                 name: "TB_Email");
@@ -642,6 +672,9 @@ namespace UnipPim.Hotel.Infra.Migrations
                 name: "TB_Telefone");
 
             migrationBuilder.DropTable(
+                name: "Transacoes");
+
+            migrationBuilder.DropTable(
                 name: "TB_OrderVenda");
 
             migrationBuilder.DropTable(
@@ -655,6 +688,9 @@ namespace UnipPim.Hotel.Infra.Migrations
 
             migrationBuilder.DropTable(
                 name: "TB_Hospede");
+
+            migrationBuilder.DropTable(
+                name: "Pagamentos");
 
             migrationBuilder.DropTable(
                 name: "TB_Caixa");

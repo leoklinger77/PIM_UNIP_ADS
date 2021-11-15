@@ -5,6 +5,8 @@ using System;
 using System.Threading.Tasks;
 using UnipPim.Hotel.Dominio.Interfaces;
 using UnipPim.Hotel.Dominio.Interfaces.Servicos;
+using UnipPim.Hotel.Dominio.Models;
+using UnipPim.Hotel.Models;
 
 namespace UnipPim.Hotel.Controllers
 {
@@ -12,10 +14,23 @@ namespace UnipPim.Hotel.Controllers
     public class CheckoutReservaController : MainController
     {
         private readonly IAnuncioServico _anuncioServico;
+        private readonly IHospedeServico _hospedeServico;
+        private readonly IFuncionarioServico _funcionarioServico;
+        private readonly IReservaServico _reservaServico;
 
-        public CheckoutReservaController(IMapper mapper, IUser user, INotificacao notificacao, IAnuncioServico anuncioServico) : base(mapper, user, notificacao)
+        public CheckoutReservaController(IMapper mapper, 
+                                            IUser user, 
+                                            INotificacao notificacao, 
+                                            IAnuncioServico anuncioServico, 
+                                            IHospedeServico hospedeServico, 
+                                            IFuncionarioServico funcionarioServico, 
+                                            IReservaServico reservaServico) 
+                                            : base(mapper, user, notificacao)
         {
             _anuncioServico = anuncioServico;
+            _hospedeServico = hospedeServico;
+            _funcionarioServico = funcionarioServico;
+            _reservaServico = reservaServico;
         }
 
         [HttpGet]
@@ -26,8 +41,42 @@ namespace UnipPim.Hotel.Controllers
             if (anuncioId == null) return BadRequest();
 
             //criarCriar a Reserva
+            var hospede = await _hospedeServico.ObterPorId(_user.UserId);
 
-            return View();
+            if (hospede == null)
+            {
+                var func = await _funcionarioServico.ObterPorId(_user.UserId);
+                hospede = new Hospede(func.Id, func.NomeCompleto, func.Cpf, func.Nascimento);
+                await _hospedeServico.Insert(hospede);
+            }
+
+            var init = new FechamentoReservaViewModel()
+            {
+                Anuncio = _mapper.Map<AnuncioViewModel>(anuncioDb),
+                Hospede = _mapper.Map<HospedeViewModel>(hospede),                
+                Entrada = DateTime.Now,
+                Saida = DateTime.Now.AddDays(7)
+                
+            };
+
+            return View(init);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> IniciarReserva(FechamentoReservaViewModel viewModel)
+        {
+            if (!ModelState.IsValid) return View(viewModel);
+
+            var reserva = new Reserva(viewModel.Anuncio.Id, _user.UserId, viewModel.Entrada, viewModel.Saida, viewModel.Anuncio.Custo);
+
+            await _reservaServico.Insert(reserva);
+
+            if (OperacaoValida())
+            {
+                return View(viewModel);
+            }
+
+            return View("Confirmacao");
         }
     }
 }

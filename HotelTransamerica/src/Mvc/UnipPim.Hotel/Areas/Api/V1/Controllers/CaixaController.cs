@@ -83,7 +83,7 @@ namespace UnipPim.Hotel.Areas.Api.V1.Controllers
 
             if (OperacaoValida()) return CustomResponse();
 
-            return CustomResponse(orderVenda);
+            return CustomResponse(_mapper.Map<OrderVendaViewModel>(orderVenda));
         }
 
         [HttpGet("add-produto")]

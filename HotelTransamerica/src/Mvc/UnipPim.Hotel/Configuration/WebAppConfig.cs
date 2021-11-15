@@ -16,9 +16,7 @@ namespace UnipPim.Hotel.Configuration
         {
             services.AddHttpContextAccessor();
 
-            services.AddDbContext<HotelContext>(options =>
-               options.UseSqlServer(
-                   configuration.GetConnectionString("Connection")));
+            services.AddDbContext<HotelContext>(options => options.UseSqlServer(configuration.GetConnectionString("Connection")));
 
             services.AddControllersWithViews();
             services.AddRazorPages();

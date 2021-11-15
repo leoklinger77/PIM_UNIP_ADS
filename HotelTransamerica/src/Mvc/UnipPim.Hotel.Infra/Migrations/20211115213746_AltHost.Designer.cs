@@ -10,8 +10,8 @@ using UnipPim.Hotel.Infra.Data;
 namespace UnipPim.Hotel.Infra.Migrations
 {
     [DbContext(typeof(HotelContext))]
-    [Migration("20211022185956_Pagamento")]
-    partial class Pagamento
+    [Migration("20211115213746_AltHost")]
+    partial class AltHost
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -217,39 +217,6 @@ namespace UnipPim.Hotel.Infra.Migrations
                     b.HasIndex("EstadoId");
 
                     b.ToTable("TB_Cidade");
-                });
-
-            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Dependente", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Cpf")
-                        .IsRequired()
-                        .HasColumnType("varchar(11)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Nascimento")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("NomeCompleto")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<Guid>("ResponsavelId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResponsavelId");
-
-                    b.ToTable("TB_Dependente");
                 });
 
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Email", b =>
@@ -467,10 +434,15 @@ namespace UnipPim.Hotel.Infra.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
+                    b.Property<Guid?>("ResponsavelId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ResponsavelId");
 
                     b.ToTable("TB_Hospede");
                 });
@@ -802,14 +774,6 @@ namespace UnipPim.Hotel.Infra.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Dependente", b =>
-                {
-                    b.HasOne("UnipPim.Hotel.Dominio.Models.Hospede", "Responsabel")
-                        .WithMany("Dependentes")
-                        .HasForeignKey("ResponsavelId")
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Email", b =>
                 {
                     b.HasOne("UnipPim.Hotel.Dominio.Models.Funcionario", "Funcionario")
@@ -856,6 +820,13 @@ namespace UnipPim.Hotel.Infra.Migrations
                         .WithMany("Funcionarios")
                         .HasForeignKey("GrupoFuncionarioId")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.Hospede", b =>
+                {
+                    b.HasOne("UnipPim.Hotel.Dominio.Models.Hospede", "Responsavel")
+                        .WithMany()
+                        .HasForeignKey("ResponsavelId");
                 });
 
             modelBuilder.Entity("UnipPim.Hotel.Dominio.Models.ItensVenda", b =>

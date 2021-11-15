@@ -10,6 +10,7 @@ namespace UnipPim.Hotel.Desktop
         private readonly IUser _user;
         private readonly IServiceProvider _provider;
         private readonly ICaixaService _caixaService;
+        private Guid OrderVendaId;
 
         public Caixa(IServiceProvider provider)
         {
@@ -33,13 +34,24 @@ namespace UnipPim.Hotel.Desktop
             if (txtCodeBarras.Text.Length == 13 || txtCodeBarras.Text.Length == 14)
             {
 
+                //Verificar se existe uma order de venda
+
+
+
+
+
+
                 var response = await _caixaService.BuscarProdutoPorCodigoDeBarras(txtCodeBarras.Text);
 
-                if (response.Class == null)
+                if (response.Class != null)
                 {
 
                     //Verificar se já possui produto Adicionado, caso tenha, Adicionar outro, Caso não tenha, Criar uma nova Ordem de Venda
-
+                    //DataGridView dataGridView1 = new DataGridView();
+                    //dataGridView1.AutoGenerateColumns = true;
+                    //Controls.Add(dataGridView1);
+                    //dataGridView1.DataSource = EDIFiles;
+                    //this.ShowDialog();
                 }
                 else
                 {
@@ -49,5 +61,7 @@ namespace UnipPim.Hotel.Desktop
 
             if (txtCodeBarras.Text.Length >= 15) txtCodeBarras.Text = "";
         }
+
+        
     }
 }

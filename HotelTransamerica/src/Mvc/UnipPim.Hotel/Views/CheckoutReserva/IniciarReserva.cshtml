@@ -1,7 +1,111 @@
-﻿
+﻿@model FechamentoReservaViewModel
 @{
     ViewData["Title"] = "IniciarReserva";
 }
 
-<h1>IniciarReserva</h1>
+
+<div class="container marketing">
+
+    <br />
+    <div class="card">
+
+        <form asp-action="IniciarReserva" method="post">
+            <div class="card-body">
+
+                <h4 class="card-title mb-4">Reserva</h4>
+
+                <input asp-for="Anuncio.Id" type="hidden" />
+                <input asp-for="Anuncio.Nome" type="hidden" />
+                <input asp-for="Anuncio.Custo" type="hidden" />
+                <input asp-for="Anuncio.Quantidade" type="hidden" />               
+
+
+                <input asp-for="Hospede.Id" type="hidden" />
+                <input asp-for="Hospede.NomeCompleto" type="hidden" />
+                <input asp-for="Hospede.Cpf" type="hidden" />
+                <input asp-for="Hospede.Nascimento" type="hidden" />
+
+
+                <div class="row">
+                    <p>Periodo</p>
+                    <div class="col-md-3">
+                        <label class="control-label" for="Nome">Entrada</label>
+                        <input asp-for="Entrada" class="form-control" type="date" />
+                        <span class="text-danger field-validation-valid"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="control-label" for="NumeroQuarto">Saida</label>
+                        <input asp-for="Saida" class="form-control" type="date" />
+                        <span class="text-danger field-validation-valid"></span>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="row">
+                    <p>Responsavel</p>
+                    <div class="col-md-3">
+                        <label class="control-label" for="Nome">NomeCompleto</label>
+                        <input asp-for="Hospede.NomeCompleto" class="form-control" type="text" disabled />
+                        <span class="text-danger field-validation-valid"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="control-label" for="NumeroQuarto">Cpf</label>
+                        <input asp-for="Hospede.Cpf" class="form-control" type="text" disabled />
+                        <span class="text-danger field-validation-valid"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="control-label" for="NumeroQuarto">Nascimento</label>
+                        <input asp-for="Hospede.Nascimento" class="form-control" type="date" disabled />
+                        <span class="text-danger field-validation-valid"></span>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <p>Pagamento</p>
+                    <div class="col-md-3">
+                        <label class="control-label" for="Nome">Número do Cartão</label>
+                        <input asp-for="NumCartao" class="form-control" type="text" />
+                        <span class="text-danger field-validation-valid"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="control-label" for="NumeroQuarto">Nome do Titular</label>
+                        <input asp-for="NomeTitularCartao" class="form-control" type="text" />
+                        <span class="text-danger field-validation-valid"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label" for="NumeroQuarto">Cpf do Titular</label>
+                        <input asp-for="CpfTitularCartao" class="form-control" type="text" />
+                        <span class="text-danger field-validation-valid"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="control-label" for="NumeroQuarto">CVV</label>
+                        <input asp-for="Cvv" class="form-control" type="text" />
+                        <span class="text-danger field-validation-valid"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label" for="NumeroQuarto">Data Expiração</label>
+                        <input asp-for="DataExpiracao" class="form-control" type="text" />
+                        <span class="text-danger field-validation-valid"></span>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-3">
+                        <button class="btn btn-success" type="submit" >Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
 

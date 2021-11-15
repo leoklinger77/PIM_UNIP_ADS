@@ -20,7 +20,7 @@ namespace UnipPim.Hotel.Dominio.Servicos
 
         public async Task AbrirCaixa(Guid funcionarioId, decimal valorDeAbertura)
         {
-            var result = await _caixaRepositorio.ObterCaixaPorFuncionario(funcionarioId);
+            var result = _caixaRepositorio.ObterCaixaPorFuncionario(funcionarioId);
 
             if (result != null)
             {
@@ -34,7 +34,7 @@ namespace UnipPim.Hotel.Dominio.Servicos
                 return;
             }
 
-            await _caixaRepositorio.Insert(new Caixa(valorDeAbertura, funcionarioId));
+            await _caixaRepositorio.Insert(new Caixa(valorDeAbertura, funcionarioId));            
 
             await _caixaRepositorio.SaveChanges();
             await Task.CompletedTask;

@@ -9,5 +9,11 @@ namespace UnipPim.Hotel.Desktop.Service.Interfaces
         Task<ResponseResult> FecharCaixa();
         Task<ResponseResult<CaixaDTO>> ObterCaixa();
         Task<ResponseResult<ProdutoDTO>> BuscarProdutoPorCodigoDeBarras(string codigo);
+
+
+
+
+
+
     }
 }

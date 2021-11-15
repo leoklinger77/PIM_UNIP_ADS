@@ -12,10 +12,4 @@ namespace UnipPim.Hotel.Models
 
         public IEnumerable<OrderVendaViewModel> OrderVendas { get; set; } = new List<OrderVendaViewModel>();        
     }
-
-    public class OrderVendaViewModel
-    {
-
-    }
-
 }
