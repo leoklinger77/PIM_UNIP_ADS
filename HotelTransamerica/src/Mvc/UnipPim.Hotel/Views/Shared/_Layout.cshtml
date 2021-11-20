@@ -18,10 +18,9 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-action="Index" asp-controller="Home" asp-area="">Hotel TransAmerica</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <a class="navbar-brand" asp-action="Index" asp-controller="Home" asp-area="">
+                    <img src="~/imagem/logo.png" alt="..." height="36" style="margin-left: 15px">
+                </a>                
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item">
@@ -36,7 +35,7 @@
     <main>
         @RenderBody()
         <footer class="container">
-            <p class="float-end"><a href="#">Back to top</a></p>
+            <p class="float-end"><a href="#">Voltar para o início</a></p>
             <p>&copy; 2017–2021 Companhia, Inc. &middot; <a href="#">Privacidade</a> &middot; <a href="#">Terms</a></p>
         </footer>
     </main>

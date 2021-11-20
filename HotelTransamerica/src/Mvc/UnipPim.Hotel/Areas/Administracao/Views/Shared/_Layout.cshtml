@@ -17,11 +17,13 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-action="Index" asp-controller="Home" asp-area="">Hotel TransAmerica</a>
+                <a class="navbar-brand" asp-action="Index" asp-controller="Home" asp-area="">
+                    <img src="~/imagem/logo.png" alt="..." height="36" style="margin-left: 15px">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="collapse navbar-collapse" id="navbarCollapse" style="flexb">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item">
                             <a class="nav-link" asp-action="Index" asp-controller="Home" asp-area="Administracao">Administração</a>
@@ -144,7 +146,7 @@
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-2">
                 <div style="margin-left: 20px">
-                @RenderBody()
+                    @RenderBody()
                 </div>
             </main>
             <footer class="border-top footer text-muted text-center">
