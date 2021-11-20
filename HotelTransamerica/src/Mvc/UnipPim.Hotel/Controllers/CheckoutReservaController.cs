@@ -67,6 +67,12 @@ namespace UnipPim.Hotel.Controllers
         {
             if (!ModelState.IsValid) return View(viewModel);
 
+            if (!EfetuarPagamentoMock())
+            {
+                AddErro("Pagamento recusado pela Operadora do Cartão. Verifique os dados fornecidos e tente novamente.");
+                return View(viewModel);
+            }
+
             var reserva = new Reserva(viewModel.Anuncio.Id, _user.UserId, viewModel.Entrada, viewModel.Saida, viewModel.Anuncio.Custo);
 
             await _reservaServico.Insert(reserva);
@@ -77,6 +83,11 @@ namespace UnipPim.Hotel.Controllers
             }
 
             return View("Confirmacao");
+        }
+
+        private bool EfetuarPagamentoMock()
+        {
+            return new Random().Next(2) == 0;
         }
     }
 }

@@ -23,6 +23,7 @@ namespace UnipPim.Hotel.Controllers
         protected void AddErro(string erro)
         {
             _notificacao.AddError(erro);
+            OperacaoValida();
         }
 
         protected void ErrosTempData()

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UnipPim.Hotel.Dominio.Models;
-using UnipPim.Hotel.Pagamento.Dominio.Models;
 
 namespace UnipPim.Hotel.Infra.Data
 {
@@ -31,11 +30,7 @@ namespace UnipPim.Hotel.Infra.Data
         public DbSet<Reserva> Reserva { get; set; }
         public DbSet<Caixa> Caixa { get; set; }
         public DbSet<OrderVenda> OrderVenda { get; set; }
-        public DbSet<ItensVenda> ItensVenda { get; set; }
-
-        //Pagamento
-        public DbSet<Pagamento.Dominio.Models.Pagamento> Pagamentos { get; set; }
-        public DbSet<Transacao> Transacoes { get; set; }
+        public DbSet<ItensVenda> ItensVenda { get; set; }        
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

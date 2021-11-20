@@ -42,19 +42,12 @@
                     <ul class="nav flex-column">
 
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" asp-action="Index" asp-controller="Home" asp-area="Administração">
+                            <a class="nav-link active" asp-action="Index" asp-controller="Home" asp-area="Administracao">
                                 <span data-feather="home"></span>
                                 Dashboard
                             </a>
                         </li>
-
-                        @*<li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="users"></span>
-                                    Caixa
-                                </a>
-                            </li>*@
-
+                                                
                         <li class="nav-item">
                             <a class="nav-link" asp-action="Index" asp-controller="Funcionario" asp-area="Administracao">
                                 <span data-feather="file"></span>
@@ -78,13 +71,7 @@
                                 <span data-feather="users"></span>
                                 Hóspedes
                             </a>
-                        </li>
-                        @*<li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="bar-chart-2"></span>
-                                    Reservas
-                                </a>
-                            </li>*@
+                        </li>                        
                         <li class="nav-item">
                             <a class="nav-link" asp-action="Index" asp-controller="Anuncio" asp-area="Administracao">
                                 <span data-feather="layers"></span>
@@ -152,7 +139,7 @@
             <footer class="border-top footer text-muted text-center">
                 <div class="container">
                     <br />
-                    &copy; @DateTime.Now.Year - Hotel TransAmerica - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacidade</a>
+                    &copy; @DateTime.Now.Year - Hotel TransAmerica
                 </div>
             </footer>
         </div>

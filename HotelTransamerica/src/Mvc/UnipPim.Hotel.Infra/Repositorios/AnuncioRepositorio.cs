@@ -46,7 +46,7 @@ namespace UnipPim.Hotel.Infra.Repositorios
         }
         public async Task<IEnumerable<Anuncio>> TresAnunciosAleatorios()
         {
-            return await _hotelContext.Anuncio.Include(x => x.Fotos).Include(x => x.Quarto).OrderBy(x => Guid.NewGuid()).Take(3).ToListAsync();
+            return await _hotelContext.Anuncio.Include(x => x.Fotos).Include(x => x.Quarto).OrderBy(x => Guid.NewGuid()).Where(x => x.Quantidade > 0).Take(3).ToListAsync();
         }
 
         public async Task<IEnumerable<Quarto>> ObterQuartosDisponiveis()
@@ -61,7 +61,7 @@ namespace UnipPim.Hotel.Infra.Repositorios
 
         public async Task<Anuncio> ObterPorId(Guid id)
         {
-            return await _hotelContext.Anuncio.Include(x => x.Fotos).Include(x=>x.Quarto).Where(x => x.Id == id).FirstOrDefaultAsync();
+            return await _hotelContext.Anuncio.Include(x => x.Fotos).Include(x => x.Quarto).Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task Insert(Anuncio entity)

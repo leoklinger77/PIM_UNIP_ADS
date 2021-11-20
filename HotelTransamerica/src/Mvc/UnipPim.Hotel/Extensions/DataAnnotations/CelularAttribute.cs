@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using UnipPim.Hotel.Dominio.Tools;
 
 namespace UnipPim.Hotel.Extensions.DataAnnotations
@@ -19,4 +20,17 @@ namespace UnipPim.Hotel.Extensions.DataAnnotations
             return ValidationResult.Success;
         }
     }
+
+    public class DataEntradaAttribute : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            DateTime numero = (DateTime)value;
+            
+            if (DateTime.Now.Date <= numero) return ValidationResult.Success;
+            
+            return new ValidationResult("Celular é inválido");  
+        }
+    }
+
 }

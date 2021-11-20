@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31624.102
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVC", "MVC", "{C8D6E3A4-A4B5-4AF4-82CD-D2C532E64DE9}"
 EndProject
@@ -20,12 +20,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B7529E6C-5E47-41B2-86D8-5E6E1D032F5A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnipPim.Hotel.Tests", "tests\UnipPim.Hotel.Tests\UnipPim.Hotel.Tests.csproj", "{F445DFB6-1635-44E6-9C17-0B33E86B0CBE}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pagamento", "Pagamento", "{74310394-52C6-4407-AE80-56C1C294C2B3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnipPim.Hotel.Pagamento.AntiCorruption", "src\Mvc\UnipPim.Hotel.Pagamento.AntiCorruption\UnipPim.Hotel.Pagamento.AntiCorruption.csproj", "{EC1B8D65-14ED-48C0-A94F-B4D1DED60039}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnipPim.Hotel.Pagamento.Dominio", "src\Mvc\UnipPim.Hotel.Pagamento.Dominio\UnipPim.Hotel.Pagamento.Dominio.csproj", "{62497CF7-2F8D-4437-84BE-0E0F119EBB72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,14 +51,6 @@ Global
 		{F445DFB6-1635-44E6-9C17-0B33E86B0CBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F445DFB6-1635-44E6-9C17-0B33E86B0CBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F445DFB6-1635-44E6-9C17-0B33E86B0CBE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC1B8D65-14ED-48C0-A94F-B4D1DED60039}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC1B8D65-14ED-48C0-A94F-B4D1DED60039}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC1B8D65-14ED-48C0-A94F-B4D1DED60039}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC1B8D65-14ED-48C0-A94F-B4D1DED60039}.Release|Any CPU.Build.0 = Release|Any CPU
-		{62497CF7-2F8D-4437-84BE-0E0F119EBB72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{62497CF7-2F8D-4437-84BE-0E0F119EBB72}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{62497CF7-2F8D-4437-84BE-0E0F119EBB72}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{62497CF7-2F8D-4437-84BE-0E0F119EBB72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,9 +63,6 @@ Global
 		{F2C8E697-CB8E-4E20-ABF6-EB0927499243} = {716E255F-475D-433D-AC16-8C43908AB0ED}
 		{B7529E6C-5E47-41B2-86D8-5E6E1D032F5A} = {C8D6E3A4-A4B5-4AF4-82CD-D2C532E64DE9}
 		{F445DFB6-1635-44E6-9C17-0B33E86B0CBE} = {B7529E6C-5E47-41B2-86D8-5E6E1D032F5A}
-		{74310394-52C6-4407-AE80-56C1C294C2B3} = {C8D6E3A4-A4B5-4AF4-82CD-D2C532E64DE9}
-		{EC1B8D65-14ED-48C0-A94F-B4D1DED60039} = {74310394-52C6-4407-AE80-56C1C294C2B3}
-		{62497CF7-2F8D-4437-84BE-0E0F119EBB72} = {74310394-52C6-4407-AE80-56C1C294C2B3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05CEA8FD-2E05-4E77-B67C-AE57D16F92E3}
