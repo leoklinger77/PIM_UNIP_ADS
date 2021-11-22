@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Editar Cargo: " + Model.Nome;
 }
-
+<br />
 <h1>@ViewData["Title"]</h1>
 
 
@@ -20,8 +20,8 @@
             <input type="hidden" asp-for="Id" />
             <br />
             <div class="form-group">
-                <input type="submit" value="Salvar" class="btn btn-primary" />
-                <a class="btn btn-outline-info" asp-action="Index">Voltar para lista</a>
+                <input type="submit" value="Salvar" class="btn btn-success" />
+                <a class="btn btn-secondary" asp-action="Index">Voltar para lista</a>
             </div>
         </form>
     </div>
