@@ -14,11 +14,10 @@
             <strong>A exclusão desses dados removerá permanentemente sua conta, e isso não pode ser recuperado.</strong>
         </p>
         <form id="download-data" asp-page="DownloadPersonalData" method="post" class="form-group">
-            <button class="btn btn-primary" type="submit">Baixar</button>
+            <button class="btn btn-success" type="submit">Baixar</button>
+            <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger">Excluir</a>
         </form>
-        <p>
-            <a id="delete" asp-page="DeletePersonalData" class="btn btn-primary">Excluir</a>
-        </p>
+        <br />
     </div>
 </div>
 
