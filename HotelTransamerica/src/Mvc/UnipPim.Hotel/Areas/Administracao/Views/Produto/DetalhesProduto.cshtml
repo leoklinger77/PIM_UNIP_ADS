@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Detalhes do Produto";
+    <br />
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -48,6 +49,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
-    <a asp-action="Index">Voltar para lista</a>
+    <a asp-action="EditarProduto" asp-route-id="@Model.Id" class="btn btn-success">Editar</a> |
+    <a asp-action="Index" class="btn btn-secondary">Voltar para lista</a>
 </div>

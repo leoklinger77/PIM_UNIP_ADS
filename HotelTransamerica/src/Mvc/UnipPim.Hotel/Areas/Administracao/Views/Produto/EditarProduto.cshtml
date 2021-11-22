@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Editar Produto";
+    <br />
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -42,8 +43,9 @@
             </div>
             <input type="hidden" asp-for="Id" />            
             <div class="form-group">
-                <input type="submit" value="Salvar" class="btn btn-primary" />
-                <a asp-action="Index">Voltar para lista</a>
+                <br />
+                <input type="submit" value="Salvar" class="btn btn-success" />
+                <a asp-action="Index" class="btn btn-secondary">Voltar para lista</a>
             </div>
         </form>
     </div>
