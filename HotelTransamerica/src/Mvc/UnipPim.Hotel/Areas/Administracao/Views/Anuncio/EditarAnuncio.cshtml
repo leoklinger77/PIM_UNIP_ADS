@@ -1,20 +1,21 @@
 ﻿@model AnuncioViewModel
 
 @{
-    ViewData["Title"] = "Editar Anuncio";    
+    ViewData["Title"] = "Editar Anúncio";    
+    <br />
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="EditarAnuncio">
             <vc:summary></vc:summary>
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="FuncionarioId" />
             <div class="form-group">
-                <label asp-for="QuartoId" class="control-label"></label>
+                <label asp-for="QuartoId" class="control-label">Número do quarto</label>
                 <select asp-for="QuartoId" class="form-control" asp-items="@(new SelectList(Model.ListaQuarto,"Id","Nome"))"></select>
                 <span asp-validation-for="QuartoId" class="text-danger"></span>
             </div>
@@ -34,7 +35,7 @@
                 <span asp-validation-for="Quantidade" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Custo" class="control-label"></label>
+                <label asp-for="Custo" class="control-label">Valor do anúncio</label>
                 <input asp-for="Custo" class="form-control" />
                 <span asp-validation-for="Custo" class="text-danger"></span>
             </div>
@@ -62,9 +63,10 @@
 
             </div>
 
+            <br />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-                <a asp-action="Index">Back to List</a>
+                <input type="submit" value="Salvar" class="btn btn-success"/>
+                <a asp-action="Index" class="btn btn-secondary">Voltar para lista</a>
             </div>
         </form>
     </div>

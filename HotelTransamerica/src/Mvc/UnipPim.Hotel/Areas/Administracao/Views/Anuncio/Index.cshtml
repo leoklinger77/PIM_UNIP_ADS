@@ -45,9 +45,9 @@
                 @Html.DisplayFor(modelItem => item.Custo)
             </td>                       
             <td>
-                <a class="btn btn-outline-info" asp-action="EditarAnuncio" asp-route-id="@item.Id">Editar</a> |
-                <a class="btn btn-outline-info" asp-action="DetalhesAnuncio" asp-route-id="@item.Id">Detalhes</a> |
-                <a class="btn btn-outline-info" asp-action="DeleteAnuncio" asp-route-id="@item.Id">Deletar</a>
+                <a class="btn btn-success" asp-action="EditarAnuncio" asp-route-id="@item.Id">Editar</a> |
+                <a class="btn btn-secondary" asp-action="DetalhesAnuncio" asp-route-id="@item.Id">Detalhes</a> |
+                <a class="btn btn-danger" asp-action="DeleteAnuncio" asp-route-id="@item.Id">Deletar</a>
             </td>
         </tr>
 }

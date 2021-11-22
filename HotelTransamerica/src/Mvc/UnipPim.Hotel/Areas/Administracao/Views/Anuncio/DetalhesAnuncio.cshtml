@@ -2,12 +2,13 @@
 
 @{
     ViewData["Title"] = "DetalhesAnuncio";
+    <br />
 }
 
-<h1>DetalhesAnuncio</h1>
+<h1>Detalhes Anúncio</h1>
 
 <div>
-    <h4>Anuncio</h4>
+    <h4>Anúncio</h4>
     <hr />
     <vc:summary></vc:summary>
     <dl class="row">
@@ -51,6 +52,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="EditarAnuncio" asp-route-id="@Model.Id" class="btn btn-success">Editar</a> |
+    <a asp-action="Index" class="btn btn-secondary">Voltar para lista</a>
 </div>
