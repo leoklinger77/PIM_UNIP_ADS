@@ -7,7 +7,7 @@
 
 <h1>@ViewData["Title"]</h1>
 <hr />
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-4">
         <form asp-action="NovoGrupo">
             <vc:summary></vc:summary>
@@ -19,14 +19,14 @@
 
             <div class="form-group">
                 <label>Administração</label>
-                <select asp-for="Home" class="form-select" style="width: 200px; height: 130px" multiple aria-label="multiple select example">
+                <select asp-for="Home" class="form-select" style="width: 340px; height: 80px" multiple aria-label="multiple select example">
                     <option value="Home">Visualizar</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Funcionário</label>
-                <select asp-for="Funcionario" class="form-select" style="width:200px; height:130px" multiple aria-label="multiple select example">
+                <select asp-for="Funcionario" class="form-select" style="width:340px; height:80px" multiple aria-label="multiple select example">
                     <option value="Home">Visualizar</option>
                     <option value="Novo">Criar</option>
                     <option value="Editar">Editar</option>
@@ -36,7 +36,7 @@
             </div>
             <div class="form-group">
                 <label>Cargo</label>
-                <select asp-for="Cargo" class="form-select" style="width: 200px; height: 130px" multiple aria-label="multiple select example">
+                <select asp-for="Cargo" class="form-select" style="width: 340px; height: 80px" multiple aria-label="multiple select example">
                     <option value="Home">Visualizar</option>
                     <option value="Novo">Criar</option>
                     <option value="Editar">Editar</option>
@@ -46,7 +46,7 @@
             </div>
             <div class="form-group">
                 <label>Hóspede</label>
-                <select asp-for="Hospede" class="form-select" style="width: 200px; height: 130px" multiple aria-label="multiple select example">
+                <select asp-for="Hospede" class="form-select" style="width: 340px; height: 80px" multiple aria-label="multiple select example">
 
                     <option value="Home">Visualizar</option>
                     <option value="Novo">Criar</option>
@@ -57,8 +57,8 @@
             </div>
 
             <br />
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-success" />
+            <div class="form-group d-grid gap-2 col-12 mx-auto">
+                <input type="submit" value="Criar" class="btn btn-success" />
                 <a class="btn btn-secondary" asp-action="Index">Voltar para lista</a>
             </div>
         </form>
