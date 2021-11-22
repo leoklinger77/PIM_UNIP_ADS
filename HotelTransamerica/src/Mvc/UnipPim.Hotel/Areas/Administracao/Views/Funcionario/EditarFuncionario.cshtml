@@ -19,7 +19,7 @@
             <select asp-for="CargoId" class="form-control" asp-items="@(new SelectList(Model.ListaCargo,"Id","Nome"))"></select>
             <span asp-validation-for="CargoId" class="text-danger"></span>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-6">
             <label asp-for="GrupoFuncionarioId" class="control-label">Grupo atual</label>
             <select asp-for="GrupoFuncionarioId" class="form-control" asp-items="@(new SelectList(Model.ListaGrupoFuncionario,"Id","Nome"))"><option></option></select>
             <span asp-validation-for="GrupoFuncionarioId" class="text-danger"></span>

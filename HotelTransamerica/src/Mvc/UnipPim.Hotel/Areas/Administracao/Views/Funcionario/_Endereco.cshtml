@@ -1,7 +1,7 @@
 ﻿@model FuncionarioViewModel
 
 
-<div class="col-md-10">
+<div class="col-md-11">
     <label asp-for="Endereco.Logradouro" class="control-label"></label>
     <input asp-for="Endereco.Logradouro" class="form-control" />
     <span asp-validation-for="Endereco.Logradouro" class="text-danger"></span>
@@ -16,12 +16,12 @@
     <input asp-for="Endereco.Numero" class="form-control" />
     <span asp-validation-for="Endereco.Numero" class="text-danger"></span>
 </div>
-<div class="col-md-4">
+<div class="col-md-5">
     <label asp-for="Endereco.Complemento" class="control-label"></label>
     <input asp-for="Endereco.Complemento" class="form-control" />
     <span asp-validation-for="Endereco.Complemento" class="text-danger"></span>
 </div>
-<div class="col-md-10">
+<div class="col-md-11">
     <label asp-for="Endereco.Referencia" class="control-label">Referência</label>
     <input asp-for="Endereco.Referencia" class="form-control" />
     <span asp-validation-for="Endereco.Referencia" class="text-danger"></span>
@@ -36,12 +36,11 @@
     <input asp-for="Endereco.Cidade" class="form-control" />
     <span asp-validation-for="Endereco.Cidade" class="text-danger"></span>
 </div>
-<div class="col-md-4">
+<div class="col-md-5">
     <label asp-for="Endereco.Estado" class="control-label"></label>
     <input asp-for="Endereco.Estado" class="form-control" />
     <span asp-validation-for="Endereco.Estado" class="text-danger"></span>
 </div>
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
