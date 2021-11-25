@@ -39,7 +39,7 @@ namespace UnipPim.Hotel.Infra.Repositorios
                 List = list.ToList(),
                 TotalResult = list.TotalItemCount,
                 PageIndex = page,
-                PageSize = page,
+                PageSize = size,
                 Query = query
             };
         }

@@ -35,9 +35,11 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpGet("lista-anuncio")]        
-        public async Task<IActionResult> Index(int page = 1, int size = 8, string query = null)
+        public async Task<IActionResult> Index(int pageIndex = 1, int pageSize = 8, string query = null)
         {
-            return View(_mapper.Map<PaginacaoViewModel<AnuncioViewModel>>(await _anuncioServico.PaginacaoListaAnuncio(page, size, query)));
+            var result = _mapper.Map<PaginacaoViewModel<AnuncioViewModel>>(await _anuncioServico.PaginacaoListaAnuncio(pageIndex, pageSize, query));
+            result.ReferenceAction = "Index";
+            return View(result);
         }
 
         [HttpGet("novo-anuncio")]

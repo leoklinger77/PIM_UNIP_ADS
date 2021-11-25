@@ -13,7 +13,7 @@
         <form asp-action="NovoAnuncio">
             <vc:summary></vc:summary>            
             <div class="form-group">
-                <label asp-for="QuartoId" class="control-label">Número do Quarto</label>
+                <label asp-for="QuartoId" class="control-label">Selecione o Quarto</label>
                 <select asp-for="QuartoId" class="form-control" asp-items="@(new SelectList(Model.ListaQuarto,"Id","Nome"))"><option></option></select>
             </div>
             <div class="form-group">

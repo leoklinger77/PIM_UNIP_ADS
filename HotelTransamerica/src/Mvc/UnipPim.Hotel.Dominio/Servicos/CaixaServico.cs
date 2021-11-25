@@ -20,7 +20,7 @@ namespace UnipPim.Hotel.Dominio.Servicos
 
         public async Task AbrirCaixa(Guid funcionarioId, decimal valorDeAbertura)
         {
-            var result = _caixaRepositorio.ObterCaixaPorFuncionario(funcionarioId);
+            var result = await _caixaRepositorio.ObterCaixaPorFuncionario(funcionarioId);
 
             if (result != null)
             {

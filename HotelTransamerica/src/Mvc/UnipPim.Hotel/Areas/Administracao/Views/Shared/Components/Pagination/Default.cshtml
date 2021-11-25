@@ -1,47 +1,58 @@
 ﻿@model IPagedViewModel
-<ul class="pagination justify-content-center">
 
-    @if (@Model.PageIndex == 1)
-    {
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1">Voltar</a>
-        </li>
-    }
-    else
-    {
-        <li class="page-item">
-            <a class="page-link" asp-action="@Model.ReferenceAction" asp-route-pageSize="@Model.PageSize" asp-route-pageIndex="@(Model.PageIndex - 1)" asp-route-query="@Model.Query" tabindex="-1">Voltar</a>
-        </li>
-    }
 
-    @{
-        for (int i = 1; i < Model.TotalPages + 1; i++)
+<nav>
+    <ul class="pagination pagination-rounded mb-0">
+
+        @if (@Model.PageIndex == 1)
         {
-            if (Model.PageIndex == i)
+            <li class="page-item disabled">
+                <a class="page-link" asp-action="@Model.ReferenceAction" asp-route-pageSize="@Model.PageSize" asp-route-pageIndex="@(Model.PageIndex - 1)" asp-route-query="@Model.Query" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="@Model.ReferenceAction" asp-route-pageSize="@Model.PageSize" asp-route-pageIndex="@(Model.PageIndex - 1)" asp-route-query="@Model.Query" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+        }
+
+
+
+        @for (var i = 1; i < Model.TotalPages + 1; i++)
+        {
+            if (i == Model.PageIndex)
             {
-                <li class="page-item active">
-                    <a class="page-link" asp-action="@Model.ReferenceAction" asp-route-pageSize="@Model.PageSize" asp-route-pageIndex="@i" asp-route-query="@Model.Query">@i</a>
-                </li>
+
+                <li class="page-item active"><a class="page-link" asp-action="@Model.ReferenceAction" asp-route-pageSize="@Model.PageSize" asp-route-pageIndex="@i" asp-route-query="@Model.Query">@i</a></li>
             }
             else
             {
-                <li class="page-item">
-                    <a class="page-link" asp-action="@Model.ReferenceAction" asp-route-pageSize="@Model.PageSize" asp-route-pageIndex="@i" asp-route-query="@Model.Query">@i</a>
-                </li>
-            }
 
+                <li class="page-item"><a class="page-link" asp-action="@Model.ReferenceAction" asp-route-pageSize="@Model.PageSize" asp-route-pageIndex="@i" asp-route-query="@Model.Query">@i</a></li>
+            }
         }
-    }
-    @if (@Model.PageIndex == Model.TotalPages)
-    {
-        <li class="page-item disabled">
-            <a class="page-link" href="#">Próxima</a>
-        </li>
-    }
-    else
-    {
-        <li class="page-item">
-            <a class="page-link" asp-action="@Model.ReferenceAction" asp-route-pageSize="@Model.PageSize" asp-route-pageIndex="@(Model.PageIndex + 1)" asp-route-query="@Model.Query">Próxima</a>
-        </li>
-    }
-</ul>
+
+        @if (@Model.PageIndex == Model.TotalPages)
+        {
+            <li class="page-item disabled">
+                <a class="page-link" asp-action="@Model.ReferenceAction" asp-route-pageSize="@Model.PageSize" asp-route-pageIndex="@(Model.PageIndex + 1)" asp-route-query="@Model.Query" aria-label="Previous" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="@Model.ReferenceAction" asp-route-pageSize="@Model.PageSize" asp-route-pageIndex="@(Model.PageIndex + 1)" asp-route-query="@Model.Query" aria-label="Previous" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        }
+    </ul>
+</nav>

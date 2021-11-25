@@ -31,9 +31,11 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpGet("lista-cargo")]        
-        public async Task<IActionResult> Index(int page = 1, int size = 8, string query = null)
-        {            
-            return View(_mapper.Map<PaginacaoViewModel<CargoViewModel>>(await _cargoServico.PaginacaoListaCargo(page, size, query)));
+        public async Task<IActionResult> Index(int pageIndex = 1, int pageSize = 8, string query = null)
+        {
+            var result = _mapper.Map<PaginacaoViewModel<CargoViewModel>>(await _cargoServico.PaginacaoListaCargo(pageIndex, pageSize, query));
+            result.ReferenceAction = "Index";
+            return View(result);
         }
 
         [HttpGet("novo-cargo")]

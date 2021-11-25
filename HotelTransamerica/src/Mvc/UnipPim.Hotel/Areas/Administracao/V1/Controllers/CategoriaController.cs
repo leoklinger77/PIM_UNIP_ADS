@@ -30,10 +30,11 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         }
 
         [HttpGet("lista-Categoria")]
-        public async Task<IActionResult> Index(int page = 1, int size = 8, string query = null)
+        public async Task<IActionResult> Index(int pageIndex = 1, int pageSize = 8, string query = null)
         {
-            var result = await _categoriaServico.PaginacaoListaCategoria(page, size, query);
-            return View(_mapper.Map<PaginacaoViewModel<CategoriaViewModel>>(result));
+            var result = _mapper.Map<PaginacaoViewModel<CategoriaViewModel>>(await _categoriaServico.PaginacaoListaCategoria(pageIndex, pageSize, query));
+            result.ReferenceAction = "Index";
+            return View(result);
         }
 
         [HttpGet("nova-categoria")]
