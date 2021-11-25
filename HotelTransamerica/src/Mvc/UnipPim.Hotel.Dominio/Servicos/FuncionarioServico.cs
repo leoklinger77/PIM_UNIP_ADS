@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnipPim.Hotel.Dominio.Interfaces;
 using UnipPim.Hotel.Dominio.Interfaces.Repositorio;
@@ -100,6 +101,11 @@ namespace UnipPim.Hotel.Dominio.Servicos
                 if (!IniciarValidacao(new EnderecoValidation(), item)) return false;
 
             return true;
+        }
+
+        public async Task<List<Funcionario>> ObterTodos()
+        {
+            return await _funcionarioRepositorio.ObterTodos();
         }
     }
 }

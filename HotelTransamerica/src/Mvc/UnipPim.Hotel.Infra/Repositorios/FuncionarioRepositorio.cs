@@ -168,5 +168,16 @@ namespace UnipPim.Hotel.Infra.Repositorios
         {
             _context?.DisposeAsync();
         }
+
+        public async Task<List<Funcionario>> ObterTodos()
+        {
+            return await _context.Funcionario
+                .Include(x => x.Cargo)
+                .Include(x => x.Emails)
+                .Include(x => x.Telefones)
+                .Include(x => x.Enderecos)                                
+                .AsNoTracking()
+                .ToListAsync();
+        }
     }
 }

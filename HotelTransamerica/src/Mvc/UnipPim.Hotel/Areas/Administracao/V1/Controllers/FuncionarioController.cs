@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -20,6 +21,7 @@ using UnipPim.Hotel.Dominio.Models.Enum;
 using UnipPim.Hotel.Dominio.Tools;
 using UnipPim.Hotel.Extensions.Midleware;
 using UnipPim.Hotel.Models;
+using UnipPim.Hotel.Relatorio;
 
 namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 {
@@ -35,6 +37,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         private readonly IEstadoServico _estadoServico;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _emailSender;
+        private object configurations;
 
         public FuncionarioController(IMapper mapper,
                                 IUser user,
@@ -158,12 +161,12 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         [ClaimsAutorizacao("Funcionario", "Deletar")]
         public async Task<IActionResult> ConfirmaDeletarFuncionario(Guid id)
         {
-            if(id == _user.UserId)
+            if (id == _user.UserId)
             {
                 AddErro("Não é possivel excluir um usuario que está logado.");
                 ErrosTempData();
                 return RedirectToAction(nameof(Index));
-            }          
+            }
 
             await _funcionarioServico.DeletarFuncionario(id);
 
@@ -172,11 +175,31 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
                 ErrosTempData();
                 return RedirectToAction(nameof(Index));
             }
-            
+
             await DeletarLoginFuncionario(ObterFuncionarioPorId(id).Result.Emails.First().EnderecoEmail);
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        
+        public async Task<FileResult> DownloadReport()
+        {
+            string name = Guid.NewGuid() + $"_{DateTime.Now.ToString("yyyy-MM-dd HH_mm_ss")}.xlsx";
+            string caminhoArqCotacoes = ExcelConfigurations.GenerationDirectory + name;
+            System.IO.File.Copy(ExcelConfigurations.SpreadsheetTemplate, caminhoArqCotacoes);
+
+            string path = RelatorioFuncionario.GerarRelatorioFuncionario(await _funcionarioServico.ObterTodos(), caminhoArqCotacoes, name);
+
+            string contentType = "application/xlsx";
+            string hostServidor = HttpContext.Request.Host.Host;
+            path = Path.Combine(hostServidor, path);
+
+            return File(path, contentType, "Stock.xlsx");
+        }
+
+
+
 
         private async Task<Funcionario> ObterFuncionarioPorId(Guid id)
         {

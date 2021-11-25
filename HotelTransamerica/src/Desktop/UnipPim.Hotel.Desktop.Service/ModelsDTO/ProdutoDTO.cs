@@ -12,6 +12,8 @@ namespace UnipPim.Hotel.Desktop.Service.ModelsDTO
         public int QuantidadeVendida { get; set; }  
         public decimal Valor { get; set; }
         public CategoriaDTO Categoria { get; set; }
+
+        public int QuantidadeDeVendaAtual { get; set; }
     }
 
     public class CategoriaDTO

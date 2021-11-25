@@ -10,9 +10,14 @@ namespace UnipPim.Hotel.Models
 
 
         public List<string> Funcionario { get; set; } = new List<string>();
-        public List<string> Hospede { get; set; } = new List<string>();
         public List<string> Cargo { get; set; } = new List<string>();
+        public List<string> Hospede { get; set; } = new List<string>();        
         public List<string> Home { get; set; } = new List<string>();
+        public List<string> Produto { get; set; } = new List<string>();
+        public List<string> Categoria { get; set; } = new List<string>();
+        public List<string> Quarto { get; set; } = new List<string>();
+        public List<string> Anuncio { get; set; } = new List<string>();
+        public List<string> GrupoFuncionario { get; set; } = new List<string>();
 
 
 
@@ -56,7 +61,44 @@ namespace UnipPim.Hotel.Models
                         {
                             Home.Add(claim.ToString());
                         }
-                        break;                   
+                        break;
+
+                    case "Produto":
+                        foreach (var claim in claims)
+                        {
+                            Home.Add(claim.ToString());
+                        }
+                        break;
+
+
+                    case "Categoria":
+                        foreach (var claim in claims)
+                        {
+                            Home.Add(claim.ToString());
+                        }
+                        break;
+
+
+                    case "Quarto":
+                        foreach (var claim in claims)
+                        {
+                            Home.Add(claim.ToString());
+                        }
+                        break;
+
+                    case "Anuncio":
+                        foreach (var claim in claims)
+                        {
+                            Home.Add(claim.ToString());
+                        }
+                        break;
+
+                    case "GrupoFuncionario":
+                        foreach (var claim in claims)
+                        {
+                            Home.Add(claim.ToString());
+                        }
+                        break;
                 }
             }
         }

@@ -30,6 +30,10 @@ namespace UnipPim.Hotel.Desktop
         private void InitializeComponent()
         {
             this.ItensGridView = new System.Windows.Forms.DataGridView();
+            this.Produto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtTotal = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -41,7 +45,7 @@ namespace UnipPim.Hotel.Desktop
             this.btnFinalizarVenda = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbFormaPagamento = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.txtCodeBarras = new System.Windows.Forms.TextBox();
@@ -50,6 +54,7 @@ namespace UnipPim.Hotel.Desktop
             this.txtErroBuscaProduto = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.txtQuantidade = new System.Windows.Forms.TextBox();
+            this.lblError = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ItensGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,11 +62,36 @@ namespace UnipPim.Hotel.Desktop
             // 
             this.ItensGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.ItensGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ItensGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Produto,
+            this.Quantidade,
+            this.Valor,
+            this.Total});
             this.ItensGridView.Location = new System.Drawing.Point(12, 81);
             this.ItensGridView.Name = "ItensGridView";
             this.ItensGridView.RowTemplate.Height = 25;
             this.ItensGridView.Size = new System.Drawing.Size(674, 442);
             this.ItensGridView.TabIndex = 2;
+            // 
+            // Produto
+            // 
+            this.Produto.HeaderText = "Produto";
+            this.Produto.Name = "Produto";
+            // 
+            // Quantidade
+            // 
+            this.Quantidade.HeaderText = "Quantidade";
+            this.Quantidade.Name = "Quantidade";
+            // 
+            // Valor
+            // 
+            this.Valor.HeaderText = "Valor";
+            this.Valor.Name = "Valor";
+            // 
+            // Total
+            // 
+            this.Total.HeaderText = "Total";
+            this.Total.Name = "Total";
             // 
             // txtTotal
             // 
@@ -98,6 +128,7 @@ namespace UnipPim.Hotel.Desktop
             this.txtDesconto.Name = "txtDesconto";
             this.txtDesconto.Size = new System.Drawing.Size(229, 23);
             this.txtDesconto.TabIndex = 5;
+            this.txtDesconto.TextChanged += new System.EventHandler(this.txtDesconto_TextChanged);
             // 
             // label3
             // 
@@ -134,6 +165,7 @@ namespace UnipPim.Hotel.Desktop
             this.txtValorRecebido.Name = "txtValorRecebido";
             this.txtValorRecebido.Size = new System.Drawing.Size(229, 23);
             this.txtValorRecebido.TabIndex = 9;
+            this.txtValorRecebido.TextChanged += new System.EventHandler(this.txtValorRecebido_TextChanged);
             // 
             // btnFinalizarVenda
             // 
@@ -144,6 +176,7 @@ namespace UnipPim.Hotel.Desktop
             this.btnFinalizarVenda.TabIndex = 11;
             this.btnFinalizarVenda.Text = "Finalizar";
             this.btnFinalizarVenda.UseVisualStyleBackColor = true;
+            this.btnFinalizarVenda.Click += new System.EventHandler(this.btnFinalizarVenda_Click);
             // 
             // btnCancelar
             // 
@@ -166,18 +199,18 @@ namespace UnipPim.Hotel.Desktop
             this.label5.TabIndex = 13;
             this.label5.Text = "Frente de Caixa";
             // 
-            // comboBox1
+            // cmbFormaPagamento
             // 
-            this.comboBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cmbFormaPagamento.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.cmbFormaPagamento.FormattingEnabled = true;
+            this.cmbFormaPagamento.Items.AddRange(new object[] {
             "Dinheiro",
             "Débito",
             "Crédito"});
-            this.comboBox1.Location = new System.Drawing.Point(695, 358);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(228, 23);
-            this.comboBox1.TabIndex = 22;
+            this.cmbFormaPagamento.Location = new System.Drawing.Point(695, 358);
+            this.cmbFormaPagamento.Name = "cmbFormaPagamento";
+            this.cmbFormaPagamento.Size = new System.Drawing.Size(228, 23);
+            this.cmbFormaPagamento.TabIndex = 22;
             // 
             // label9
             // 
@@ -255,11 +288,21 @@ namespace UnipPim.Hotel.Desktop
             this.txtQuantidade.TabIndex = 29;
             this.txtQuantidade.Text = "1";
             // 
+            // lblError
+            // 
+            this.lblError.AutoSize = true;
+            this.lblError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblError.Location = new System.Drawing.Point(702, 479);
+            this.lblError.Name = "lblError";
+            this.lblError.Size = new System.Drawing.Size(0, 15);
+            this.lblError.TabIndex = 31;
+            // 
             // Caixa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(932, 535);
+            this.Controls.Add(this.lblError);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtQuantidade);
             this.Controls.Add(this.txtErroBuscaProduto);
@@ -268,7 +311,7 @@ namespace UnipPim.Hotel.Desktop
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txtCodeBarras);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmbFormaPagamento);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnFinalizarVenda);
@@ -284,7 +327,7 @@ namespace UnipPim.Hotel.Desktop
             this.Name = "Caixa";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Caixa de Venda";            
+            this.Text = "Caixa de Venda";
             ((System.ComponentModel.ISupportInitialize)(this.ItensGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -304,7 +347,7 @@ namespace UnipPim.Hotel.Desktop
         private System.Windows.Forms.Button btnFinalizarVenda;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbFormaPagamento;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtCodeBarras;
@@ -313,5 +356,10 @@ namespace UnipPim.Hotel.Desktop
         private System.Windows.Forms.Label txtErroBuscaProduto;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtQuantidade;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Produto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Quantidade;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Valor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Total;
+        private System.Windows.Forms.Label lblError;
     }
 }

@@ -7,7 +7,7 @@
 
 <h1>@ViewData["Title"]</h1>
 <hr />
-<div class="row justify-content-center">
+<div class="row">
     <div class="col-md-4">
         <form asp-action="NovoGrupo">
             <vc:summary></vc:summary>
@@ -19,14 +19,14 @@
 
             <div class="form-group">
                 <label>Administração</label>
-                <select asp-for="Home" class="form-select" style="width: 340px; height: 80px" multiple aria-label="multiple select example">
+                <select asp-for="Home" class="form-select">
                     <option value="Home">Visualizar</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Funcionário</label>
-                <select asp-for="Funcionario" class="form-select" style="width:340px; height:80px" multiple aria-label="multiple select example">
+                <select asp-for="Funcionario" class="form-select">
                     <option value="Home">Visualizar</option>
                     <option value="Novo">Criar</option>
                     <option value="Editar">Editar</option>
@@ -36,7 +36,7 @@
             </div>
             <div class="form-group">
                 <label>Cargo</label>
-                <select asp-for="Cargo" class="form-select" style="width: 340px; height: 80px" multiple aria-label="multiple select example">
+                <select asp-for="Cargo" class="form-select">
                     <option value="Home">Visualizar</option>
                     <option value="Novo">Criar</option>
                     <option value="Editar">Editar</option>
@@ -46,7 +46,56 @@
             </div>
             <div class="form-group">
                 <label>Hóspede</label>
-                <select asp-for="Hospede" class="form-select" style="width: 340px; height: 80px" multiple aria-label="multiple select example">
+                <select asp-for="Hospede" class="form-select">
+
+                    <option value="Home">Visualizar</option>
+                    <option value="Novo">Criar</option>
+                    <option value="Editar">Editar</option>
+                    <option value="Detalhes">Detalhes</option>
+                    <option value="Deletar">Deletar</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label>Produto</label>
+                <select asp-for="Produto" class="form-select">
+
+                    <option value="Home">Visualizar</option>
+                    <option value="Novo">Criar</option>
+                    <option value="Editar">Editar</option>
+                    <option value="Detalhes">Detalhes</option>
+                    <option value="Deletar">Deletar</option>
+                </select>
+            </div>
+
+             <div class="form-group">
+                <label>Categoria</label>
+                <select asp-for="Categoria" class="form-select">
+
+                    <option value="Home">Visualizar</option>
+                    <option value="Novo">Criar</option>
+                    <option value="Editar">Editar</option>
+                    <option value="Detalhes">Detalhes</option>
+                    <option value="Deletar">Deletar</option>
+                </select>
+            </div>
+
+             <div class="form-group">
+                <label>Quarto</label>
+                <select asp-for="Quarto" class="form-select">
+
+                    <option value="Home">Visualizar</option>
+                    <option value="Novo">Criar</option>
+                    <option value="Editar">Editar</option>
+                    <option value="Detalhes">Detalhes</option>
+                    <option value="Deletar">Deletar</option>
+                </select>
+            </div>
+
+             <div class="form-group">
+                <label>Grupo Funcionario</label>
+                <select asp-for="GrupoFuncionario" class="form-select">
 
                     <option value="Home">Visualizar</option>
                     <option value="Novo">Criar</option>
@@ -65,6 +114,5 @@
     </div>
 </div>
 <br />
-<div>
-</div>
+
 

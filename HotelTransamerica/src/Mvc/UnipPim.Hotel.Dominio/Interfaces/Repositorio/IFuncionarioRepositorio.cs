@@ -28,5 +28,6 @@ namespace UnipPim.Hotel.Dominio.Interfaces.Repositorio
         Task DeleteTelefone(IEnumerable<Telefone> telefone);
         Task DeleteEndereco(IEnumerable<Endereco> endereco);
         Task<Paginacao<Funcionario>> Paginacao(int page, int size, string query);
+        Task<List<Funcionario>> ObterTodos();
     }
 }

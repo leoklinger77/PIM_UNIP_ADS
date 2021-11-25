@@ -132,6 +132,34 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             }            
             newGrupo.AddAcesso(new Acesso("Home", claim));
 
+            claim = string.Empty;
+            foreach (var item in viewModel.Home)
+            {
+                claim += item + ", ";
+            }
+            newGrupo.AddAcesso(new Acesso("Quarto", claim));
+
+            claim = string.Empty;
+            foreach (var item in viewModel.Home)
+            {
+                claim += item + ", ";
+            }
+            newGrupo.AddAcesso(new Acesso("Categoria", claim));
+
+            claim = string.Empty;
+            foreach (var item in viewModel.Home)
+            {
+                claim += item + ", ";
+            }
+            newGrupo.AddAcesso(new Acesso("Anuncio", claim));
+
+            claim = string.Empty;
+            foreach (var item in viewModel.Home)
+            {
+                claim += item + ", ";
+            }
+            newGrupo.AddAcesso(new Acesso("GrupoFuncionario", claim));
+
             return newGrupo;
         }
     }

@@ -7,6 +7,7 @@ using UnipPim.Hotel.Dominio.Notificacoes;
 using UnipPim.Hotel.Dominio.Servicos;
 using UnipPim.Hotel.Extensions;
 using UnipPim.Hotel.Infra.Repositorios;
+using UnipPim.Hotel.Relatorio;
 using UnipPim.Hotel.Servicos;
 
 namespace UnipPim.Hotel.Configuration
@@ -45,6 +46,8 @@ namespace UnipPim.Hotel.Configuration
             services.AddScoped<IProdutoServico, ProdutoServico>();            
             services.AddScoped<IReservaServico, ReservaServico>();
             services.AddScoped<ICaixaServico, CaixaServico>();
+
+            //services.AddScoped<RelatorioFuncionario>();
         }
     }
 }
