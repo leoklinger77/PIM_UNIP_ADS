@@ -13,22 +13,17 @@
             <div class="row no-gutters">
                 <aside class="col-md-6">
                     <article class="gallery-wrap">
-                        <div class="img-big-wrap">
-                            <a href="#"><img src="~/imagem/anuncio/@Model.Fotos.First().Caminho"></a>
-                        </div>
+                        <br /><br /><br /><br />
                         <div class="thumbs-wrap">
-                            @{
-                                foreach (var item in Model.Fotos)
-                                {
-                                    <a href="#" class="item-thumb"> <img src="~/imagem/anuncio/@item.Caminho"></a>
-                                }
-                            }
+                            @{ foreach (var item in Model.Fotos)
+                                            {
+                                <a href="#" class="item-thumb"> <img src="~/imagem/anuncio/@item.Caminho" width="500"></a> } }
                         </div>
                     </article>
                 </aside>
                 <main class="col-md-6 border-left">
                     <article class="content-body">
-
+                        <br /><br />
                         <h2 class="title">@Model.Nome</h2>
 
                         <div class="rating-wrap my-3">
@@ -83,7 +78,8 @@
 
                         <hr>
 
-                        <a asp-action="IniciarReserva" asp-controller="CheckoutReserva" asp-route-anuncioId="@Model.Id"  class="btn  btn-primary"> Reservar </a>
+                        <a asp-action="IniciarReserva" asp-controller="CheckoutReserva" asp-route-anuncioId="@Model.Id" class="btn  btn-primary"> Reservar </a>
+                        <br /><br />
                     </article>
                 </main>
             </div>
