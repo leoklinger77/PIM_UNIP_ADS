@@ -161,24 +161,34 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
         [ClaimsAutorizacao("Funcionario", "Deletar")]
         public async Task<IActionResult> ConfirmaDeletarFuncionario(Guid id)
         {
-            if (id == _user.UserId)
+            try
             {
-                AddErro("Não é possivel excluir um usuario que está logado.");
-                ErrosTempData();
+                if (id == _user.UserId)
+                {
+                    AddErro("Não é possivel excluir um usuario que está logado.");
+                    ErrosTempData();
+                    return RedirectToAction(nameof(Index));
+                }
+                var result = await ObterFuncionarioPorId(id);
+                await _funcionarioServico.DeletarFuncionario(id);
+
+                if (OperacaoValida())
+                {
+                    ErrosTempData();
+                    return RedirectToAction(nameof(DeletarFuncionario), new { id = id });
+                }
+
+                await DeletarLoginFuncionario(result.Emails.First().EnderecoEmail);
+
                 return RedirectToAction(nameof(Index));
             }
-            var result = await ObterFuncionarioPorId(id);
-            await _funcionarioServico.DeletarFuncionario(id);
-
-            if (OperacaoValida())
+            catch (Exception)
             {
+                AddErro("Funcionario não pode ser deletado, pois está associado a outra tabela.");
                 ErrosTempData();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(DeletarFuncionario), new { id = id });
             }
-
-            await DeletarLoginFuncionario(result.Emails.First().EnderecoEmail);
-
-            return RedirectToAction(nameof(Index));
+            
         }
 
         [HttpGet]
