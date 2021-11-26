@@ -34,7 +34,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             _anuncioServico = anuncioServico;
         }
 
-        [HttpGet("lista-anuncio")]        
+        [HttpGet("lista-anuncio")]
         public async Task<IActionResult> Index(int pageIndex = 1, int pageSize = 8, string query = null)
         {
             var result = _mapper.Map<PaginacaoViewModel<AnuncioViewModel>>(await _anuncioServico.PaginacaoListaAnuncio(pageIndex, pageSize, query));
@@ -103,14 +103,14 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             {
                 AddErro("Obrigatório inserir 1 foto para cadastrar um anuncio.");
                 OperacaoValida();
-                return View(await MapearAnuncioViewModel(viewModel)); ;
+                return View(await MapearAnuncioViewModel(viewModel));
             }
 
             await _anuncioServico.Update(_mapper.Map<Anuncio>(viewModel));
 
             if (OperacaoValida())
             {
-
+                return View(await MapearAnuncioViewModel(viewModel));
             }
 
             return RedirectToAction(nameof(Index));
@@ -138,16 +138,26 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 
         [HttpPost("deleta-anuncio")]
         public async Task<IActionResult> ConfirmaDeleteAnuncio(Guid id)
-        {            
-            await _anuncioServico.Delete(id);
-
-            if (OperacaoValida())
+        {
+            try
             {
-                ErrosTempData();
+                await _anuncioServico.Delete(id);
+
+                if (OperacaoValida())
+                {
+                    ErrosTempData();
+                    return RedirectToAction(nameof(DeleteAnuncio), new { id = id });
+                }
+
                 return RedirectToAction(nameof(Index));
             }
+            catch
+            {
+                AddErro("Anuncio não pode ser deletado.");
+                ErrosTempData();
+                return RedirectToAction(nameof(DeleteAnuncio), new { id = id });
+            }
 
-            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost("upload-imagem")]
@@ -190,7 +200,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
             {
                 anuncio = new Anuncio(viewModel.Nome, viewModel.Ativo, viewModel.Quantidade, viewModel.Custo, _user.UserId, viewModel.QuartoId);
             }
-            
+
             if (!(fotos[0] == ""))
                 foreach (var item in fotos)
                 {

@@ -73,7 +73,7 @@ namespace UnipPim.Hotel.Dominio.Servicos
 
             foreach (var item in entity.Fotos)
             {
-                if(anuncioDb.Fotos.Where(x => x.Caminho == item.Caminho) == null)               
+                if(anuncioDb.Fotos.Where(x => x.Caminho == item.Caminho) != null)               
                 {
                     anuncioDb.AddFoto(item);
                     await _anuncioRepositorio.AddFoto(item);

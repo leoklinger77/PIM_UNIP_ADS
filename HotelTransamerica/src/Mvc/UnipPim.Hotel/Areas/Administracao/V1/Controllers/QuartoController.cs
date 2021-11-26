@@ -152,21 +152,31 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(result);
+            return View(_mapper.Map<QuartoViewModel>(result));
         }
 
         [HttpPost("delete-quarto")]
         public async Task<IActionResult> ConfirmaDeleteQuarto(Guid id)
         {
-            await _quartoServico.Delete(id);
-
-            if (OperacaoValida())
+            try
             {
-                ErrosTempData();
-                return RedirectToAction(nameof(Index));
-            }
+                await _quartoServico.Delete(id);
 
-            return RedirectToAction(nameof(Index));
+                if (OperacaoValida())
+                {
+                    ErrosTempData();
+                    return RedirectToAction(nameof(DeleteQuarto), new { id = id });
+                }
+
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch
+            {
+                AddErro("Quarto não pode ser deletado pois está vinculado a um anúncio.");
+                ErrosTempData();
+                return RedirectToAction(nameof(DeleteQuarto), new { id = id });
+            }            
         }          
 
         private async Task<QuartoViewModel> QuartoViewModelMapping(Quarto quarto)

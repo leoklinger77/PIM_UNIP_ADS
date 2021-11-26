@@ -12,14 +12,13 @@ namespace UnipPim.Hotel.Models
         public Guid QuartoId { get;  set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
-        [StringLength(255, ErrorMessage = "O campo {0} deve conter {2} a {1} caracteres.", MinimumLength = 5)]
+        [StringLength(255, ErrorMessage = "O campo {0} deve conter {2} a {1} caracteres.", MinimumLength = 10)]
         [Display(Name = "Nome do anuncio")]
         public string Nome { get;  set; }
         public bool Ativo { get;  set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
-        [Display(Name = "Quantidade em Estoque")]
-        [Range(1, int.MaxValue, ErrorMessage = "O campo {0} deve ser maior que 0.")]
+        [Display(Name = "Quantidade em Estoque")]        
         public int Quantidade { get;  set; }
 
         [Display(Name = "Valor do anuncio")]

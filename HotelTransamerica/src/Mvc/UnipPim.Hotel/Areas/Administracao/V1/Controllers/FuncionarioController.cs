@@ -167,7 +167,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
                 ErrosTempData();
                 return RedirectToAction(nameof(Index));
             }
-
+            var result = await ObterFuncionarioPorId(id);
             await _funcionarioServico.DeletarFuncionario(id);
 
             if (OperacaoValida())
@@ -176,20 +176,19 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            await DeletarLoginFuncionario(ObterFuncionarioPorId(id).Result.Emails.First().EnderecoEmail);
+            await DeletarLoginFuncionario(result.Emails.First().EnderecoEmail);
 
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
-        
         public async Task<FileResult> DownloadReport()
         {
             string name = Guid.NewGuid() + $"_{DateTime.Now.ToString("yyyy-MM-dd HH_mm_ss")}.xlsx";
-            string caminhoArqCotacoes = ExcelConfigurations.GenerationDirectory + name;
-            System.IO.File.Copy(ExcelConfigurations.SpreadsheetTemplate, caminhoArqCotacoes);
+            string caminhoArqRelatorio = ExcelConfigurations.GenerationDirectory + name;
+            System.IO.File.Copy(ExcelConfigurations.SpreadsheetTemplate, caminhoArqRelatorio);
 
-            string path = RelatorioFuncionario.GerarRelatorioFuncionario(await _funcionarioServico.ObterTodos(), caminhoArqCotacoes, name);
+            string path = RelatorioFuncionario.GerarRelatorioFuncionario(await _funcionarioServico.ObterTodos(), caminhoArqRelatorio, name);
 
             string contentType = "application/xlsx";
             string hostServidor = HttpContext.Request.Host.Host;
@@ -280,7 +279,7 @@ namespace UnipPim.Hotel.Areas.Administracao.V1.Controllers
 
         private async Task<bool> DeletarLoginFuncionario(string email, IdentityUser user = null)
         {
-            if (user != null)
+            if (user == null)
             {
                 user = await _userManager.FindByEmailAsync(email);
 

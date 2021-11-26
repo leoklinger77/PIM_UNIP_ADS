@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $("#msg_box").fadeOut(2500);
+    $("#msg_box").fadeOut(10000);
     AjaxUploadImageProduto();
 });
 

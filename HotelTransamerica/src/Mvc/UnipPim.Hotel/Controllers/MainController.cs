@@ -28,7 +28,12 @@ namespace UnipPim.Hotel.Controllers
 
         protected void ErrosTempData()
         {
-            TempData["Erro"] = _notificacao.Erros().ToArray();
+            string texto = string.Empty;
+            foreach (var item in _notificacao.Erros())
+            {
+                texto = item + " <br/>";
+            }
+            TempData["Erro"] = texto;
         }
 
         protected bool OperacaoValida()

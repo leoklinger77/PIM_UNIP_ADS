@@ -101,7 +101,8 @@ namespace UnipPim.Hotel.Desktop
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(304, 248);
+            this.pictureBox1.Size = new System.Drawing.Size(300, 248);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
@@ -111,7 +112,7 @@ namespace UnipPim.Hotel.Desktop
             this.label3.Font = new System.Drawing.Font("Sitka Display", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label3.Location = new System.Drawing.Point(335, 34);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(312, 28);
+            this.label3.Size = new System.Drawing.Size(309, 28);
             this.label3.TabIndex = 7;
             this.label3.Text = "Sistema Desktop Hotel Transamerica";
             // 
